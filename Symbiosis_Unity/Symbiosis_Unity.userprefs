@@ -1,10 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraFollow.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\Desktop\s2\Assets\RopeScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerControls.cs" Line="104" Column="30" />
-      <File FileName="Assets\Scripts\CameraCode.cs" Line="14" Column="44" />
-      <File FileName="Assets\Scripts\CameraFollow.cs" Line="32" Column="3" />
+      <File FileName="..\..\..\..\Desktop\s2\Assets\RopeScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
