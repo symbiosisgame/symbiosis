@@ -55,15 +55,6 @@ public class PlayerControls : MonoBehaviour {
 		{
 			currSpeedP1 = 0;
 		}
-
-		if(Input.GetAxisRaw("VerticalP1") == 0)
-		{
-			player1.rigidbody.velocity = player1.rigidbody.velocity * decceleration;
-		}
-		if(Input.GetAxisRaw("HorizontalP1") == 0)
-		{
-			player1.rigidbody.angularVelocity = player1.rigidbody.angularVelocity * despin;
-		}
     }
 
 	void MovePlayer2()
@@ -81,15 +72,6 @@ public class PlayerControls : MonoBehaviour {
 		if(currSpeedP2 <= 0.01f)
 		{
 			currSpeedP2 = 0;
-		}
-		
-		if(Input.GetAxisRaw("VerticalP1") == 0)
-		{
-			player2.rigidbody.velocity = player2.rigidbody.velocity * decceleration;
-		}
-		if(Input.GetAxisRaw("HorizontalP1") == 0)
-		{
-			player2.rigidbody.angularVelocity = player2.rigidbody.angularVelocity * despin;
 		}
 	}
 

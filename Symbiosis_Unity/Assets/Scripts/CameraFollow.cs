@@ -6,7 +6,8 @@ public class CameraFollow : MonoBehaviour {
 	GameObject playerManager;
 	PlayerControls playerControls;
 	Transform myTransform;
-	Vector3 distance;
+	Vector3 distanceVec;
+	float distance;
 	
 	void Start () 
 	{
@@ -22,11 +23,13 @@ public class CameraFollow : MonoBehaviour {
 
 	void CalculateDistance() //Calculate distance between both players and half it
 	{
-		distance = (playerControls.p1Position() + playerControls.p2Position()) / 2;
-		myTransform.position = distance;
+		distanceVec = (playerControls.p1Position() + playerControls.p2Position()) / 2;
+		distance = Vector3.Distance(playerControls.p1Position(),playerControls.p2Position()) / 2;
+		Debug.Log (distance);
+		myTransform.position = distanceVec;
 	}
 
-	public Vector3 playerDistance()
+	public float playerDistance()
 	{
 		return distance;
 	}
