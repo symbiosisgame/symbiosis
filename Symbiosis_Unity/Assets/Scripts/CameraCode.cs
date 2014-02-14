@@ -4,47 +4,36 @@ using System.Collections;
 public class CameraCode : MonoBehaviour {
 
 	GameObject playerManager;
-	CameraFollow pManager;
+	PlayerControls pControls;
 	Transform myTransform;
 	public float zoomThres;	
-	public float timer;
 
 	void Start()
 	{
 		playerManager = GameObject.Find ("PlayerManager");
-		pManager = playerManager.GetComponent<CameraFollow>();
+		pControls = playerManager.GetComponent<PlayerControls>();
 		myTransform = this.transform;
 	}
 
 	void Update()
 	{
-		myTransform.position = new Vector3(playerManager.transform.position.x, playerManager.transform.position.y, -10f);
+		Tracking();
+		Zooming();
 	}
 
-	void Zooming()
+	void Tracking() //tracks distance between players
 	{
-		if(pManager.playerDistance().magnitude >= zoomThres)
+		myTransform.position = new Vector3(pControls.distanceVector().x, pControls.distanceVector().y, -10f);
+	}
+
+	void Zooming() //zoom out for when players move away at a certain distance
+	{
+		if(pControls.playerDistance() >= zoomThres)
 		{
-			if(Camera.main.orthographicSize <= 6.5f)
+			Camera.main.orthographicSize = pControls.playerDistance();
+			if(Camera.main.orthographicSize >= 6.5f)
 			{
-				timer += Time.deltaTime;
-				Camera.main.orthographicSize = Mathf.Lerp (5f, 6.5f, timer/1f);
-				if(timer >= .99f)
-				{
-					timer = .99f;
-				}
-			}
-		}
-		else
-		{
-			if(Camera.main.orthographicSize >= 5f)
-			{
-				timer += Time.deltaTime;
-				Camera.main.orthographicSize = Mathf.Lerp (6.5f, 5f, timer/1f);
-				if(timer >= 0f)
-				{
-					timer = 0f;
-				}
+				Camera.main.orthographicSize = 6.5f;
 			}
 		}
 	}
