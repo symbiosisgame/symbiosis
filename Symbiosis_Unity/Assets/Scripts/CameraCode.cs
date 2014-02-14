@@ -4,29 +4,33 @@ using System.Collections;
 public class CameraCode : MonoBehaviour {
 
 	GameObject playerManager;
-	CameraFollow pManager;
+	PlayerControls pControls;
 	Transform myTransform;
 	public float zoomThres;	
-	public float timer;
 
 	void Start()
 	{
 		playerManager = GameObject.Find ("PlayerManager");
-		pManager = playerManager.GetComponent<CameraFollow>();
+		pControls = playerManager.GetComponent<PlayerControls>();
 		myTransform = this.transform;
 	}
 
 	void Update()
 	{
-		myTransform.position = new Vector3(playerManager.transform.position.x, playerManager.transform.position.y, -10f);
+		Tracking();
 		Zooming();
 	}
 
-	void Zooming()
+	void Tracking() //tracks distance between players
 	{
-		if(pManager.playerDistance() >= zoomThres)
+		myTransform.position = new Vector3(pControls.distanceVector().x, pControls.distanceVector().y, -10f);
+	}
+
+	void Zooming() //zoom out for when players move away at a certain distance
+	{
+		if(pControls.playerDistance() >= zoomThres)
 		{
-			Camera.main.orthographicSize = pManager.playerDistance();
+			Camera.main.orthographicSize = pControls.playerDistance();
 			if(Camera.main.orthographicSize >= 6.5f)
 			{
 				Camera.main.orthographicSize = 6.5f;

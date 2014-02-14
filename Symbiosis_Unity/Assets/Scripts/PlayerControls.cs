@@ -6,10 +6,16 @@ public class PlayerControls : MonoBehaviour {
 	public float acceleration, maxSpeed;
 	public float turnAcceleration, maxTurnSpeed;
 	public float decceleration = 0.95f, despin = 0.93f; //for slowing down move and turn speed
+
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
-    Transform p1Transform, p2Transform; //cache the transform components of both players
-	GameObject player1, player2; //cache player gameobjects
+	private float distance;
+	public float maxDistance;
+
+	private Transform p1Transform, p2Transform; //cache the transform components of both players
+	private GameObject player1, player2; //cache player gameobjects
+	private Vector3 distanceVec;
+
 	LineRenderer tether;
 
 	void Start () 
@@ -24,20 +30,20 @@ public class PlayerControls : MonoBehaviour {
 	void FixedUpdate () //better for physics calculations
 	{
         Controls();
+		Tether();
+		CalculateDistance();
 	}
 
     void Controls()
     {
-		//assign an axis to a float to update if it is less than or equal to 0 (-1, 1)
 		horiz1 = Input.GetAxis("HorizontalP1");
         vert1 = Input.GetAxis("VerticalP1");
 		horiz2 = Input.GetAxis("HorizontalP2");
 		vert2 = Input.GetAxis("VerticalP2");
 
-        MovePlayer1();
+		MovePlayer1();
 		MovePlayer2();
-		Tether();
-    }
+	}
 
 	void MovePlayer1()
     {
@@ -80,14 +86,20 @@ public class PlayerControls : MonoBehaviour {
 		tether.SetPosition(0, p1Transform.position);
 		tether.SetPosition(1, p2Transform.position);
 	}
-
-	public Vector3 p1Position()
+	
+	void CalculateDistance() //used for camera tracking and distance checking between players
 	{
-		return p1Transform.position;
+		distanceVec = (p1Transform.position + p2Transform.position) / 2;
+		distance = Vector3.Distance(p1Transform.position, p2Transform.position) / 2;
 	}
 
-	public Vector3 p2Position()
+	public float playerDistance() //returns the distance float 
 	{
-		return p2Transform.position;
+		return distance;
+	}
+
+	public Vector3 distanceVector() //returns the distance vector
+	{
+		return distanceVec;
 	}
 }
