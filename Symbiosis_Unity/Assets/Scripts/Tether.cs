@@ -78,7 +78,7 @@ public class Tether : MonoBehaviour {
 			float w = Mathf.Sin(i + Time.time) * WAVE_AMPLITUDE;
 
 			Vector3 wave = new Vector3( 0, w, 0 );
-			Vector3 pos = transform.position + ( seperation * i );
+			Vector3 pos = player1.transform.position + ( seperation * i );
 			segmentPos[i] = pos + wave;
 			tether_line.SetPosition(i, segmentPos[i]);
 		}
