@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour {
 	private Vector3 distanceVec;
 
 	LineRenderer tether;
+	public bool keyboard = true;
 
 	void Start () 
 	{   
@@ -34,14 +35,28 @@ public class PlayerControls : MonoBehaviour {
 		CalculateDistance();
 	}
 
+	void Update()
+	{
+		debug();
+	}
+
     void Controls()
     {
-		horiz1 = Input.GetAxis("HorizontalP1");
-        vert1 = Input.GetAxis("VerticalP1");
-		horiz2 = Input.GetAxis("HorizontalP2");
-		vert2 = Input.GetAxis("VerticalP2");
-
-		MovePlayer1();
+		if(keyboard)
+		{
+			horiz1 = Input.GetAxis("HorizontalP1");
+			vert1 = Input.GetAxis("VerticalP1");
+			horiz2 = Input.GetAxis("HorizontalP2");
+			vert2 = Input.GetAxis("VerticalP2");
+		}
+		else
+		{
+			horiz1 = Input.GetAxis("HorizontalP1Joy");
+			vert1 = Input.GetAxis("VerticalP1Joy");
+			horiz2 = Input.GetAxis("HorizontalP2Joy");
+			vert2 = Input.GetAxis("VerticalP2Joy");
+		}
+        MovePlayer1();
 		MovePlayer2();
 	}
 
@@ -101,5 +116,13 @@ public class PlayerControls : MonoBehaviour {
 	public Vector3 distanceVector() //returns the distance vector
 	{
 		return distanceVec;
+	}
+
+	void debug()
+	{
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			keyboard = !keyboard;
+		}
 	}
 }
