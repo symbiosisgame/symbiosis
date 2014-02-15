@@ -30,7 +30,7 @@ public class PlayerControls : MonoBehaviour {
 	void FixedUpdate () //better for physics calculations
 	{
         Controls();
-		Tether();
+		//Tether();		//TODO extend class
 		CalculateDistance();
 	}
 
