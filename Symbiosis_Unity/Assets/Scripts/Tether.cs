@@ -62,7 +62,7 @@ public class Tether : MonoBehaviour {
 	void doTether()
 	{		
 		LineRenderer tether_line = GetComponent<LineRenderer>();
-		Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
+		//Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
 		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1));
 		var d = seperation.magnitude;
 		LINE_WIDTH = d / LINE_WIDTH_MAG;					// thick further away
