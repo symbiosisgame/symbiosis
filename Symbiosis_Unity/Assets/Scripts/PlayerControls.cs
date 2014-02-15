@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControls : MonoBehaviour {
+public class PlayerControls : PlayerManager {
 
 	public float acceleration, maxSpeed;
 	public float turnAcceleration, maxTurnSpeed;
@@ -9,35 +9,16 @@ public class PlayerControls : MonoBehaviour {
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
-	private float distance;
-	public float maxDistance;
 
-	private Transform p1Transform, p2Transform; //cache the transform components of both players
-	private GameObject player1, player2; //cache player gameobjects
-	private Vector3 distanceVec;
-
-	LineRenderer tether;
-	public bool keyboard = true;
-
-	void Start () 
+	new void Start () 
 	{   
-		player1 = GameObject.Find("Player1");
-		player2 = GameObject.Find("Player2");
-		p1Transform = player1.transform;
-		p2Transform = player2.transform;
-		tether = GetComponent<LineRenderer>();
+		base.Start ();
 	}
 
 	void FixedUpdate () //better for physics calculations
 	{
         Controls();
-		//Tether();		//TODO extend class
 		CalculateDistance();
-	}
-
-	void Update()
-	{
-		debug();
 	}
 
     void Controls()
@@ -56,7 +37,7 @@ public class PlayerControls : MonoBehaviour {
 			horiz2 = Input.GetAxis("HorizontalP2Joy");
 			vert2 = Input.GetAxis("VerticalP2Joy");
 		}
-        MovePlayer1();
+		MovePlayer1();
 		MovePlayer2();
 	}
 
@@ -95,12 +76,6 @@ public class PlayerControls : MonoBehaviour {
 			currSpeedP2 = 0;
 		}
 	}
-
-	void Tether()
-	{
-		tether.SetPosition(0, p1Transform.position);
-		tether.SetPosition(1, p2Transform.position);
-	}
 	
 	void CalculateDistance() //used for camera tracking and distance checking between players
 	{
@@ -116,13 +91,5 @@ public class PlayerControls : MonoBehaviour {
 	public Vector3 distanceVector() //returns the distance vector
 	{
 		return distanceVec;
-	}
-
-	void debug()
-	{
-		if(Input.GetKeyDown(KeyCode.J))
-		{
-			keyboard = !keyboard;
-		}
 	}
 }

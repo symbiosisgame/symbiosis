@@ -6,7 +6,7 @@ public class CameraCode : MonoBehaviour {
 	GameObject playerManager;
 	PlayerControls pControls;
 	Transform myTransform;
-	public float zoomThres;	
+	public float zoomThreshold, maxCamSize;	
 
 	void Start()
 	{
@@ -28,12 +28,12 @@ public class CameraCode : MonoBehaviour {
 
 	void Zooming() //zoom out for when players move away at a certain distance
 	{
-		if(pControls.playerDistance() >= zoomThres)
+		if(pControls.playerDistance() >= zoomThreshold)
 		{
 			Camera.main.orthographicSize = pControls.playerDistance();
-			if(Camera.main.orthographicSize >= 6.5f)
+			if(Camera.main.orthographicSize >= maxCamSize)
 			{
-				Camera.main.orthographicSize = 6.5f;
+				Camera.main.orthographicSize = maxCamSize;
 			}
 		}
 	}
