@@ -16,6 +16,11 @@ public class Feeder : PlayerManager {
 
 	void Update()
 	{
+		Feed();
+	}
+
+	void Feed()
+	{
 		if(feeding)
 		{
 			if(food.foodStock > 0) //tracks to see if any food is left in Foods stock 
