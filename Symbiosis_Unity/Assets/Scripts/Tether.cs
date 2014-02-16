@@ -137,9 +137,15 @@ public class Tether : MonoBehaviour {
 	
 	void doTether()
 	{		
+<<<<<<< HEAD
 		LineRenderer line_renderer = GetComponent<LineRenderer>();
 		Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
 		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1) );
+=======
+		LineRenderer tether_line = GetComponent<LineRenderer>();
+		//Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
+		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1));
+>>>>>>> f9b59667b0fb64bcccad371bd9ea08a133c1dfb8
 		var d = seperation.magnitude;
 
 		// size efx
@@ -163,10 +169,17 @@ public class Tether : MonoBehaviour {
 			//segmentPos[i] = linePos;
 		}
 
+<<<<<<< HEAD
 		// test
 		for( int j = 0; j < NUM_SEGMENTS; j++ )
 		{
 			//go_links[j].transform.position = segmentPos[j];
+=======
+			Vector3 wave = new Vector3( 0, w, 0 );
+			Vector3 pos = player1.transform.position + ( seperation * i );
+			segmentPos[i] = pos + wave;
+			tether_line.SetPosition(i, segmentPos[i]);
+>>>>>>> f9b59667b0fb64bcccad371bd9ea08a133c1dfb8
 		}
 
 		// test caching link positions
