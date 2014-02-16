@@ -30,7 +30,7 @@ public class CameraCode : MonoBehaviour {
 	{
 		if(pControls.playerDistance() >= zoomThreshold)
 		{
-			Camera.main.orthographicSize = pControls.playerDistance();
+			Camera.main.orthographicSize = pControls.playerDistance()+1f;
 			if(Camera.main.orthographicSize >= maxCamSize)
 			{
 				Camera.main.orthographicSize = maxCamSize;
