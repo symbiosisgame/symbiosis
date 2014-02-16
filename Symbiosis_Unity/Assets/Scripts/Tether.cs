@@ -1,32 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// attach script to player
+// attach to player1
 
 public class Tether : MonoBehaviour {
 
-	
-	public int NUM_SEGMENTS = 12;			// sensible 12
+	public bool debug = false;
+	public int NUM_SEGMENTS = 6;			// old 12
 	public float WAVE_AMPLITUDE = 0.06F;  	// sensible 0.06F
 	public float LINE_WIDTH_MAG = 1.6F;  	// sensible 1.6F
 	public float TILE_MAG = 6.0F;			// sensible 6.0F
-	public Texture TETHER_TEXTURE;
-	//public Color LINE_COLOR1 = Color.green;
-	//public Color LINE_COLOR2 = Color.red;
+	public Texture TETHER_TEXTURE;			// assign material
 
-	Color LINE_COLOR1, LINE_COLOR2;
-	LineRenderer tether_line;
-
-	private Vector3 wave;
 	private float LINE_WIDTH = 0.0F;
-	private Vector3[] segmentPos;
+	private Vector3 wavePos, linePos;		// updated line pos's
+	private Vector3[] segmentPos;			// set pos of polygon segments on the renderline
+	private Vector3[] linkPos;				// set pos of the links aligned with the segments
+	private GameObject[] go_links;			// for tether physics/rigidbody components
+	Color LINE_COLOR1, LINE_COLOR2;
+	LineRenderer line_renderer;
+	Rigidbody rigid_body;
+	bool showgizmos = false;				// debug
+	bool tethering = false;					// sanity
+	SphereCollider sphere_collider;
+	CharacterJoint character_joint;
+	
 
+	// --------
 
 	// common vars
 	Transform p1Transform, p2Transform; 
 	GameObject player1, player2;
 	
-	
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -35,87 +42,181 @@ public class Tether : MonoBehaviour {
 		player2 = GameObject.Find("Player2");
 		p1Transform = player1.transform;
 		p2Transform = player2.transform;
+
+		// --------
 		
 		// tether
-		LineRenderer tether_line = gameObject.AddComponent<LineRenderer>();
-		//Color LINE_COLOR1 = new Color(254.0F, 1.0F, 254.0F, 0.5F);	// pink
-		//Color LINE_COLOR2 = new Color(1.0F, 200.0F, 254.0F, 0.5F);	// blue
-		//tether_line.SetColors(LINE_COLOR1, LINE_COLOR2);
-		tether_line.SetWidth(LINE_WIDTH, LINE_WIDTH);
-		tether_line.SetVertexCount(NUM_SEGMENTS);
+		line_renderer = gameObject.AddComponent<LineRenderer>();
+		line_renderer.SetWidth(LINE_WIDTH, LINE_WIDTH);
+		line_renderer.SetVertexCount(NUM_SEGMENTS);
+		// shader
+		line_renderer.material = new Material(Shader.Find("Mobile/Particles/Alpha Blended"));
+		line_renderer.material.mainTexture = TETHER_TEXTURE;
+		line_renderer.material.color = Color.white;
+		line_renderer.castShadows = false;
+		line_renderer.receiveShadows = false;
+		// arrays
+		linkPos = new Vector3[NUM_SEGMENTS];
 		segmentPos = new Vector3[NUM_SEGMENTS];
-		tether_line.material = new Material(Shader.Find("Mobile/Particles/Alpha Blended"));
-		tether_line.material.mainTexture = TETHER_TEXTURE;
-		tether_line.material.color = Color.white;
-		tether_line.castShadows = false;
-		tether_line.receiveShadows = false;
-	}
+		go_links = new GameObject[NUM_SEGMENTS];
+
+		// init tether components
+		for( int k = 0; k < NUM_SEGMENTS; k++ )
+		{
+			//var num = k + 1;
+			go_links[k] = new GameObject( "Tether Link # " + k );
+			rigid_body = go_links[k].AddComponent<Rigidbody>();
+			sphere_collider = go_links[k].AddComponent<SphereCollider>();
+			sphere_collider.radius = 0.03F;
+			character_joint = go_links[k].AddComponent<CharacterJoint>();
+
+			// TODO// character_joint.swingAxis
+
+			if(debug)	// toggle for editor
+			{
+
+					// linking links
+					// first and last anchor links will be repositioned on update, locked player xyz for testing
+
+					if( k == 0 ) // first anchor node
+					{	
+						character_joint.connectedBody = p1Transform.rigidbody;
+						p1Transform.parent = transform;
+						//test
+						go_links[0].transform.position = segmentPos[0];
+
+					}
+					else if( k == NUM_SEGMENTS-1 ) // end anchor node
+					{
+						character_joint.connectedBody = p2Transform.rigidbody;
+						p2Transform.parent = transform;
+						//test
+						go_links[k].transform.position = segmentPos[k];
+					}
+					else
+					{	// middle nodes
+						character_joint.connectedBody = go_links[k-1].rigidbody;
+						// test
+						// incorrect? //go_links[k].transform.parent = transform;
+					}
+
+
+			}// end enabled
+
+		}//end for
+
+		// debug gizmos
+		showgizmos = true;
+
+	}// end start
+
+
 
 
 	// better for physics calculations
 	void FixedUpdate () {
 
+	}
+
+	
+	void LateUpdate()
+	{
+		for( int i = 1; i < NUM_SEGMENTS; i++ )
+		{
+			line_renderer.SetPosition( i, segmentPos[i] );   // rendered last
+		}
+	}
+
+	
+	// update
+	void Update () {
+		
 		doTether();
 	}
 	
 	
 	void doTether()
 	{		
-		LineRenderer tether_line = GetComponent<LineRenderer>();
+		LineRenderer line_renderer = GetComponent<LineRenderer>();
 		Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
-		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1));
+		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1) );
 		var d = seperation.magnitude;
-		LINE_WIDTH = d / LINE_WIDTH_MAG;					// thick further away
-		tether_line.SetWidth( LINE_WIDTH, LINE_WIDTH );
-		//tether_line.SetWidth( LINE_WIDTH, -LINE_WIDTH );	// 0 cross in middle
 
-		// line begins 0
-		segmentPos[0] = p1Transform.position;			
-		tether_line.SetPosition(0, segmentPos[0]);
-	
-		for( int i = 1; i < NUM_SEGMENTS; i++ )
+		// size efx
+		LINE_WIDTH = d / LINE_WIDTH_MAG;											// bigger lines test
+		line_renderer.SetWidth( LINE_WIDTH, LINE_WIDTH );
+		line_renderer.material.mainTextureScale = new Vector2( 1, d * TILE_MAG ); // scale texture test
+
+		// cache positions
+		segmentPos[0] = p1Transform.position 		+ new Vector3(0,0,1); // adding a tmp offset for debug and to keep away from players ship
+		line_renderer.SetPosition(0, segmentPos[0]);
+
+		segmentPos[NUM_SEGMENTS-1] = p2Transform.position	+ new Vector3(0,0,1);
+		line_renderer.SetPosition(NUM_SEGMENTS-1, segmentPos[NUM_SEGMENTS-1]);
+
+		for( int i = 1; i < NUM_SEGMENTS-1; i++ )
 		{
 			float w = Mathf.Sin(i + Time.time) * WAVE_AMPLITUDE;
-
-			Vector3 wave = new Vector3( 0, w, 0 );
-			Vector3 pos = transform.position + ( seperation * i );
-			segmentPos[i] = pos + wave;
-			tether_line.SetPosition(i, segmentPos[i]);
+			Vector3 wavePos = new Vector3( 0, w, 0 );
+			linePos = transform.position + ( seperation * i );
+			segmentPos[i] = linePos + wavePos;
+			//segmentPos[i] = linePos;
 		}
-		// line ends -1
-		segmentPos[NUM_SEGMENTS-1] = p2Transform.position;
 
-		// increase texture tile on distance
-		tether_line.material.mainTextureScale = new Vector2(1, d * TILE_MAG);	// test
+		// test
+		for( int j = 0; j < NUM_SEGMENTS; j++ )
+		{
+			//go_links[j].transform.position = segmentPos[j];
+		}
 
-		
+		// test caching link positions
+		//go_links[0].transform.position = segmentPos[0];
+		//go_links[1].transform.position = segmentPos[1];
+		//go_links[2].transform.position = segmentPos[2];
+		//go_links[NUM_SEGMENTS-1].transform.position = segmentPos[NUM_SEGMENTS-1];
+
 	}//end make tether
 
 
 
-	
-	void LateUpdate()
+
+	// visualize joints
+	void OnDrawGizmos()
 	{
-		// tether renderings usually go in late update after physics are done calculating
+		if(showgizmos)
+		{
+			// linerender segment gizmos, cyan
+			for( int g = 0; g < NUM_SEGMENTS; g++ )
+			{
+				Gizmos.DrawWireSphere( segmentPos[g], 0.05F);
+				Gizmos.color = Color.cyan;
+			}
 
+			// link position gizmos, blue
+			for( int h = 0; h < NUM_SEGMENTS; h++ )	// needs 1 to -1 count
+			{
+				Gizmos.DrawWireSphere( go_links[h].transform.position,0.10F);
+				Gizmos.color = Color.blue;
+			}
+		}
 	}
+
 	
 	
 	
 
 	
-}
-// end class
+}// end class
+// --------------------------------------------------------------------
 
-/*
-/////////////// junk
-		// pingpong
-		float t = Mathf.PingPong(Time.time, 2F);
-		//color = Color.Lerp(Color.red, Color.green, t);
-		LINE_COLOR1.a = Mathf.Lerp(0, 1, t);
-		LINE_COLOR2.a = Mathf.Lerp(1, 0, t);
-		tether_line.SetColors(LINE_COLOR1, LINE_COLOR2);
 
-float t = Mathf.PingPong(Time.time, 1);
-		
-*////////////
+
+/************
+ * scratchpad
+
+// test
+//go_links[k].transform.position = segmentPos[k];
+
+
+
+*/
