@@ -13,7 +13,7 @@ public class Feeder : PlayerManager {
 	{
 		currentFood = 0; 
 	}
-
+    
 	void Update()
 	{
 		if(feeding)

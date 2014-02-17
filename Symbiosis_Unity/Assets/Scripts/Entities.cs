@@ -7,7 +7,7 @@ public class Entities : MonoBehaviour {
 	[HideInInspector]public PlayerManager pManager;
 	[HideInInspector]public GameObject feederGO;
 	[HideInInspector]public Feeder feeder;
-
+    
 	void Start () 
 	{
 		playerManager = GameObject.Find ("PlayerManager");
