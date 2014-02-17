@@ -7,21 +7,20 @@ public class Tether : MonoBehaviour {
 
 	public bool debug = false;
 	public int NUM_SEGMENTS = 6;			// old 12
-	public float WAVE_AMPLITUDE = 0.06F;  	// sensible 0.06F
-	public float LINE_WIDTH_MAG = 1.6F;  	// sensible 1.6F
-	public float TILE_MAG = 6.0F;			// sensible 6.0F
+	public float WAVE_AMPLITUDE = 0.2F;  	// sensible 0.06F
+	public float LINE_WIDTH_MAG = 2.5F;  	// sensible 1.6F
+	public float TILE_MAG = 1.8F;			// sensible 6.0F
 	public Texture TETHER_TEXTURE;			// assign material
 
-	private float LINE_WIDTH = 0.0F;
+	private float LINE_WIDTH = 0.1F;
 	private Vector3 wavePos, linePos;		// updated line pos's
 	private Vector3[] segmentPos;			// set pos of polygon segments on the renderline
 	private Vector3[] linkPos;				// set pos of the links aligned with the segments
 	private GameObject[] go_links;			// for tether physics/rigidbody components
 	Color LINE_COLOR1, LINE_COLOR2;
 	LineRenderer line_renderer;
-	Rigidbody rigid_body;
 	bool showgizmos = false;				// debug
-	bool tethering = false;					// sanity
+	//bool tethering = false;				// sanity
 	SphereCollider sphere_collider;
 	CharacterJoint character_joint;
 	
@@ -63,9 +62,9 @@ public class Tether : MonoBehaviour {
 		// init tether components
 		for( int k = 0; k < NUM_SEGMENTS; k++ )
 		{
-			//var num = k + 1;
 			go_links[k] = new GameObject( "Tether Link # " + k );
-			rigid_body = go_links[k].AddComponent<Rigidbody>();
+
+			Rigidbody rigid_body = go_links[k].AddComponent<Rigidbody>();
 			sphere_collider = go_links[k].AddComponent<SphereCollider>();
 			sphere_collider.radius = 0.03F;
 			character_joint = go_links[k].AddComponent<CharacterJoint>();
@@ -74,7 +73,6 @@ public class Tether : MonoBehaviour {
 
 			if(debug)	// toggle for editor
 			{
-
 					// linking links
 					// first and last anchor links will be repositioned on update, locked player xyz for testing
 
@@ -92,16 +90,16 @@ public class Tether : MonoBehaviour {
 						p2Transform.parent = transform;
 						//test
 						go_links[k].transform.position = segmentPos[k];
+
 					}
-					else
-					{	// middle nodes
+                    else // middle nodes
+					{	
 						character_joint.connectedBody = go_links[k-1].rigidbody;
 						// test
 						// incorrect? //go_links[k].transform.parent = transform;
 					}
 
-
-			}// end enabled
+			}// end debug
 
 		}//end for
 
@@ -114,8 +112,8 @@ public class Tether : MonoBehaviour {
 
 
 	// better for physics calculations
-	void FixedUpdate () {
-
+	void FixedUpdate ()
+    {
 	}
 
 	
@@ -129,27 +127,23 @@ public class Tether : MonoBehaviour {
 
 	
 	// update
-	void Update () {
-		
+	void Update ()
+    {	
 		doTether();
 	}
 	
 	
 	void doTether()
 	{		
-<<<<<<< HEAD
 		LineRenderer line_renderer = GetComponent<LineRenderer>();
-		Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
-		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1) );
-=======
-		LineRenderer tether_line = GetComponent<LineRenderer>();
 		//Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
-		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1));
->>>>>>> f9b59667b0fb64bcccad371bd9ea08a133c1dfb8
+		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1) );
 		var d = seperation.magnitude;
 
-		// size efx
-		LINE_WIDTH = d / LINE_WIDTH_MAG;											// bigger lines test
+		// line efx
+		var wa = d / LINE_WIDTH_MAG;
+		WAVE_AMPLITUDE = wa;
+		LINE_WIDTH = wa;											// bigger lines test
 		line_renderer.SetWidth( LINE_WIDTH, LINE_WIDTH );
 		line_renderer.material.mainTextureScale = new Vector2( 1, d * TILE_MAG ); // scale texture test
 
@@ -165,21 +159,15 @@ public class Tether : MonoBehaviour {
 			float w = Mathf.Sin(i + Time.time) * WAVE_AMPLITUDE;
 			Vector3 wavePos = new Vector3( 0, w, 0 );
 			linePos = transform.position + ( seperation * i );
-			segmentPos[i] = linePos + wavePos;
+
+			segmentPos[i] = linePos + wavePos    + new Vector3(0,0,1);  //tmp offset
 			//segmentPos[i] = linePos;
 		}
 
-<<<<<<< HEAD
 		// test
 		for( int j = 0; j < NUM_SEGMENTS; j++ )
 		{
-			//go_links[j].transform.position = segmentPos[j];
-=======
-			Vector3 wave = new Vector3( 0, w, 0 );
-			Vector3 pos = player1.transform.position + ( seperation * i );
-			segmentPos[i] = pos + wave;
-			tether_line.SetPosition(i, segmentPos[i]);
->>>>>>> f9b59667b0fb64bcccad371bd9ea08a133c1dfb8
+            go_links[j].transform.position = segmentPos[j];
 		}
 
 		// test caching link positions
@@ -221,15 +209,3 @@ public class Tether : MonoBehaviour {
 	
 }// end class
 // --------------------------------------------------------------------
-
-
-
-/************
- * scratchpad
-
-// test
-//go_links[k].transform.position = segmentPos[k];
-
-
-
-*/
