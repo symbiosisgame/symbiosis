@@ -21,8 +21,8 @@ public class PlayerControls : PlayerManager {
 		CalculateDistance();
 	}
 
-    void Controls()
-    {
+	void StoreAxis()
+	{
 		if(keyboard)
 		{
 			horiz1 = Input.GetAxis("HorizontalP1");
@@ -37,6 +37,11 @@ public class PlayerControls : PlayerManager {
 			horiz2 = Input.GetAxis("HorizontalP2Joy");
 			vert2 = Input.GetAxis("VerticalP2Joy");
 		}
+	}
+
+    void Controls()
+    {
+		StoreAxis();
 		MovePlayer1();
 		MovePlayer2();
 	}
@@ -81,15 +86,22 @@ public class PlayerControls : PlayerManager {
 	{
 		distanceVec = (p1Transform.position + p2Transform.position) / 2;
 		distance = Vector3.Distance(p1Transform.position, p2Transform.position) / 2;
+		distanceTo = Vector3.Distance(p1Transform.position, p1Transform.position);
 	}
-
-	public float playerDistance() //returns the distance float 
+	
+	public float playerDistance() //returns the distance float divided by 2 (only used for camera stuff)
 	{
 		return distance;
 	}
-
+	
 	public Vector3 distanceVector() //returns the distance vector
 	{
 		return distanceVec;
 	}
+
+	public float playerDistanceReal() //returns the distance vector
+	{
+		return distanceTo;
+	}
+
 }

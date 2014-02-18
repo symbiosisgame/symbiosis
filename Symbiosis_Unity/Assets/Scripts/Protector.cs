@@ -5,6 +5,6 @@ public class Protector : PlayerManager {
 
 	new void Start()
 	{
-
+		currentFood = 0;
 	}
 }
