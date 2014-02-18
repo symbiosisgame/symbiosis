@@ -73,7 +73,7 @@ public class Tether : MonoBehaviour
 			}
 
 
-			if(i == numSegments-1)
+			if(i == num_segments-1)
 			{
 			}
 	
@@ -121,7 +121,7 @@ public class Tether : MonoBehaviour
 	{
 		if(showgizmos)
 		{
-			for( int i = 0; i < numSegments; i++ )
+			for( int i = 0; i < go_links.Length; i++ )
 			{
 				Gizmos.DrawWireSphere( go_links[i].transform.position, colliderRadius);
 				Gizmos.color = Color.blue;
