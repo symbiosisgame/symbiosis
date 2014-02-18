@@ -1,211 +1,135 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// attach to player1
+public class Tether : MonoBehaviour
+{
+	// variables
+	// ---------
+	public GameObject tetherEndObject;
+	public GameObject tetherStartObject;
+	public GameObject player1;
+	public GameObject player2;
+	public int numSegments = 6;
+	public float colliderRadius = 0.25f;
 
-public class Tether : MonoBehaviour {
+	//public float massValue = 1.0f;
+	//public float dragValue = 1.0f;
+	//public float angularDragValue = 1.0f;
 
-	public bool debug = false;
-	public int NUM_SEGMENTS = 6;			// old 12
-	public float WAVE_AMPLITUDE = 0.2F;  	// sensible 0.06F
-	public float LINE_WIDTH_MAG = 2.5F;  	// sensible 1.6F
-	public float TILE_MAG = 1.8F;			// sensible 6.0F
-	public Texture TETHER_TEXTURE;			// assign material
-
-	private float LINE_WIDTH = 0.1F;
-	private Vector3 wavePos, linePos;		// updated line pos's
-	private Vector3[] segmentPos;			// set pos of polygon segments on the renderline
-	private Vector3[] linkPos;				// set pos of the links aligned with the segments
-	private GameObject[] go_links;			// for tether physics/rigidbody components
-	Color LINE_COLOR1, LINE_COLOR2;
-	LineRenderer line_renderer;
-	bool showgizmos = false;				// debug
-	//bool tethering = false;				// sanity
 	SphereCollider sphere_collider;
-	CharacterJoint character_joint;
+	GameObject[] go_links;
+
+	private bool showgizmos = false;
+
+
+	// methods
+	// -------
 	
-
-	// --------
-
-	// common vars
-	Transform p1Transform, p2Transform; 
-	GameObject player1, player2;
-	
-
-
-	// Use this for initialization
-	void Start () {
-		
-		// common start
-		player1 = GameObject.Find("Player1");
-		player2 = GameObject.Find("Player2");
-		p1Transform = player1.transform;
-		p2Transform = player2.transform;
-
-		// --------
-		
-		// tether
-		line_renderer = gameObject.AddComponent<LineRenderer>();
-		line_renderer.SetWidth(LINE_WIDTH, LINE_WIDTH);
-		line_renderer.SetVertexCount(NUM_SEGMENTS);
-		// shader
-		line_renderer.material = new Material(Shader.Find("Mobile/Particles/Alpha Blended"));
-		line_renderer.material.mainTexture = TETHER_TEXTURE;
-		line_renderer.material.color = Color.white;
-		line_renderer.castShadows = false;
-		line_renderer.receiveShadows = false;
-		// arrays
-		linkPos = new Vector3[NUM_SEGMENTS];
-		segmentPos = new Vector3[NUM_SEGMENTS];
-		go_links = new GameObject[NUM_SEGMENTS];
-
-		// init tether components
-		for( int k = 0; k < NUM_SEGMENTS; k++ )
+	void buildTetherLinks(int num_segments)
+	{
+		for( int i = 0; i < num_segments; i++ )
 		{
-			go_links[k] = new GameObject( "Tether Link # " + k );
+			go_links[i] = new GameObject( "Tether Link " + i );
 
-			Rigidbody rigid_body = go_links[k].AddComponent<Rigidbody>();
-			sphere_collider = go_links[k].AddComponent<SphereCollider>();
-			sphere_collider.radius = 0.03F;
-			character_joint = go_links[k].AddComponent<CharacterJoint>();
+			// components
+			SphereCollider sphere_collider = go_links[i].AddComponent<SphereCollider>();
+			sphere_collider.radius = colliderRadius;
 
-			// TODO// character_joint.swingAxis
+			Rigidbody rigid_body = go_links[i].AddComponent<Rigidbody>();
+			HingeJoint hinge_joint = go_links[i].AddComponent<HingeJoint>();
+		
+			// transforms
+			Vector3 seperation = tetherEndObject.transform.position - tetherStartObject.transform.position;
+			go_links[i].transform.position = tetherStartObject.transform.position + seperation.normalized * i;
 
-			if(debug)	// toggle for editor
+			// values
+			go_links[i].rigidbody.useGravity = true;
+			go_links[i].rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | 
+												RigidbodyConstraints.FreezeRotationY |
+												RigidbodyConstraints.FreezePositionZ;
+
+			if(i == 0)
 			{
-					// linking links
-					// first and last anchor links will be repositioned on update, locked player xyz for testing
+				sphere_collider.isTrigger = true;
+				go_links[i].transform.parent = tetherStartObject.transform;
 
-					if( k == 0 ) // first anchor node
-					{	
-						character_joint.connectedBody = p1Transform.rigidbody;
-						p1Transform.parent = transform;
-						//test
-						go_links[0].transform.position = segmentPos[0];
+				go_links[i].rigidbody.mass = 1.0f;
+				go_links[i].rigidbody.drag = 0;
+				go_links[i].rigidbody.angularDrag = 0;
+				go_links[i].rigidbody.isKinematic = true;
 
-					}
-					else if( k == NUM_SEGMENTS-1 ) // end anchor node
-					{
-						character_joint.connectedBody = p2Transform.rigidbody;
-						p2Transform.parent = transform;
-						//test
-						go_links[k].transform.position = segmentPos[k];
 
-					}
-                    else // middle nodes
-					{	
-						character_joint.connectedBody = go_links[k-1].rigidbody;
-						// test
-						// incorrect? //go_links[k].transform.parent = transform;
-					}
+			}else{
 
-			}// end debug
+				//massValue = massValue * 1.1f;
+				//dragValue = dragValue * 0.9f;
 
+				go_links[i].rigidbody.mass = 2.0f;
+				go_links[i].rigidbody.drag = 2.0f;
+				go_links[i].rigidbody.angularDrag = 45.0f;
+
+				go_links[i].hingeJoint.connectedBody = go_links[i-1].rigidbody;
+				
+			}
+
+
+			if(i == numSegments-1)
+			{
+			}
+	
 		}//end for
 
-		// debug gizmos
 		showgizmos = true;
 
-	}// end start
+	}//end buildTetherLinks
 
 
 
-
-	// better for physics calculations
-	void FixedUpdate ()
-    {
+	void buildTether(int num_segments)
+	{
+		go_links = new GameObject[num_segments];
+		buildTetherLinks(num_segments);
 	}
 
-	
+
+
+
+
+	void Start ()
+	{
+		buildTether(numSegments);
+	}
+
+
+	void Update ()
+	{
+	}
+
+
+	void FixedUpdate ()
+	{
+	}
+
+
 	void LateUpdate()
 	{
-		for( int i = 1; i < NUM_SEGMENTS; i++ )
-		{
-			line_renderer.SetPosition( i, segmentPos[i] );   // rendered last
-		}
 	}
 
-	
-	// update
-	void Update ()
-    {	
-		doTether();
-	}
-	
-	
-	void doTether()
-	{		
-		LineRenderer line_renderer = GetComponent<LineRenderer>();
-		//Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
-		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1) );
-		var d = seperation.magnitude;
-
-		// line efx
-		var wa = d / LINE_WIDTH_MAG;
-		WAVE_AMPLITUDE = wa;
-		LINE_WIDTH = wa;											// bigger lines test
-		line_renderer.SetWidth( LINE_WIDTH, LINE_WIDTH );
-		line_renderer.material.mainTextureScale = new Vector2( 1, d * TILE_MAG ); // scale texture test
-
-		// cache positions
-		segmentPos[0] = p1Transform.position 		+ new Vector3(0,0,1); // adding a tmp offset for debug and to keep away from players ship
-		line_renderer.SetPosition(0, segmentPos[0]);
-
-		segmentPos[NUM_SEGMENTS-1] = p2Transform.position	+ new Vector3(0,0,1);
-		line_renderer.SetPosition(NUM_SEGMENTS-1, segmentPos[NUM_SEGMENTS-1]);
-
-		for( int i = 1; i < NUM_SEGMENTS-1; i++ )
-		{
-			float w = Mathf.Sin(i + Time.time) * WAVE_AMPLITUDE;
-			Vector3 wavePos = new Vector3( 0, w, 0 );
-			linePos = transform.position + ( seperation * i );
-
-			segmentPos[i] = linePos + wavePos    + new Vector3(0,0,1);  //tmp offset
-			//segmentPos[i] = linePos;
-		}
-
-		// test
-		for( int j = 0; j < NUM_SEGMENTS; j++ )
-		{
-            go_links[j].transform.position = segmentPos[j];
-		}
-
-		// test caching link positions
-		//go_links[0].transform.position = segmentPos[0];
-		//go_links[1].transform.position = segmentPos[1];
-		//go_links[2].transform.position = segmentPos[2];
-		//go_links[NUM_SEGMENTS-1].transform.position = segmentPos[NUM_SEGMENTS-1];
-
-	}//end make tether
 
 
-
-
-	// visualize joints
 	void OnDrawGizmos()
 	{
 		if(showgizmos)
 		{
-			// linerender segment gizmos, cyan
-			for( int g = 0; g < NUM_SEGMENTS; g++ )
+			for( int i = 0; i < numSegments; i++ )
 			{
-				Gizmos.DrawWireSphere( segmentPos[g], 0.05F);
-				Gizmos.color = Color.cyan;
-			}
-
-			// link position gizmos, blue
-			for( int h = 0; h < NUM_SEGMENTS; h++ )	// needs 1 to -1 count
-			{
-				Gizmos.DrawWireSphere( go_links[h].transform.position,0.10F);
+				Gizmos.DrawWireSphere( go_links[i].transform.position, colliderRadius);
 				Gizmos.color = Color.blue;
 			}
 		}
 	}
-
-	
-	
 	
 
-	
+
+
 }// end class
-// --------------------------------------------------------------------
