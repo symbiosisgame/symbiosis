@@ -9,7 +9,7 @@ public class PlayerControls : PlayerManager {
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
-
+    [HideInInspector] public bool protectkey; //stores whether the player is pressing the key to use the shield or not. 
 	new void Start () 
 	{   
 		base.Start ();
@@ -29,6 +29,7 @@ public class PlayerControls : PlayerManager {
 			vert1 = Input.GetAxis("VerticalP1");
 			horiz2 = Input.GetAxis("HorizontalP2");
 			vert2 = Input.GetAxis("VerticalP2");
+            protectkey = Input.GetButton("Jump");
 		}
 		else
 		{

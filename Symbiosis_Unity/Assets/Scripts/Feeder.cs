@@ -18,7 +18,7 @@ public class Feeder : PlayerManager {
 		currentFood = 0; 
 		myAnim = transform.GetChild(0).GetComponent<Animator>();
 	}
-
+    
 	void Update()
 	{
 		Feed();
