@@ -15,12 +15,6 @@ public class GUIManager : MonoBehaviour {
 		feeder = feederGO.GetComponent<Feeder>();
 		protector = protectorGO.GetComponent<Protector>();
 	}
-	
-
-	void Update () 
-	{
-	
-	}
 
 	void OnGUI()
 	{

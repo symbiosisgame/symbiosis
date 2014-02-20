@@ -32,22 +32,9 @@ public class PlayerManager : MonoBehaviour {
 		feeder = player1.GetComponent<Feeder>();
 		protector = player2.GetComponent<Protector>();
 	}
-	
-	void Update()
-	{
-		InputScheme();
-	}
 
-	void InputScheme()
+	public void AdjustFood(int adj) //called by Feeder/Protector class when receiving food
 	{
-		if(Input.GetKeyDown(KeyCode.J))
-		{
-			keyboard = !keyboard;
-		}
-	}
-
-	public void IncreaseFood(int addFood) //called by Feeder/Protector class when receiving food
-	{
-		currentFood += addFood;
+		currentFood += adj;
 	}
 }

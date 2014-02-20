@@ -22,14 +22,6 @@ public class Feeder : PlayerManager {
 	void Update()
 	{
 		Feed();
-
-		if(Input.GetKeyDown (KeyCode.E)) //add xbox button
-		{
-			if(currentFood > 0)
-			{
-				transferring = !transferring;
-			}
-		}
 		TransferFood();
 	}
 
@@ -44,7 +36,7 @@ public class Feeder : PlayerManager {
 				if(currEatTime >= eatTimer)
 				{
 					food.foodStock--;
-					IncreaseFood(1);
+					AdjustFood(1);
 					currEatTime = 0;
 				}
 			}
@@ -77,8 +69,8 @@ public class Feeder : PlayerManager {
 				currTransferTime += Time.deltaTime; //add in modifier for * distance
 				if(currTransferTime >= transferTimer)
 				{	
-					IncreaseFood(-1);
-					protector.IncreaseFood(1);
+					AdjustFood(-1);
+					protector.AdjustFood(1);
 					currTransferTime = 0;
 				}
 			}

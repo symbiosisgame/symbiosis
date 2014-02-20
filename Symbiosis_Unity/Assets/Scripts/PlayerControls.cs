@@ -9,16 +9,59 @@ public class PlayerControls : PlayerManager {
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
-    [HideInInspector] public bool protectkey; //stores whether the player is pressing the key to use the shield or not. 
+    [HideInInspector] public bool protect; //stores whether the player is pressing the key to use the shield or not. 
+
+
 	new void Start () 
 	{   
 		base.Start ();
+		feederGO = GameObject.Find("Player1");
+		feeder = feederGO.GetComponent<Feeder>();
+		protectorGO = GameObject.Find("Player2");
+		protector = protectorGO.GetComponent<Protector>();
 	}
 
 	void FixedUpdate () //better for physics calculations
 	{
         Controls();
 		CalculateDistance();
+	}
+
+	void Update()
+	{
+		Player1Ability();
+		Player2Ability();
+		InputScheme();
+	}
+
+	void Player1Ability()
+	{
+		if(Input.GetButtonDown ("TransferFood")) //add xbox button
+		{
+			if(feeder.currentFood > 0)
+			{
+				feeder.transferring = !feeder.transferring;
+			}
+		}
+	}
+
+	void Player2Ability()
+	{
+		if(Input.GetButtonDown ("Taunt")) //add xbox button
+		{
+			if(protector.currentFood > 0)
+			{
+				protector.Taunt(protectorGO.transform.position, 2f, -1);
+			}
+		}
+	}
+
+	void InputScheme()
+	{
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			keyboard = !keyboard;
+		}
 	}
 
 	void StoreAxis()
@@ -29,7 +72,6 @@ public class PlayerControls : PlayerManager {
 			vert1 = Input.GetAxis("VerticalP1");
 			horiz2 = Input.GetAxis("HorizontalP2");
 			vert2 = Input.GetAxis("VerticalP2");
-            protectkey = Input.GetButton("Jump");
 		}
 		else
 		{
