@@ -9,10 +9,16 @@ public class PlayerControls : PlayerManager {
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
+    [HideInInspector] public bool protect; //stores whether the player is pressing the key to use the shield or not. 
+
 
 	new void Start () 
 	{   
 		base.Start ();
+		feederGO = GameObject.Find("Player1");
+		feeder = feederGO.GetComponent<Feeder>();
+		protectorGO = GameObject.Find("Player2");
+		protector = protectorGO.GetComponent<Protector>();
 	}
 
 	void FixedUpdate () //better for physics calculations
@@ -21,8 +27,45 @@ public class PlayerControls : PlayerManager {
 		CalculateDistance();
 	}
 
-    void Controls()
-    {
+	void Update()
+	{
+		Player1Ability();
+		Player2Ability();
+		InputScheme();
+	}
+
+	void Player1Ability()
+	{
+		if(Input.GetButtonDown ("TransferFood")) //add xbox button
+		{
+			if(feeder.currentFood > 0)
+			{
+				feeder.transferring = !feeder.transferring;
+			}
+		}
+	}
+
+	void Player2Ability()
+	{
+		if(Input.GetButtonDown ("Taunt")) //add xbox button
+		{
+			if(protector.currentFood > 0)
+			{
+				protector.Taunt(protectorGO.transform.position, 2f, -1);
+			}
+		}
+	}
+
+	void InputScheme()
+	{
+		if(Input.GetKeyDown(KeyCode.J))
+		{
+			keyboard = !keyboard;
+		}
+	}
+
+	void StoreAxis()
+	{
 		if(keyboard)
 		{
 			horiz1 = Input.GetAxis("HorizontalP1");
@@ -37,6 +80,11 @@ public class PlayerControls : PlayerManager {
 			horiz2 = Input.GetAxis("HorizontalP2Joy");
 			vert2 = Input.GetAxis("VerticalP2Joy");
 		}
+	}
+
+    void Controls()
+    {
+		StoreAxis();
 		MovePlayer1();
 		MovePlayer2();
 	}
@@ -81,15 +129,22 @@ public class PlayerControls : PlayerManager {
 	{
 		distanceVec = (p1Transform.position + p2Transform.position) / 2;
 		distance = Vector3.Distance(p1Transform.position, p2Transform.position) / 2;
+		distanceTo = Vector3.Distance(p1Transform.position, p1Transform.position);
 	}
-
-	public float playerDistance() //returns the distance float 
+	
+	public float playerDistance() //returns the distance float divided by 2 (only used for camera stuff)
 	{
 		return distance;
 	}
-
+	
 	public Vector3 distanceVector() //returns the distance vector
 	{
 		return distanceVec;
 	}
+
+	public float playerDistanceReal() //returns the distance vector
+	{
+		return distanceTo;
+	}
+
 }
