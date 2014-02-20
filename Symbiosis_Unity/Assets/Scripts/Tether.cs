@@ -16,6 +16,8 @@ public class Tether : MonoBehaviour
 	//public float dragValue = 1.0f;
 	//public float angularDragValue = 1.0f;
 
+	Rigidbody rigid_body;
+	HingeJoint hinge_joint;
 	SphereCollider sphere_collider;
 	GameObject[] go_links;
 
@@ -32,11 +34,11 @@ public class Tether : MonoBehaviour
 			go_links[i] = new GameObject( "Tether Link " + i );
 
 			// components
-			SphereCollider sphere_collider = go_links[i].AddComponent<SphereCollider>();
+			sphere_collider = go_links[i].AddComponent<SphereCollider>();
 			sphere_collider.radius = colliderRadius;
 
-			Rigidbody rigid_body = go_links[i].AddComponent<Rigidbody>();
-			HingeJoint hinge_joint = go_links[i].AddComponent<HingeJoint>();
+			rigid_body = go_links[i].AddComponent<Rigidbody>();
+			hinge_joint = go_links[i].AddComponent<HingeJoint>();
 		
 			// transforms
 			Vector3 seperation = tetherEndObject.transform.position - tetherStartObject.transform.position;
