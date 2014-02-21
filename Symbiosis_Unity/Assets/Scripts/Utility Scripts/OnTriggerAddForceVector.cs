@@ -3,9 +3,11 @@ using System.Collections;
 
 public class OnTriggerAddForceVector : MonoBehaviour
 {
-	public Color gizmoColor = Color.yellow;
+	// gui
+	public Color triggerColor = Color.yellow;
 	public bool hideTrigger = true;
-
+	public bool showGizmos = true;
+	
 	public float forceAmountUp = 3.5f;
 	public float forceAmountDown = 2.5f;
 	public float forceAmountLeft = 2.0f;
@@ -38,9 +40,12 @@ public class OnTriggerAddForceVector : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
-		Gizmos.color = gizmoColor;
-		Gizmos.DrawWireCube( transform.position, transform.collider.bounds.extents * 2 );
-		if( renderer.enabled ){transform.renderer.sharedMaterial.SetColor("_Emission", gizmoColor);}
+		if(showGizmos)
+		{
+			Gizmos.color = triggerColor;
+			Gizmos.DrawWireCube( transform.position, transform.collider.bounds.extents * 2 );
+			if( renderer.enabled ){transform.renderer.sharedMaterial.SetColor("_Emission", triggerColor);}
+		}
 	}
 	
 
