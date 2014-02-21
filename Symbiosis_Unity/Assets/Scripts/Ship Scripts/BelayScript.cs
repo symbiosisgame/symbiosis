@@ -1,49 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// script can be attached to PlayerManager
+// BelayScript should be attached to the PlayerManager whilst ShipTriggerManager goes onto any triggers
+// Belay handles the logic for docked ships and other entities interacting the trigger and belays an action/order
 
 public class BelayScript : MonoBehaviour 
 {
 	void OnEnable()
 	{
-		ShipTriggerManager.Docked += Docked;
-		ShipTriggerManager.UnDocked += UnDocked;
+		ShipTriggerManager.Docking += Docking;		// OnTriggerEnter
+		ShipTriggerManager.IsDocked += Docked;		// OnTriggerStay
+		ShipTriggerManager.HasUnDocked += UnDock;	// OnTriggerExit
 	}
 	
 	
 	void OnDisable()
 	{
-		ShipTriggerManager.Docked -= Docked;
-		ShipTriggerManager.UnDocked += UnDocked;
+		ShipTriggerManager.Docking -= Docking;
+		ShipTriggerManager.IsDocked -= Docked;
+		ShipTriggerManager.HasUnDocked += UnDock;
+	}
+
+
+	// events
+
+
+	void Docking(Collider other)
+	{
+		Debug.Log( "Docking..." + other.name );
 	}
 	
+
 	
 	void Docked(Collider other)
 	{
-
-		if((other.name == "Player1"))
+		if((other.name == "Player1") || (other.name == "Player2"))
 		{
-			Debug.Log( "Docked Player1 via OnTriggerStay" );
+			Debug.Log( "This Player Docked: " + other.name );
+			//TODO set docked flag or case on player and invoke refuelling/energy transfer
 		}
-
-		if((other.name == "Player2"))
-		{
-			Debug.Log( "Docked Player2 via OnTriggerStay" );
-		}
-
-		//TODO two other players at same time 
 	}
+	
 
 
-
-
-	void UnDocked(Collider other)
+	void UnDock(Collider other)
 	{
-		Debug.Log( other.name + " joyfully UnDocked via OnTriggerExit..." );
+		Debug.Log( "UnDock'ed..." + other.name );
 	}
 
 
 
 
 }// end class
+//------------------------------------------------------
+
+//-------- notes
+// scenario:  if player docked and other enemy docking then set docked player shields up
+// scenario:  if player docked and other enemy docking then set undocked player beacon alert
