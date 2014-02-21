@@ -5,6 +5,9 @@ public class Tether : MonoBehaviour
 {
 	// variables
 	// ---------
+	public Color gizmoColor = Color.blue;
+	private bool showGizmos = false;
+
 	public GameObject tetherEndObject;
 	public GameObject tetherStartObject;
 	public GameObject player1;
@@ -16,12 +19,10 @@ public class Tether : MonoBehaviour
 	//public float dragValue = 1.0f;
 	//public float angularDragValue = 1.0f;
 
-	Rigidbody rigid_body;
-	HingeJoint hinge_joint;
-	SphereCollider sphere_collider;
-	GameObject[] go_links;
-
-	private bool showgizmos = false;
+	private Rigidbody rigid_body;
+	private HingeJoint hinge_joint;
+	private SphereCollider sphere_collider;
+	private GameObject[] go_links;
 
 
 	// methods
@@ -81,7 +82,7 @@ public class Tether : MonoBehaviour
 	
 		}//end for
 
-		showgizmos = true;
+		showGizmos = true;
 
 	}//end buildTetherLinks
 
@@ -121,12 +122,13 @@ public class Tether : MonoBehaviour
 
 	void OnDrawGizmos()
 	{
-		if(showgizmos)
+		if(showGizmos)
 		{
-			for( int i = 0; i < go_links.Length; i++ )
+			Gizmos.color = gizmoColor;
+
+			for( int i = 0; i < numSegments; i++ )
 			{
 				Gizmos.DrawWireSphere( go_links[i].transform.position, colliderRadius);
-				Gizmos.color = Color.blue;
 			}
 		}
 	}
