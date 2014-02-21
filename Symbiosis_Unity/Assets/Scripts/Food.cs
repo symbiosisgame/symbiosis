@@ -18,7 +18,7 @@ public class Food : Entities {
 	{
 		if(other.name == "Player1")
 		{
-			feeder.feeding = true;
+			feeder.feeding = false;
 		}
 	}
 }

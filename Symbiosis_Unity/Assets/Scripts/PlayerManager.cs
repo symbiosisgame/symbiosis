@@ -6,7 +6,7 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour {
 	
 	[HideInInspector]public bool keyboard = true;
-	[HideInInspector]public float distance;
+	[HideInInspector]public float distance, distanceTo;
 	[HideInInspector]public float maxPlayerDistance;
 	
 	[HideInInspector]public Transform p1Transform, p2Transform; //cache the transform components of both players
@@ -16,6 +16,10 @@ public class PlayerManager : MonoBehaviour {
 	[HideInInspector]public bool p1Alive;
 	[HideInInspector]public bool p2Alive;
 
+	[HideInInspector]public GameObject feederGO, protectorGO;
+	[HideInInspector]public Feeder feeder;
+	[HideInInspector]public Protector protector;
+
 	public int currentFood;
 	
 	protected void Start () 
@@ -24,23 +28,13 @@ public class PlayerManager : MonoBehaviour {
 		player2 = GameObject.Find("Player2");
 		p1Transform = player1.transform;
 		p2Transform = player2.transform;
+
+		feeder = player1.GetComponent<Feeder>();
+		protector = player2.GetComponent<Protector>();
 	}
 
-	void Update()
+	public void AdjustFood(int adj) //called by Feeder/Protector class when receiving food
 	{
-		ControlScheme();
-	}
-
-	void ControlScheme()
-	{
-		if(Input.GetKeyDown(KeyCode.J))
-		{
-			keyboard = !keyboard;
-		}
-	}
-
-	public void IncreaseFood(int addFood) //called by Feeder/Protector class when receiving food
-	{
-		currentFood += addFood;
+		currentFood += adj;
 	}
 }
