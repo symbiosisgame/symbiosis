@@ -28,6 +28,7 @@ public class ShipTriggerManager : MonoBehaviour
 		if(Docking != null)
 		{ 
 			Docking(other);
+
 		}
 	}
 

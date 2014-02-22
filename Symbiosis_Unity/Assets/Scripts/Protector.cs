@@ -5,6 +5,7 @@ public class Protector : PlayerManager {
   
 	Animator myAnim;
 	ParticleSystem taunt;
+	public static bool protectorDocked;
 
 	new void Start()
 	{

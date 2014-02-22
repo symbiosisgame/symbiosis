@@ -8,6 +8,7 @@ public class Feeder : PlayerManager {
 	public float eatRate = 1;
 	[HideInInspector]public bool feeding;
 	[HideInInspector]public bool transferring;
+	public static bool feederDocked;
 	GameObject foodSource;
 	Animator myAnim;
 	Food food;

@@ -30,14 +30,17 @@ public class BelayScript : MonoBehaviour
 		Debug.Log( "Docking..." + other.name );
 	}
 	
-
-	
 	void Docked(Collider other)
 	{
-		if((other.name == "Player1") || (other.name == "Player2"))
+		if(other.name == "Player1")
 		{
 			Debug.Log( "This Player Docked: " + other.name );
-			//TODO set docked flag or case on player and invoke refuelling/energy transfer
+			Feeder.feederDocked = true;
+		}
+		if(other.name == "Player2")
+		{
+			Debug.Log( "This Player Docked: " + other.name );
+			Protector.protectorDocked = true;
 		}
 	}
 	
@@ -45,7 +48,16 @@ public class BelayScript : MonoBehaviour
 
 	void UnDock(Collider other)
 	{
-		Debug.Log( "UnDock'ed..." + other.name );
+		if(other.name == "Player1")
+		{
+			Debug.Log( "UnDock'ed..." + other.name );
+			Feeder.feederDocked = false;
+		}
+		if(other.name == "Player2")
+		{	
+			Debug.Log( "UnDock'ed..." + other.name );
+			Protector.protectorDocked = false;
+		}
 	}
 
 

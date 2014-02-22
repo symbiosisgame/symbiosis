@@ -15,13 +15,13 @@ public class PlayerManager : MonoBehaviour {
 	
 	[HideInInspector]public bool p1Alive;
 	[HideInInspector]public bool p2Alive;
-
+	
 	[HideInInspector]public GameObject feederGO, protectorGO;
 	[HideInInspector]public Feeder feeder;
 	[HideInInspector]public Protector protector;
 
 	public int currentFood;
-	
+
 	protected void Start () 
 	{
 		player1 = GameObject.Find("Player1");

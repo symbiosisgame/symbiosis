@@ -21,5 +21,6 @@ public class GUIManager : MonoBehaviour {
 		GUI.skin = mySkin;
 		GUI.Label(new Rect(10, 10, 300, 40), "Feeder Food: " +feeder.currentFood);
 		GUI.Label(new Rect(Screen.width-240, 10, 300, 40), "Protector Food: " +protector.currentFood);
+		GUI.Label(new Rect(Screen.width/2-50, 10, 300, 40), "Husk: " +LevelManager.huskClean);
 	}
 }
