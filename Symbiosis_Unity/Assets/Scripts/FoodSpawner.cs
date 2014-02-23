@@ -33,7 +33,7 @@ public class FoodSpawner : MonoBehaviour {
 	    Vector3 pos;
 	    pos.x = center.x + radius * Mathf.Sin(ang * Mathf.Deg2Rad);
 	    pos.y = center.y + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
-	    pos.z = center.z - 1;
+	    pos.z = center.z;
 	    return pos;
 	}
 
@@ -50,10 +50,9 @@ public class FoodSpawner : MonoBehaviour {
 	        Vector3 outer = RandomCircle(center, spawnRange);
 	        //Get a random point between the center of the foodPoints and the outer limit of their radius
 	        pos [i] = new Vector3(Random.Range(center.x, outer.x), Random.Range(center.y, outer.y), outer.z);
-	        //Instantiate the food in that point 
-	        //Instantiate(food, pos, Quaternion.identity);
             
 	    }
+        //Instantiate the food at a random point in the range of a random foodPoint
         GameObject foodGO = Instantiate(food, pos[Random.Range(0, foodPointsPos.Length)], Quaternion.identity) as GameObject;
         foodList.Add(foodGO);
     }
