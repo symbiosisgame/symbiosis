@@ -25,7 +25,7 @@ public class FoodSpawner : MonoBehaviour {
 		SpawnFood();
 	}
 
-    //Method that calculates an outer limit for every 
+    //Method that calculates an outer limit for every foodPoint
 	Vector3 RandomCircle ( Vector3 center ,  float radius  )
 	{
 	    // create random angle between 0 to 360 degrees
@@ -40,17 +40,21 @@ public class FoodSpawner : MonoBehaviour {
     //Method  to instantiate the food
     public void SpawnFood()
 	{
+
+        Vector3 [] pos;
+        pos = new Vector3[foodPoints.Length];
 	    for (int i = 0; i < foodPoints.Length ; i++)
 		{
 	    	float spawnRange = range[i];
-	        //Vector3 center = foodPointsPos[i];
-	        //Vector3 outer = RandomCircle(center, spawnRange);
+	        Vector3 center = foodPointsPos[i];
+	        Vector3 outer = RandomCircle(center, spawnRange);
 	        //Get a random point between the center of the foodPoints and the outer limit of their radius
-	        //Vector3 pos = new Vector3(Random.Range(center.x, outer.x), Random.Range(center.y, outer.y), outer.z);
+	        pos [i] = new Vector3(Random.Range(center.x, outer.x), Random.Range(center.y, outer.y), outer.z);
 	        //Instantiate the food in that point 
 	        //Instantiate(food, pos, Quaternion.identity);
+            
 	    }
-		GameObject foodGO = Instantiate(food, foodPointsPos[Random.Range (0, foodPointsPos.Length)], Quaternion.identity)as GameObject;
-		foodList.Add(foodGO);
+        GameObject foodGO = Instantiate(food, pos[Random.Range(0, foodPointsPos.Length)], Quaternion.identity) as GameObject;
+        foodList.Add(foodGO);
     }
 }
