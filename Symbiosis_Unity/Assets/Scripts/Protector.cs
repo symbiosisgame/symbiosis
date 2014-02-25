@@ -9,7 +9,7 @@ public class Protector : PlayerManager {
 
 	new void Start()
 	{
-		currentFood = 5;
+		currentFood = 0;
 		myAnim = transform.GetChild (0).GetComponent<Animator>();
 		taunt = GameObject.Find ("Taunt").GetComponent<ParticleSystem>();
 	}
