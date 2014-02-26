@@ -1,42 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (Collider))]
+
 public class Spawner : MonoBehaviour
 {
-
+	// simple spawner area, spawns prefabs randomly within trigger bounds
 
 	// gui
 	public Color triggerColor = Color.magenta;
 	public bool hideTrigger = true;
 	public bool showGizmos = true;
 
+	// spawner
 	public GameObject theSpawner;
-
-	public bool canSpawnEnemy = false;
+	public bool canSpawnEnemy = true;
 	public bool canSpawnFood = true;
 
-
 	// food
-	//Food food;
-
 	public GameObject foodPrefab;
 	public int minFoodAmount = 1;
 	public int maxFoodAmount = 3;
-	private int spawnedFood = 0;	// counter
-
-
+	private int foodCount = 0;
 
 	// enemy
 	public GameObject enemyPrefab;
 	public int minEnemyAmount = 1;
 	public int maxEnemyAmount = 6;
-
-
-
-
-	// test1, spawn the food on player trigger
-	// test2, spawn an enemy on player trigger 
-	// hook up FSM and delegates
+	private int enemyCount = 0;
 
 
 	
@@ -44,60 +35,65 @@ public class Spawner : MonoBehaviour
 	{
 		// gui
 		if( hideTrigger ){ renderer.enabled = false; }else{ renderer.enabled = true; }
-
-
+		// trigger
+		collider.isTrigger = true;
 	}
 
 
 
 	// methods
-
+	// -------
 	private void spawnFood()
 	{
 		Vector3 randomPos = new Vector3( 	Random.Range(theSpawner.transform.collider.bounds.min.x, theSpawner.transform.collider.bounds.max.x), 
 		                                	Random.Range(theSpawner.transform.collider.bounds.min.y, theSpawner.transform.collider.bounds.max.y), 0.0f  );
 		GameObject Food = (GameObject) Instantiate(foodPrefab, randomPos, Quaternion.identity);
-		spawnedFood++;
+		foodCount++;
+	}
+
+	private void spawnEnemy()
+	{
+		Vector3 randomPos = new Vector3( 	Random.Range(theSpawner.transform.collider.bounds.min.x, theSpawner.transform.collider.bounds.max.x), 
+		                                	Random.Range(theSpawner.transform.collider.bounds.min.y, theSpawner.transform.collider.bounds.max.y), 0.0f  );
+		GameObject Enemy = (GameObject) Instantiate(enemyPrefab, randomPos, Quaternion.identity);
+		enemyCount++;
 	}
 
 
 
+	// trigger
+	// -------
 
-
-
-
-	// test 1
 	void OnTriggerEnter(Collider other)
 	{
-		print("entered spawner");
-
-
-		if (canSpawnFood)
+		// make food
+		if ((canSpawnFood) && (other.name == "Player1"))
 		{
-			if( spawnedFood < maxFoodAmount )
+			if(foodCount < maxFoodAmount)
 			{
 				spawnFood();
-				Debug.Log ("Spawned " +spawnedFood+ "food");
+				Debug.Log("foodCount: " + foodCount);
 			}
-
-
-
 		}
 
-
-
-
-	}// end ontriggerenter
+		// make enemy
+		if ((canSpawnEnemy) && (other.name == "Player2"))
+		{
+			if(enemyCount < maxEnemyAmount)
+			{
+				spawnEnemy();
+				Debug.Log("enemyCount: " + enemyCount);
+			}
+		}
+	}
 
 
 
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{		
 	}
-
-
-
+	
 
 	// gui
 	void OnDrawGizmos()
@@ -112,7 +108,3 @@ public class Spawner : MonoBehaviour
 
 }// end class
 
-
-
-// ---- notes
-// GameObject Food = (GameObject) Instantiate(foodPrefab, randomXY + gameObject.transform.position, Quaternion.identity);
