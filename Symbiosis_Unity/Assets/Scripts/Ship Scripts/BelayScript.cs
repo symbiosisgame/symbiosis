@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// BelayScript should be attached to the PlayerManager whilst ShipTriggerManager goes onto any triggers
-// Belay handles the logic for docked ships and other entities interacting the trigger and belays an action/order
+// BelayScript should be attached to the PlayerManager whilst ShipTriggerManager goes onto the triggers
+// Belay handles the logic for docked ships and other entities interacting the trigger and belays an order
 
 public class BelayScript : MonoBehaviour 
 {
+
+	// subscritions
+	// ------------
 	void OnEnable()
 	{
 		ShipTriggerManager.Docking += Docking;		// OnTriggerEnter
 		ShipTriggerManager.IsDocked += Docked;		// OnTriggerStay
 		ShipTriggerManager.HasUnDocked += UnDock;	// OnTriggerExit
 	}
-	
-	
 	void OnDisable()
 	{
 		ShipTriggerManager.Docking -= Docking;
@@ -21,15 +22,16 @@ public class BelayScript : MonoBehaviour
 		ShipTriggerManager.HasUnDocked += UnDock;
 	}
 
+	
 
 	// events
-
+	// ------
 
 	void Docking(Collider other)
 	{
 		Debug.Log( "Docking..." + other.name );
-	}
-	
+	}	
+
 	void Docked(Collider other)
 	{
 		if(other.name == "Player1")
