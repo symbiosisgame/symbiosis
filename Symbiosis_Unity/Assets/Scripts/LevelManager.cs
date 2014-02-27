@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 
-	static public int huskClean;
+	static public int huskClean = 100;
 	public float huskCleanRate = 1f;
 	public float cleanTime, cleanTimer = 1f;
 	public int foodSpawnRate;
@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour {
 			cleanTime += huskCleanRate * Time.deltaTime;
 			if(cleanTime >= cleanTimer)
 			{
-				huskClean ++;
+				huskClean --;
 				cleanTime = 0;
 			}
 			if(!invoked)
