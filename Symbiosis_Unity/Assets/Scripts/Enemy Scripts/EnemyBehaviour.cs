@@ -8,9 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
 	public bool showGizmos = true;
 
 	// enemy
-	public GameObject enemy;
-	public float detectorRadius = 2.0f;
-	public float attackingRange = 1.0f;
+	public float detectorRadius = 2.25f;	// large radius, omni directional sense
+	public float closeRange = 1.25f;		// close range radius, is slightly larger than enemy collider trigger (so colliders can do their own self collision checks etc)
 
 	// common vars
 	Transform p1Transform, p2Transform; 
@@ -23,21 +22,22 @@ public class EnemyBehaviour : MonoBehaviour
 	// intergrator
 	public Vector3 velocity = Vector3.zero;
 	public Vector3 forceAcc = Vector3.zero;
-	public float maxSpeed = 1f;
-	public float mass = 1f;
+	public float maxSpeed = 0.5f;
+	public float mass = 0.1f;
 
 
 	// enums
 	public enum EnemyStates
 	{
-		idle 		= 0,
+		floating 	= 0,
 		following 	= 1,
-		attacking 	= 2,
+		closerange 	= 2,
 		feeding 	= 3,
-		scared 		= 4,
-		dying 		= 5
+		fighting 	= 4,
+		fleeing		= 5,
+		dying 		= 6
 	}
-	public EnemyStates currentState = EnemyStates.idle;
+	public EnemyStates currentState = EnemyStates.floating;
 
 	// enemy
 	Transform _transform; // for self collisions on trigger
@@ -82,7 +82,7 @@ public class EnemyBehaviour : MonoBehaviour
 	// flee
 	Vector3 Flee(GameObject other)
 	{
-		float fleeDist = 1.5f;
+		float fleeDist = 1.6f;
 		
 		Vector3 desired = other.transform.position - transform.position;
 		
@@ -142,11 +142,11 @@ public class EnemyBehaviour : MonoBehaviour
 
 		Vector3 toPlayer1 = p1Transform.position - transform.position;
 		Vector3 toPlayer2 = p2Transform.position - transform.position;
+		//Debug.DrawLine(transform.position, p1Transform.position );
+
 
 		// testing move
 		//character_controller.Move( ((toPlayer1).normalized / 2.2f) * Time.deltaTime );
-
-
 
 
 		// testing behaviours
@@ -156,13 +156,12 @@ public class EnemyBehaviour : MonoBehaviour
 		//forceAcc += Flee(player1);					// GameObject
 
 		//forceAcc += Arrive(p1Transform.position);		// Vector3
-		//forceAcc += Arrive(target);					// Vector3
 		//forceAcc += Pursuit(player1);					// GameObject
 
 
 
 		// test cautious to player 1
-	
+		/***
 		if ( toPlayer1.magnitude > Random.Range(detectorRadius, (detectorRadius*4) ) )
 		{
 			forceAcc += Seek(p1Transform.position);
@@ -171,52 +170,83 @@ public class EnemyBehaviour : MonoBehaviour
 		{
 			forceAcc += Flee(player1);
 		}
-
+		***/
 
 		// case and switch begins
-		/***
-		 * TODO player behaviours on arrival, feeding, attack, scared
-		 *  
+
+		// TODO player behaviours on arrival, feeding, attack, scared
 
 
 		switch(currentState)
 		{
-			case EnemyStates.idle:
-				Debug.Log ("Enemy is idle");
+			case EnemyStates.floating:
+				
+				Debug.Log ("Enemy is floating (green)");
+				transform.renderer.material.SetColor("_Emission", Color.green);
+
 
 				if( toPlayer1.magnitude > detectorRadius )
 				{
 					currentState = EnemyStates.following;
 				}
-			break;
 
+
+				if ( feeder.feeding )
+				{
+					currentState = EnemyStates.following;
+				}
+				else // not feeding
+				{
+					currentState = EnemyStates.floating;
+				}
+
+			break;
 
 
 			case EnemyStates.following:
-				Debug.Log ("Enemy is following");
 
-				// follow a nearby feeder
+				Debug.Log ("Enemy is following (yellow)");
+				transform.renderer.material.SetColor("_Emission", Color.yellow);
+
+
 				if (feeder.feeding)
 				{
-					Debug.Log ("Enemy is seeking a feeder.feeding");
-					forceAcc += Arrive(feeder.transform.position);
+					forceAcc += Seek(feeder.transform.position);
 				}
-
-
-				if(feeder.transform.position.magnitude < attackingRange)
+			else if( (toPlayer1.magnitude > detectorRadius) && (toPlayer1.magnitude < Random.Range(4,12)) )
 				{
-					forceAcc += Seek(feeder.transform.position); // try to get a better position
-					currentState = EnemyStates.attacking;
+					forceAcc += Arrive(player1.transform.position);
+				}
+				else if( toPlayer1.magnitude > Random.Range(4,12) )
+				{
+					currentState = EnemyStates.floating;
+				}
+				else
+				{
+					currentState = EnemyStates.closerange;
 				}
 
 			break;
 
 
+			case EnemyStates.closerange:
 
-			case EnemyStates.attacking:
-				Debug.Log ("Enemy is attacking");
+				Debug.Log ("Enemy is in close range (red)");
+				transform.renderer.material.SetColor("_Emission", Color.red);
+
+
+				if( toPlayer1.magnitude < closeRange)
+				{
+					forceAcc += Flee(player1);	// scared
+				}
+
+				
+				if( toPlayer1.magnitude > Random.Range(4,12) )
+				{
+					currentState = EnemyStates.following;
+				}
+
 			break;
-
 
 
 			case EnemyStates.feeding:
@@ -224,23 +254,28 @@ public class EnemyBehaviour : MonoBehaviour
 			break;
 
 
-			case EnemyStates.scared:
-				Debug.Log ("Enemy is scared");
+			case EnemyStates.fighting:
+				Debug.Log ("Enemy is fighting");
+			break;
+
+
+			case EnemyStates.fleeing:
+				Debug.Log ("Enemy is fleeing (blue)");
+				transform.renderer.material.SetColor("_Emission", Color.blue);
 
 				// beacon squawk 
 				forceAcc += Flee(player1);
-				Debug.Log ("Enemy is fleeing player1 squawk ");
+				Debug.Log ("Enemy is fleeing player1...");
 
 			break;
 
 
 			case EnemyStates.dying:
-			Debug.Log ("Enemy is dying");
+				Debug.Log ("Enemy is dying");
 			break;
 		}
 		// end case and switch block
 
-********/
 
 
 
@@ -271,7 +306,7 @@ public class EnemyBehaviour : MonoBehaviour
 			Gizmos.color = Color.cyan;
 			Gizmos.DrawWireSphere( transform.position, detectorRadius );
 			Gizmos.color = Color.red;
-			Gizmos.DrawWireSphere( transform.position, attackingRange );
+			Gizmos.DrawWireSphere( transform.position, closeRange );
 		}
 	}
 
