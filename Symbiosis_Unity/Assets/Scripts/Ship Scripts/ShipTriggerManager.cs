@@ -12,7 +12,7 @@ public class ShipTriggerManager : MonoBehaviour
 	public bool showGizmos = true;
 	
 	// delegate events
-	public delegate void DockAction(Collider other);
+	public delegate void DockAction( Collider _other );
 	public static event DockAction Docking;
 	public static event DockAction IsDocked;
 	public static event DockAction HasUnDocked;
@@ -28,6 +28,7 @@ public class ShipTriggerManager : MonoBehaviour
 		if(Docking != null)
 		{ 
 			Docking(other);
+
 		}
 	}
 
