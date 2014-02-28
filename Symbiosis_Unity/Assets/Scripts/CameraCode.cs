@@ -7,18 +7,25 @@ public class CameraCode : MonoBehaviour {
 	PlayerControls pControls;
 	Transform myTransform;
 	public float zoomThreshold, maxCamSize;	
+	private Vector3 bottomLock, topLock, leftLock, rightLock;
+	public float bottom, top, left, right;
 
 	void Start()
 	{
 		playerManager = GameObject.Find ("PlayerManager");
 		pControls = playerManager.GetComponent<PlayerControls>();
 		myTransform = this.transform;
+		bottomLock = new Vector3 (transform.position.x, bottom, transform.position.z);
+		topLock = new Vector3 (transform.position.x, top, transform.position.z);
+		leftLock = new Vector3 (left, transform.position.y, transform.position.z);
+		rightLock = new Vector3 (right, transform.position.y, transform.position.z);
 	}
 
 	void Update()
 	{
 		Tracking();
 		Zooming();
+		LockCamera();
 	}
 
 	void Tracking() //tracks distance between players
@@ -35,6 +42,15 @@ public class CameraCode : MonoBehaviour {
 			{
 				Camera.main.orthographicSize = maxCamSize;
 			}
+		}
+	}
+
+	void LockCamera()
+	{
+		if(transform.position.y <= bottom)
+		{
+
+			myTransform.position = bottomLock;
 		}
 	}
 }
