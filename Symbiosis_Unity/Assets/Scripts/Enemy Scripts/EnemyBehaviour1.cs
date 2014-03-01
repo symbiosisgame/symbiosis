@@ -179,7 +179,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 		Debug.Log ("Enemy is fleeing");
 
 		forceAcc += Flee(player2);	// scared
-		if( toPlayer2.magnitude > Random.Range(6,12) )
+		if( toPlayer2.magnitude > Random.Range(6,10) )
 		{
 			currentState = EnemyStates.following;
 		}
