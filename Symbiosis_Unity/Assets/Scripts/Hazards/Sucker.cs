@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Sucker : MonoBehaviour
+public class Sucker : Entities
 {
     // gui
     public Color gizmoColor = Color.blue;
@@ -11,15 +11,7 @@ public class Sucker : MonoBehaviour
     public float detectorRadius = 2.25f;
 
     // common vars
-    Transform p1Transform, p2Transform;
-    GameObject player1, player2;
     Vector3 toPlayer1, toPlayer2;
-
-    // roles
-    [HideInInspector]
-    public Feeder feeder;
-    [HideInInspector]
-    public Protector protector;
 
     public float suckForce = 2f;
     // intergrator
@@ -27,27 +19,13 @@ public class Sucker : MonoBehaviour
     public Vector3 forceAcc = Vector3.zero;
     public float maxSpeed = 500f;
     public float mass = 0.1f;
-
   
     void Start()
     {
         // common start
-        player1 = GameObject.Find("Player1");
-        player2 = GameObject.Find("Player2");
-        p1Transform = player1.transform;
-        p2Transform = player2.transform;
-
-   
-
-        // get components
-        feeder = player1.GetComponent<Feeder>();
-        protector = player2.GetComponent<Protector>();
-
-         
-         
-      
-
+		base.Start ();
     }
+
     void Update()
     {
         toPlayer1 = p1Transform.position - transform.position;
@@ -84,14 +62,13 @@ public class Sucker : MonoBehaviour
         // towards
         return desired - velocity;
     }
+
     void OnDrawGizmos()
     {
         if (showGizmos)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, detectorRadius);
-    
         }
     }
-
 }

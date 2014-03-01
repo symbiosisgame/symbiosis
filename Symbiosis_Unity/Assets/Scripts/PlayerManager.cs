@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour {
 	{
 		player1 = GameObject.Find("Player1");
 		player2 = GameObject.Find("Player2");
+
 		p1Transform = player1.transform;
 		p2Transform = player2.transform;
 

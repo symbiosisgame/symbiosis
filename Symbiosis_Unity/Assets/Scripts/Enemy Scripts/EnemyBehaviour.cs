@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyBehaviour1 : MonoBehaviour
+public class EnemyBehaviour : Entities
 {
 	// gui
 	public Color gizmoColor = Color.blue;
@@ -12,19 +12,17 @@ public class EnemyBehaviour1 : MonoBehaviour
 	public float closeRange = 1.25f;		// close range radius, is slightly larger than enemy collider trigger (so colliders can do their own self collision checks etc)
 
 	// common vars
-	Transform p1Transform, p2Transform; 
-	GameObject player1, player2;
 	Vector3 toPlayer1, toPlayer2;
-	
-	// roles
-	[HideInInspector]public Feeder feeder;
-	[HideInInspector]public Protector protector;
 
 	// intergrator
 	public Vector3 velocity = Vector3.zero;
 	public Vector3 forceAcc = Vector3.zero;
+	public Vector2 myPos2D;
 	public float maxSpeed = 0.5f;
 	public float mass = 0.1f;
+
+	public GameObject rayCast;
+	RaycastHit whatIHit;
 	
 	// enums
 	public enum EnemyStates
@@ -42,16 +40,10 @@ public class EnemyBehaviour1 : MonoBehaviour
 	void Start ()
 	{
 		// common start
-		player1 = GameObject.Find("Player1");
-		player2 = GameObject.Find("Player2");
-		p1Transform = player1.transform;
-		p2Transform = player2.transform;
-		
-		// get components
-		feeder = player1.GetComponent<Feeder>();
-		protector = player2.GetComponent<Protector>();
-
+		// moved reference caches to Entity class, as this now inherits from it
+		base.Start();
 		currentState = EnemyStates.floating;
+		mainCamera = GameObject.Find ("Main Camera");
 	}
 
 	// Update is called once per frame
@@ -59,8 +51,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 	{
 		toPlayer1 = p1Transform.position - transform.position;
 		toPlayer2 = p2Transform.position - transform.position;
-		Debug.DrawLine(transform.position, p1Transform.position );
-
+	
 		// case and switch begins
 		// TODO player behaviours on arrival, feeding, attack, scared
 
@@ -134,7 +125,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 
 		if( (toPlayer1.magnitude < 8f))
 		{
-			forceAcc += Arrive(player1.transform.position);
+			forceAcc += Arrive(feederGO.transform.position);
 		}
 		else
 		{
@@ -178,8 +169,8 @@ public class EnemyBehaviour1 : MonoBehaviour
 		transform.renderer.material.SetColor("_Emission", Color.red);	
 		Debug.Log ("Enemy is fleeing");
 
-		forceAcc += Flee(player2);	// scared
-		if( toPlayer2.magnitude > Random.Range(6,10) )
+		forceAcc += Flee(protectorGO);	// scared
+		if( toPlayer2.magnitude > Random.Range(8,15) )
 		{
 			currentState = EnemyStates.following;
 		}
@@ -194,7 +185,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 	{
 		if( toPlayer2.magnitude < closeRange)
 		{
-			currentState = EnemyStates.fleeing;
+			//currentState = EnemyStates.fleeing;
 		}
 	}
 	//End of behaviours for case switch
@@ -261,6 +252,15 @@ public class EnemyBehaviour1 : MonoBehaviour
 		return Seek(targetPos);
 	}
 
+	public void TakeDamage(int dmg)
+	{
+		health += dmg;
+		if(health <= 0)
+		{
+			Destroy(gameObject);
+		}
+	}
+
 	void OnDrawGizmos()
 	{
 		if( showGizmos )
@@ -269,6 +269,18 @@ public class EnemyBehaviour1 : MonoBehaviour
 			Gizmos.DrawWireSphere( transform.position, detectorRadius );
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere( transform.position, closeRange );
+		}
+	}
+
+	void OffScreenIndicator()
+	{
+		Vector3 forward = mainCamera.transform.position;
+		Debug.DrawLine(rayCast.transform.position, forward, Color.magenta);
+
+		if(Physics.Linecast(transform.position, forward, out whatIHit))
+		{
+			//ball.GetComponent<MeshRenderer>().enabled = true;
+			//ball.transform.position = whatIHit.point;
 		}
 	}
 

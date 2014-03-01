@@ -6,6 +6,7 @@ public class Protector : PlayerManager {
 	Animator myAnim;
 	ParticleSystem taunt;
 	public static bool protectorDocked;
+	EnemyBehaviour enemyAI;
 
 	new void Start()
 	{
@@ -20,7 +21,8 @@ public class Protector : PlayerManager {
 		int i = 0;
 		while (i < hitColliders.Length) 
 		{
-			hitColliders[i].BroadcastMessage("TakeDamage", -1, SendMessageOptions.DontRequireReceiver);
+			if(hitColliders[i].tag == ("Enemy"))
+			hitColliders[i].GetComponent<EnemyBehaviour>().currentState = EnemyBehaviour.EnemyStates.fleeing;
 			i++;
 		}
 		currentFood += foodCost;
