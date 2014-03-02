@@ -21,11 +21,12 @@ public class Sucker : MonoBehaviour
     [HideInInspector]
     public Protector protector;
 
-    public float suckForce = 2f;
+    public float suckPull;
+    public float suckForce;
     // intergrator
     public Vector3 velocity = Vector3.zero;
     public Vector3 forceAcc = Vector3.zero;
-    public float maxSpeed = 500f;
+    public float maxSpeed = 0.1f;
     public float mass = 0.1f;
 
   
@@ -36,8 +37,8 @@ public class Sucker : MonoBehaviour
         player2 = GameObject.Find("Player2");
         p1Transform = player1.transform;
         p2Transform = player2.transform;
-
-   
+        suckPull = 7f;
+        suckForce = 0.8f;
 
         // get components
         feeder = player1.GetComponent<Feeder>();
@@ -55,19 +56,24 @@ public class Sucker : MonoBehaviour
         Debug.DrawLine(transform.position, p1Transform.position);
         p1Transform.position = p1Transform.position + velocity * Time.deltaTime;
         Vector3 accel = forceAcc / mass;
-        velocity = velocity + accel * 12f * Time.deltaTime;
+        velocity = velocity + accel  * Time.deltaTime;
         forceAcc = Vector3.zero;
-        // case and switch begins
-        // TODO player behaviours on arrival, feeding, attack, scared
-        Suck();
-        
+
+       Suck();
+       // Pulling();
     }
 
     void Suck()
     {
+
+        Vector3 desired = transform.position - p1Transform.position;
+        desired = desired * suckForce;
+        Vector3 pullVector =  desired - velocity;
+
         if (toPlayer1.magnitude < detectorRadius)
         {
-           forceAcc+= Arrive(transform.position);
+            
+           forceAcc+= pullVector;
             Debug.Log("Suck it!");
         }
 
@@ -77,13 +83,29 @@ public class Sucker : MonoBehaviour
         }
     }
 
-    Vector3 Arrive(Vector3 target)
+
+ void Pulling()
     {
-        Vector3 desired = target - p1Transform.position;
-        desired.Normalize();    
-        // towards
-        return desired - velocity;
-    }
+        Vector3 desired = p2Transform.position - transform.position;
+       
+
+        if (desired.magnitude > suckPull)
+        {
+            Debug.Log("Pulling!");
+
+            forceAcc += Seek(p2Transform.position);
+        }
+ }
+    Vector3 Seek(Vector3 targetPos)
+	{
+		Vector3 desired = targetPos - p1Transform.position;
+		desired *= maxSpeed;
+		// towards
+		return desired - velocity;
+	}
+	
+       
+
     void OnDrawGizmos()
     {
         if (showGizmos)
