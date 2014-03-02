@@ -21,16 +21,31 @@ public class PlayerManager : MonoBehaviour {
 	[HideInInspector]public Protector protector;
 
 	public int currentFood;
+	public int health, maxHealth;
 
 	protected void Start () 
 	{
 		player1 = GameObject.Find("Player1");
 		player2 = GameObject.Find("Player2");
+
 		p1Transform = player1.transform;
 		p2Transform = player2.transform;
 
 		feeder = player1.GetComponent<Feeder>();
 		protector = player2.GetComponent<Protector>();
+	}
+
+	public void AdjustHealth(int adj)
+	{
+		health += adj;
+		if(health >= maxHealth)
+		{
+			health = maxHealth;
+		}
+		if(health < 0)
+		{
+			health = 0;
+		}
 	}
 
 	public void AdjustFood(int adj) //called by Feeder/Protector class when receiving food

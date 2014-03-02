@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyBehaviour1 : MonoBehaviour
+public class EnemyBehaviour : Entities
 {
 	// gui
 	public Color gizmoColor = Color.blue;
@@ -10,21 +10,23 @@ public class EnemyBehaviour1 : MonoBehaviour
 	// enemy
 	public float detectorRadius = 2.25f;	// large radius, omni directional sense
 	public float closeRange = 1.25f;		// close range radius, is slightly larger than enemy collider trigger (so colliders can do their own self collision checks etc)
-
-	// common vars
-	Transform p1Transform, p2Transform; 
-	GameObject player1, player2;
-	Vector3 toPlayer1, toPlayer2;
+	public int damage;
+	public float attackTimer;
+	private float attackTime;
 	
-	// roles
-	[HideInInspector]public Feeder feeder;
-	[HideInInspector]public Protector protector;
+	// common vars
+	Vector3 toPlayer1, toPlayer2;
+	Transform myTransform;
 
 	// intergrator
 	public Vector3 velocity = Vector3.zero;
 	public Vector3 forceAcc = Vector3.zero;
+	public Vector2 myPos2D;
 	public float maxSpeed = 0.5f;
 	public float mass = 0.1f;
+
+	public GameObject target, pointer;
+	RaycastHit whatIHit;
 	
 	// enums
 	public enum EnemyStates
@@ -42,16 +44,11 @@ public class EnemyBehaviour1 : MonoBehaviour
 	void Start ()
 	{
 		// common start
-		player1 = GameObject.Find("Player1");
-		player2 = GameObject.Find("Player2");
-		p1Transform = player1.transform;
-		p2Transform = player2.transform;
-		
-		// get components
-		feeder = player1.GetComponent<Feeder>();
-		protector = player2.GetComponent<Protector>();
-
+		// moved reference caches to Entity class, as this now inherits from it
+		base.Start();
 		currentState = EnemyStates.floating;
+		mainCamera = GameObject.Find ("Main Camera");
+		myTransform = this.transform;
 	}
 
 	// Update is called once per frame
@@ -59,8 +56,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 	{
 		toPlayer1 = p1Transform.position - transform.position;
 		toPlayer2 = p2Transform.position - transform.position;
-		Debug.DrawLine(transform.position, p1Transform.position );
-
+		OffScreenIndicator();
 		// case and switch begins
 		// TODO player behaviours on arrival, feeding, attack, scared
 
@@ -114,7 +110,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 		Debug.Log ("Enemy is floating (green)");
 		transform.renderer.material.SetColor("_Emission", Color.green);
 		
-		if( toPlayer1.magnitude > detectorRadius && toPlayer1.magnitude < 8f)
+		if( toPlayer1.magnitude > detectorRadius && toPlayer1.magnitude < 15f)
 		{
 			currentState = EnemyStates.following;
 			Debug.Log("Won't change state to following...");
@@ -134,7 +130,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 
 		if( (toPlayer1.magnitude < 8f))
 		{
-			forceAcc += Arrive(player1.transform.position);
+			forceAcc += Arrive(feederGO.transform.position);
 		}
 		else
 		{
@@ -167,9 +163,18 @@ public class EnemyBehaviour1 : MonoBehaviour
 	{
 		Debug.Log ("Enemy is fighting");
 		transform.renderer.material.SetColor("_Emission", Color.red);	
+
+		attackTime += Time.deltaTime;
+		if(attackTime >= attackTimer)
+		{
+			feederGO.BroadcastMessage("AdjustHealth", -damage);
+			attackTime = 0;
+		}
+
 		if(toPlayer1.magnitude > closeRange)
 		{
 			currentState = EnemyStates.following;
+			attackTime = 0;
 		}
 	}
 
@@ -178,8 +183,8 @@ public class EnemyBehaviour1 : MonoBehaviour
 		transform.renderer.material.SetColor("_Emission", Color.red);	
 		Debug.Log ("Enemy is fleeing");
 
-		forceAcc += Flee(player2);	// scared
-		if( toPlayer2.magnitude > Random.Range(6,12) )
+		forceAcc += Flee(protectorGO);	// scared
+		if( toPlayer2.magnitude > Random.Range(8,12) )
 		{
 			currentState = EnemyStates.following;
 		}
@@ -194,7 +199,7 @@ public class EnemyBehaviour1 : MonoBehaviour
 	{
 		if( toPlayer2.magnitude < closeRange)
 		{
-			currentState = EnemyStates.fleeing;
+			//currentState = EnemyStates.fleeing;
 		}
 	}
 	//End of behaviours for case switch
@@ -261,6 +266,15 @@ public class EnemyBehaviour1 : MonoBehaviour
 		return Seek(targetPos);
 	}
 
+	public void TakeDamage(int dmg)
+	{
+		health += dmg;
+		if(health <= 0)
+		{
+			Destroy(gameObject);
+		}
+	}
+
 	void OnDrawGizmos()
 	{
 		if( showGizmos )
@@ -272,4 +286,35 @@ public class EnemyBehaviour1 : MonoBehaviour
 		}
 	}
 
+	void OffScreenIndicator() //enemy indicators when offscreen
+	{
+		float camYTop = mainCamera.transform.position.y + 5.8f * pControls.playerDistance() / 4.32f;
+		float camYBottom = mainCamera.transform.position.y - 5.8f * pControls.playerDistance() / 4.32f;
+		float camXRight = mainCamera.transform.position.x + 9.6f * pControls.playerDistance() / 4.32f;
+		float camXLeft = mainCamera.transform.position.x - 9.6f * pControls.playerDistance() / 4.32f;
+
+		//Debug.DrawLine(rayCast.transform.position, target.transform.position, Color.magenta);
+
+		if(Physics.Linecast(transform.position, target.transform.position, out whatIHit, 1 << LayerMask.NameToLayer("Bounding")))
+		{
+			pointer.transform.position = whatIHit.point; //
+
+			//Rotate pointer towards enemy transform
+			Quaternion newRotation = Quaternion.LookRotation(pointer.transform.position - myTransform.position, Vector3.forward);
+			newRotation.x = 0f;
+			newRotation.y = 0f;
+			pointer.transform.rotation = Quaternion.Slerp(pointer.transform.rotation, newRotation, Time.deltaTime * 12);
+			//end pointer rotation
+
+			if(transform.position.y < camYBottom || transform.position.y > camYTop 
+			   || transform.position.x < camXLeft || transform.position.x > camXRight)
+			{
+				pointer.GetComponent<SpriteRenderer>().enabled = true;
+			}
+			else
+			{
+				pointer.GetComponent<SpriteRenderer>().enabled = false;
+			}
+		}
+	}
 }// end class

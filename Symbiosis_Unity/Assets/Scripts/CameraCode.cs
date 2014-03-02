@@ -3,17 +3,19 @@ using System.Collections;
 
 public class CameraCode : MonoBehaviour {
 
-	GameObject playerManager;
+	GameObject playerManager, boundingBox;
 	PlayerControls pControls;
 	Transform myTransform;
 	public float zoomThreshold, maxCamSize;	
 	private Vector3 bottomLock, topLock, leftLock, rightLock;
 	public float bottom, top, left, right;
+	public float boxScale;
 
 	void Start()
 	{
 		playerManager = GameObject.Find ("PlayerManager");
 		pControls = playerManager.GetComponent<PlayerControls>();
+		boundingBox = GameObject.Find ("BoundingBox");
 		myTransform = this.transform;
 		bottomLock = new Vector3 (transform.position.x, bottom, transform.position.z);
 		topLock = new Vector3 (transform.position.x, top, transform.position.z);
@@ -42,6 +44,10 @@ public class CameraCode : MonoBehaviour {
 			{
 				Camera.main.orthographicSize = maxCamSize;
 			}
+			else
+			{
+				boundingBox.transform.localScale = new Vector3(17.35f * pControls.playerDistance()/boxScale, 9.33f * pControls.playerDistance()/boxScale, pControls.playerDistance());
+			}
 		}
 	}
 
@@ -49,8 +55,7 @@ public class CameraCode : MonoBehaviour {
 	{
 		if(transform.position.y <= bottom)
 		{
-
-			myTransform.position = bottomLock;
+			//myTransform.position = bottomLock;
 		}
 	}
 }
