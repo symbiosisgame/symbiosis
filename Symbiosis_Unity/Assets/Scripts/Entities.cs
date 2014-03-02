@@ -5,6 +5,7 @@ public class Entities : MonoBehaviour {
 
 	[HideInInspector]public GameObject playerManager, mainCamera;
 	[HideInInspector]public PlayerManager pManager;
+	[HideInInspector]public PlayerControls pControls;
 	[HideInInspector]public GameObject feederGO, protectorGO;
 	[HideInInspector]public Feeder feeder;
 	[HideInInspector]public Protector protector;
@@ -21,6 +22,7 @@ public class Entities : MonoBehaviour {
 		feeder = feederGO.GetComponent<Feeder>();
 		protector = feederGO.GetComponent<Protector>();
 		pManager = playerManager.GetComponent<PlayerManager>();
+		pControls = playerManager.GetComponent<PlayerControls>();
 	
 		p1Transform = feederGO.transform;
 		p2Transform = protectorGO.transform;

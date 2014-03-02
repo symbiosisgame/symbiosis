@@ -10,9 +10,13 @@ public class EnemyBehaviour : Entities
 	// enemy
 	public float detectorRadius = 2.25f;	// large radius, omni directional sense
 	public float closeRange = 1.25f;		// close range radius, is slightly larger than enemy collider trigger (so colliders can do their own self collision checks etc)
-
+	public int damage;
+	public float attackTimer;
+	private float attackTime;
+	
 	// common vars
 	Vector3 toPlayer1, toPlayer2;
+	Transform myTransform;
 
 	// intergrator
 	public Vector3 velocity = Vector3.zero;
@@ -21,7 +25,7 @@ public class EnemyBehaviour : Entities
 	public float maxSpeed = 0.5f;
 	public float mass = 0.1f;
 
-	public GameObject rayCast;
+	public GameObject target, pointer;
 	RaycastHit whatIHit;
 	
 	// enums
@@ -44,6 +48,7 @@ public class EnemyBehaviour : Entities
 		base.Start();
 		currentState = EnemyStates.floating;
 		mainCamera = GameObject.Find ("Main Camera");
+		myTransform = this.transform;
 	}
 
 	// Update is called once per frame
@@ -51,7 +56,7 @@ public class EnemyBehaviour : Entities
 	{
 		toPlayer1 = p1Transform.position - transform.position;
 		toPlayer2 = p2Transform.position - transform.position;
-	
+		OffScreenIndicator();
 		// case and switch begins
 		// TODO player behaviours on arrival, feeding, attack, scared
 
@@ -105,7 +110,7 @@ public class EnemyBehaviour : Entities
 		Debug.Log ("Enemy is floating (green)");
 		transform.renderer.material.SetColor("_Emission", Color.green);
 		
-		if( toPlayer1.magnitude > detectorRadius && toPlayer1.magnitude < 8f)
+		if( toPlayer1.magnitude > detectorRadius && toPlayer1.magnitude < 15f)
 		{
 			currentState = EnemyStates.following;
 			Debug.Log("Won't change state to following...");
@@ -158,9 +163,18 @@ public class EnemyBehaviour : Entities
 	{
 		Debug.Log ("Enemy is fighting");
 		transform.renderer.material.SetColor("_Emission", Color.red);	
+
+		attackTime += Time.deltaTime;
+		if(attackTime >= attackTimer)
+		{
+			feederGO.BroadcastMessage("AdjustHealth", -damage);
+			attackTime = 0;
+		}
+
 		if(toPlayer1.magnitude > closeRange)
 		{
 			currentState = EnemyStates.following;
+			attackTime = 0;
 		}
 	}
 
@@ -170,7 +184,7 @@ public class EnemyBehaviour : Entities
 		Debug.Log ("Enemy is fleeing");
 
 		forceAcc += Flee(protectorGO);	// scared
-		if( toPlayer2.magnitude > Random.Range(8,15) )
+		if( toPlayer2.magnitude > Random.Range(8,12) )
 		{
 			currentState = EnemyStates.following;
 		}
@@ -272,16 +286,35 @@ public class EnemyBehaviour : Entities
 		}
 	}
 
-	void OffScreenIndicator()
+	void OffScreenIndicator() //enemy indicators when offscreen
 	{
-		Vector3 forward = mainCamera.transform.position;
-		Debug.DrawLine(rayCast.transform.position, forward, Color.magenta);
+		float camYTop = mainCamera.transform.position.y + 5.8f * pControls.playerDistance() / 4.32f;
+		float camYBottom = mainCamera.transform.position.y - 5.8f * pControls.playerDistance() / 4.32f;
+		float camXRight = mainCamera.transform.position.x + 9.6f * pControls.playerDistance() / 4.32f;
+		float camXLeft = mainCamera.transform.position.x - 9.6f * pControls.playerDistance() / 4.32f;
 
-		if(Physics.Linecast(transform.position, forward, out whatIHit))
+		//Debug.DrawLine(rayCast.transform.position, target.transform.position, Color.magenta);
+
+		if(Physics.Linecast(transform.position, target.transform.position, out whatIHit, 1 << LayerMask.NameToLayer("Bounding")))
 		{
-			//ball.GetComponent<MeshRenderer>().enabled = true;
-			//ball.transform.position = whatIHit.point;
+			pointer.transform.position = whatIHit.point; //
+
+			//Rotate pointer towards enemy transform
+			Quaternion newRotation = Quaternion.LookRotation(pointer.transform.position - myTransform.position, Vector3.forward);
+			newRotation.x = 0f;
+			newRotation.y = 0f;
+			pointer.transform.rotation = Quaternion.Slerp(pointer.transform.rotation, newRotation, Time.deltaTime * 12);
+			//end pointer rotation
+
+			if(transform.position.y < camYBottom || transform.position.y > camYTop 
+			   || transform.position.x < camXLeft || transform.position.x > camXRight)
+			{
+				pointer.GetComponent<SpriteRenderer>().enabled = true;
+			}
+			else
+			{
+				pointer.GetComponent<SpriteRenderer>().enabled = false;
+			}
 		}
 	}
-
 }// end class

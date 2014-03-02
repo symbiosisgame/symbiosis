@@ -9,7 +9,6 @@ public class PlayerControls : PlayerManager {
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
-    [HideInInspector] public bool protect; //stores whether the player is pressing the key to use the shield or not. 
 
 
 	new void Start () 
@@ -129,7 +128,7 @@ public class PlayerControls : PlayerManager {
 	{
 		distanceVec = (p1Transform.position + p2Transform.position) / 2;
 		distance = Vector3.Distance(p1Transform.position, p2Transform.position) / 2;
-		distanceTo = Vector3.Distance(p1Transform.position, p1Transform.position);
+		distanceTo = Vector3.Distance(p1Transform.position, p2Transform.position);
 	}
 	
 	public float playerDistance() //returns the distance float divided by 2 (only used for camera stuff)

@@ -6,13 +6,29 @@ public class Protector : PlayerManager {
 	Animator myAnim;
 	ParticleSystem taunt;
 	public static bool protectorDocked;
+	public static bool shielded = false; //stores whether the player is pressing the key to use the shield or not. 
+	GameObject shield;
 	EnemyBehaviour enemyAI;
+	PlayerControls pControls;
+	public float drainTime, drainTimer;
+	public int shieldUsage;
+	
+	void Awake()
+	{
+		shield = GameObject.Find ("Shield");
+	}
 
 	new void Start()
 	{
+		base.Start();
+		pControls = GameObject.Find ("PlayerManager").GetComponent<PlayerControls>();
 		currentFood = 0;
 		myAnim = transform.GetChild (0).GetComponent<Animator>();
-		taunt = GameObject.Find ("Taunt").GetComponent<ParticleSystem>();
+	}
+
+	void Update()
+	{
+		Shield ();
 	}
 
 	public void Taunt(Vector3 center, float radius, int foodCost)
@@ -27,6 +43,32 @@ public class Protector : PlayerManager {
 		}
 		currentFood += foodCost;
 		myAnim.Play ("Taunt");
-		taunt.Play ();
+	}
+	
+	void Shield()
+	{
+		if(currentFood > 0)
+		{
+			if(pControls.playerDistanceReal() <= .4f)
+			{
+				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
+				shield.GetComponent<SpriteRenderer>().enabled = true;
+			}
+			drainTime += Time.deltaTime;
+			if(drainTime >= drainTimer)
+			{
+				currentFood -= shieldUsage;
+				drainTime = 0;
+			}
+		}
+		else
+		{
+			shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
+			shield.GetComponent<SpriteRenderer>().enabled = false;
+		}
+		if(currentFood <= 0)
+		{
+			currentFood = 0;
+		}
 	}
 }
