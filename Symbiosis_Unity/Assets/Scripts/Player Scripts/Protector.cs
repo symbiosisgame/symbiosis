@@ -24,11 +24,17 @@ public class Protector : PlayerManager {
 		pControls = GameObject.Find ("PlayerManager").GetComponent<PlayerControls>();
 		currentFood = 0;
 		myAnim = transform.GetChild (0).GetComponent<Animator>();
+		healthTextGO = GameObject.Find ("P2HealthText");
+		foodTextGO = GameObject.Find ("P2FoodText");
 	}
 
 	void Update()
 	{
 		Shield ();
+
+		//will move later
+		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
+		foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
 	}
 
 	public void Taunt(Vector3 center, float radius, int foodCost)
@@ -53,21 +59,18 @@ public class Protector : PlayerManager {
 			{
 				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
 				shield.GetComponent<SpriteRenderer>().enabled = true;
-			}
-			drainTime += Time.deltaTime;
-			if(drainTime >= drainTimer)
-			{
-				currentFood -= shieldUsage;
-				drainTime = 0;
+				drainTime += Time.deltaTime;
+				if(drainTime >= drainTimer)
+				{
+					currentFood -= shieldUsage;
+					drainTime = 0;
+				}
 			}
 		}
 		else
 		{
 			shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
 			shield.GetComponent<SpriteRenderer>().enabled = false;
-		}
-		if(currentFood <= 0)
-		{
 			currentFood = 0;
 		}
 	}

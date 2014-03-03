@@ -10,20 +10,29 @@ public class Feeder : PlayerManager {
 	[HideInInspector]public bool transferring;
 	public static bool feederDocked;
 	GameObject foodSource;
+	public GameObject foodBall;
+	bool createFood;
 	Animator myAnim;
 	Food food;
+	GameObject foodPiece;
 
 	new void Start()
 	{
 		base.Start ();
 		currentFood = 0; 
 		myAnim = transform.GetChild(0).GetComponent<Animator>();
+		healthTextGO = GameObject.Find ("P1HealthText");
+		foodTextGO = GameObject.Find ("P1FoodText");
 	}
     
 	void Update()
 	{
 		Feed();
 		TransferFood();
+
+		//will move later
+		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
+		foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
 	}
 
 	void Feed()
@@ -66,13 +75,27 @@ public class Feeder : PlayerManager {
 			if(this.currentFood > 0)
 			{
 				float playerDistance = GameObject.Find ("PlayerManager").GetComponent<PlayerControls>().playerDistanceReal();
+				
+				if(!createFood) //for visual transfer of food
+				{
+					GameObject foodie = Instantiate(foodBall, transform.position, Quaternion.identity)as GameObject;
+					foodPiece = foodie;
+					createFood = true;
+				}
+
+				Vector3 newPos;
+				float speed = 2f * Time.deltaTime;
+				newPos = p2Transform.position;
+				foodPiece.transform.position = Vector3.Lerp(foodPiece.transform.position, newPos, speed); 
 				//Create a proper modifier for distance based transfer
 				currTransferTime += Time.deltaTime; //add in modifier for * distance
 				if(currTransferTime >= transferTimer)
 				{	
 					AdjustFood(-1);
 					protector.AdjustFood(1);
+					createFood = false;
 					currTransferTime = 0;
+					Destroy (foodPiece.gameObject);
 				}
 			}
 			else

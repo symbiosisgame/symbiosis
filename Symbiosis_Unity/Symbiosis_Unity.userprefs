@@ -1,13 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy Scripts\EnemyBehaviour.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\System Scripts\GUITextFollow.cs">
     <Files>
-      <File FileName="Assets\Scripts\Enemy Scripts\EnemyBehaviour.cs" Line="126" Column="3" />
-      <File FileName="Assets\Scripts\Entities.cs" Line="18" Column="11" />
-      <File FileName="Assets\Scripts\Protector.cs" Line="31" Column="13" />
-      <File FileName="Assets\Scripts\CameraCode.cs" Line="58" Column="40" />
-      <File FileName="Assets\Scripts\PlayerControls.cs" Line="140" Column="3" />
-      <File FileName="Assets\Scripts\PlayerManager.cs" Line="31" Column="14" />
+      <File FileName="Assets\Scripts\Spawn Scripts\FoodSpawner.cs" Line="24" Column="7" />
+      <File FileName="Assets\Scripts\Player Scripts\Feeder.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player Scripts\Protector.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\System Scripts\LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\System Scripts\GUIManager.cs" Line="26" Column="5" />
+      <File FileName="Assets\Scripts\System Scripts\GUITextFollow.cs" Line="5" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

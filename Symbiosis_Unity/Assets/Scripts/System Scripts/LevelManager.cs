@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 
-	static public int huskClean = 100;
+	public int huskClean = 40;
+	public int howMuchCharge;
 	public float huskCleanRate = 1f;
 	public float cleanTime, cleanTimer = 1f;
 	public int foodSpawnRate;

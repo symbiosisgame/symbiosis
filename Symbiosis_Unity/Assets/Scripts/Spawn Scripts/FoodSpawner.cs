@@ -22,7 +22,6 @@ public class FoodSpawner : MonoBehaviour {
 	        range[i] = foodPoints[i].GetComponent<FoodRange>().spawnRadius;
 	        foodPointsPos[i] = foodPoints[i].transform.position;
 	    }
-		//SpawnFood();
 	}
 
     //Method that calculates an outer limit for every foodPoint
