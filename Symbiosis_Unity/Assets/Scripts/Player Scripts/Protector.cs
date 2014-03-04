@@ -60,17 +60,17 @@ public class Protector : PlayerManager {
 				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
 				shield.GetComponent<SpriteRenderer>().enabled = true;
                 shielded = true;
-			}
-			drainTime += Time.deltaTime;
-			if(drainTime >= drainTimer)
-			{
-				currentFood -= shieldUsage;
-				drainTime = 0;
 				drainTime += Time.deltaTime;
 				if(drainTime >= drainTimer)
 				{
 					currentFood -= shieldUsage;
 					drainTime = 0;
+					drainTime += Time.deltaTime;
+					if(drainTime >= drainTimer)
+					{
+						currentFood -= shieldUsage;
+						drainTime = 0;
+					}
 				}
 			}
 			else
