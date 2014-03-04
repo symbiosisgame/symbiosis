@@ -6,7 +6,7 @@ public class Protector : PlayerManager {
 	Animator myAnim;
 	ParticleSystem taunt;
 	public static bool protectorDocked;
-	public static bool shielded = false; //stores whether the player is pressing the key to use the shield or not. 
+	public static bool shielded = false; 
 	GameObject shield;
 	EnemyBehaviour enemyAI;
 	PlayerControls pControls;
@@ -59,6 +59,13 @@ public class Protector : PlayerManager {
 			{
 				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
 				shield.GetComponent<SpriteRenderer>().enabled = true;
+                shielded = true;
+			}
+			drainTime += Time.deltaTime;
+			if(drainTime >= drainTimer)
+			{
+				currentFood -= shieldUsage;
+				drainTime = 0;
 				drainTime += Time.deltaTime;
 				if(drainTime >= drainTimer)
 				{
@@ -75,8 +82,12 @@ public class Protector : PlayerManager {
 		}
 		else
 		{
-			shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
+			shield.GetComponent<SphereCollider>().enabled = false; //child gameobject
 			shield.GetComponent<SpriteRenderer>().enabled = false;
+            shielded = false;
+		}
+		if(currentFood <= 0)
+		{
 			currentFood = 0;
 		}
 	}
