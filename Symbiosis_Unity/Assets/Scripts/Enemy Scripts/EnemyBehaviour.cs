@@ -247,7 +247,7 @@ public class EnemyBehaviour : Entities
 		{
 			return Vector3.zero;
 		}
-		const float DecelerationTweak = 1.5f;
+		const float DecelerationTweak = 2.5f;
 		
 		float rampedSpeed = maxSpeed * (distance / (slowingDistance * DecelerationTweak));
 		float clampedSpeed = Mathf.Min(maxSpeed, rampedSpeed);

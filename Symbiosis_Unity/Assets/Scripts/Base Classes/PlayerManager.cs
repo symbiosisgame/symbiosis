@@ -20,6 +20,8 @@ public class PlayerManager : MonoBehaviour {
 	[HideInInspector]public Feeder feeder;
 	[HideInInspector]public Protector protector;
 
+	public GameObject healthTextGO, foodTextGO;
+
 	public int currentFood;
 	public int health, maxHealth;
 
@@ -42,9 +44,9 @@ public class PlayerManager : MonoBehaviour {
 		{
 			health = maxHealth;
 		}
-		if(health < 0)
+		if(health <= 0)
 		{
-			health = 0;
+			Application.LoadLevel(Application.loadedLevelName);
 		}
 	}
 
