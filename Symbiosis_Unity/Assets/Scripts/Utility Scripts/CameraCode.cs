@@ -6,10 +6,10 @@ public class CameraCode : MonoBehaviour {
 	GameObject playerManager, boundingBox;
 	PlayerControls pControls;
 	Transform myTransform;
-	public float zoomThreshold, maxCamSize;	
+	private float zoomThreshold = 4f, maxCamSize = 8.6f;	
 	private Vector3 bottomLock, topLock, leftLock, rightLock;
-	public float bottom, top, left, right;
-	public float boxScale;
+	private float bottom, top, left, right;
+	float boxScale = 4.32f;
 
 	void Start()
 	{

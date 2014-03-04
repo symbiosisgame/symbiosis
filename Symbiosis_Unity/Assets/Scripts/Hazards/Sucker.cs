@@ -70,15 +70,19 @@ public class Sucker : MonoBehaviour
         desired = desired * suckForce;
         Vector3 pullVector =  desired - velocity;
 
+
         if (toPlayer1.magnitude < detectorRadius)
         {
-            
-           forceAcc+= pullVector;
+			GetComponent<LineRenderer>().SetPosition(0, transform.position);
+			GetComponent<LineRenderer>().SetPosition(1, p1Transform.position);
+            forceAcc+= pullVector;
             Debug.Log("Suck it!");
         }
 
         else if (toPlayer1.magnitude > detectorRadius)
         {
+			GetComponent<LineRenderer>().SetPosition(0, transform.position); 
+			GetComponent<LineRenderer>().SetPosition(1, transform.position);
             velocity = Vector3.zero;
         }
     }

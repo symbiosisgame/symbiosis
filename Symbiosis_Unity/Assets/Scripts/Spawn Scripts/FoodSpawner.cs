@@ -5,13 +5,12 @@ public class FoodSpawner : MonoBehaviour {
 
 	GameObject[] foodPoints;    
 	Vector3[] foodPointsPos;
-	GameObject food;
+	public GameObject food;
 	float[] range; 
 	public List<GameObject> foodList = new List<GameObject>();
  
 	void Start ()
 	{
-	    food = GameObject.Find("Food");
 	    foodPoints = GameObject.FindGameObjectsWithTag("FoodPoint"); 
 		foodPointsPos = new Vector3[foodPoints.Length];
 		range = new float[foodPoints.Length];
@@ -39,7 +38,6 @@ public class FoodSpawner : MonoBehaviour {
     //Method  to instantiate the food
     public void SpawnFood()
 	{
-
         Vector3 [] pos;
         pos = new Vector3[foodPoints.Length];
 	    for (int i = 0; i < foodPoints.Length ; i++)
@@ -52,7 +50,7 @@ public class FoodSpawner : MonoBehaviour {
             
 	    }
         //Instantiate the food at a random point in the range of a random foodPoint
-        GameObject foodGO = Instantiate(food, pos[Random.Range(0, foodPointsPos.Length)], Quaternion.identity) as GameObject;
+        GameObject foodGO = Instantiate(food, pos[Random.Range(0, foodPoints.Length)], Quaternion.identity) as GameObject;
         foodList.Add(foodGO);
     }
 }

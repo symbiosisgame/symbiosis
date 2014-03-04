@@ -25,7 +25,8 @@ public class EnemyBehaviour : Entities
 	public float maxSpeed = 0.5f;
 	public float mass = 0.1f;
 
-	public GameObject target, pointer;
+	public GameObject pointer;
+	GameObject target;
 	RaycastHit whatIHit;
 	
 	// enums
@@ -46,6 +47,7 @@ public class EnemyBehaviour : Entities
 		// common start
 		// moved reference caches to Entity class, as this now inherits from it
 		base.Start();
+		target = GameObject.Find ("RaycastTarget");
 		currentState = EnemyStates.floating;
 		mainCamera = GameObject.Find ("Main Camera");
 		myTransform = this.transform;
@@ -184,7 +186,7 @@ public class EnemyBehaviour : Entities
 		Debug.Log ("Enemy is fleeing");
 
 		forceAcc += Flee(protectorGO);	// scared
-		if( toPlayer2.magnitude > Random.Range(8,12) )
+		if( toPlayer2.magnitude > Random.Range(10,14) )
 		{
 			currentState = EnemyStates.following;
 		}
@@ -220,7 +222,7 @@ public class EnemyBehaviour : Entities
 	// flee
 	Vector3 Flee(GameObject other)
 	{
-		float fleeDist = 1.6f;
+		float fleeDist = 1.8f;
 		
 		Vector3 desired = other.transform.position - transform.position;
 		

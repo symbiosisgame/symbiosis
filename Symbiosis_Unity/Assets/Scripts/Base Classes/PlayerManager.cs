@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour {
 	[HideInInspector]public Feeder feeder;
 	[HideInInspector]public Protector protector;
 
-	public GameObject healthTextGO, foodTextGO;
+	[HideInInspector]public GameObject healthTextGO, foodTextGO;
 
 	public int currentFood;
 	public int health, maxHealth;

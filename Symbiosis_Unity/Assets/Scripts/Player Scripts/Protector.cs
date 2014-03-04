@@ -55,7 +55,7 @@ public class Protector : PlayerManager {
 	{
 		if(currentFood > 0)
 		{
-			if(pControls.playerDistanceReal() <= .4f)
+			if(pControls.playerDistanceReal() <= .5f)
 			{
 				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
 				shield.GetComponent<SpriteRenderer>().enabled = true;
@@ -66,6 +66,12 @@ public class Protector : PlayerManager {
 					drainTime = 0;
 				}
 			}
+			else
+			{
+				shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
+				shield.GetComponent<SpriteRenderer>().enabled = false;
+			}
+
 		}
 		else
 		{
