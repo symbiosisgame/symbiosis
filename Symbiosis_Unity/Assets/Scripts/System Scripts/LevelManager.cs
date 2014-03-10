@@ -10,13 +10,14 @@ public class LevelManager : MonoBehaviour {
 	public float huskCleanRate = 1f;
 	public float cleanTime, cleanTimer = 1f;
 	public int foodSpawnRate;
-	public GameObject barrier;
+	GameObject barrier;
 	FoodSpawner foodSpawner;
 	EnemySpawner enemySpawner;
 	bool invoked;
 
 	void Start () 
 	{
+		barrier = GameObject.Find ("Barrier");
 		foodSpawner = GetComponent<FoodSpawner>();
 		enemySpawner = GetComponent<EnemySpawner>();
 	}
@@ -31,7 +32,7 @@ public class LevelManager : MonoBehaviour {
 	{
 		if(huskClean == 0)
 		{
-			Destroy (barrier);
+			Destroy (barrier.gameObject);
 			huskClean = 0;
 		}
 	}
@@ -49,7 +50,7 @@ public class LevelManager : MonoBehaviour {
 			if(!invoked)
 			{
 				InvokeRepeating("CreateFood", 3f, 8f / huskCleanRate); //repeat rate set quite high for testing
-				InvokeRepeating("CreateEnemy", 4f, 8f / huskCleanRate); //repeat rate set quite high for testing
+				InvokeRepeating("CreateEnemy", 2f, 3f / huskCleanRate); //repeat rate set quite high for testing
 				invoked = true;
 			}
 		}

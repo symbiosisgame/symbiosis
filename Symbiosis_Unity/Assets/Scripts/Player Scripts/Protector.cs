@@ -55,7 +55,7 @@ public class Protector : PlayerManager {
 	{
 		if(currentFood > 0)
 		{
-			if(pControls.playerDistanceReal() <= .5f)
+			if(pControls.playerDistanceReal() <= .75f)
 			{
 				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
 				shield.GetComponent<SpriteRenderer>().enabled = true;

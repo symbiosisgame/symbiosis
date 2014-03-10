@@ -27,9 +27,6 @@ public class SwampyTerrain : MonoBehaviour
             }
 
         }
-      
-
-
     }
 
     void OnTriggerExit(Collider other)
