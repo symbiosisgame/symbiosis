@@ -108,11 +108,25 @@ public class PlayerControls : PlayerManager {
 		if(currSpeedP1 <= 0.01f)
 		{
 			currSpeedP1 = 0;
-			//feederAnim.CrossFade("FeederIdle", .4f); 
+			feederAnim.CrossFade("FeederIdle", .4f);
 		}
 		else
 		{
-			//feederAnim.CrossFade("FeederMove", .2f);
+			feederAnim.CrossFade("FeederIdle", .4f);
+		}
+
+
+		if(horiz1 < 0)
+		{
+			feederAnim.CrossFade("FeederTurnLeft", .4f); 
+		}
+		else if(horiz1 > 0)
+		{
+			feederAnim.CrossFade("FeederTurnRight", .4f);
+		}
+		else
+		{
+			//feederAnim.CrossFade("FeederIdle", .4f);
 		}
     }
 

@@ -1,77 +1,105 @@
 fileFormatVersion: 2
-guid: 38a6cce7e6ff1744caf9719d6cc7ff78
+guid: 67af07da9192aa04db829a287e971a58
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Bone001
-    100002: Bone002
-    100004: Bone003
-    100006: Bone004
-    100008: Bone005
-    100010: Bone006
-    100012: Bone007
-    100014: Bone008
-    100016: Bone009
-    100018: Bone010
-    100020: Bone011
-    100022: Bone012
-    100024: Bone013
-    100026: Bone014
-    100028: Bone015
-    100030: Bone016
-    100032: Box002
-    100034: Cylinder002
-    100036: //RootNode
-    100038: IK Chain001
-    100040: Line001
-    100042: membrane
-    100044: Point001
-    100046: Point002
-    100048: Point003
-    100050: Sphere001
-    100052: Sphere002
-    100054: Torus001
-    400000: Bone001
-    400002: Bone002
-    400004: Bone003
-    400006: Bone004
-    400008: Bone005
-    400010: Bone006
-    400012: Bone007
-    400014: Bone008
-    400016: Bone009
-    400018: Bone010
-    400020: Bone011
-    400022: Bone012
-    400024: Bone013
-    400026: Bone014
-    400028: Bone015
-    400030: Bone016
-    400032: Box002
-    400034: Cylinder002
-    400036: //RootNode
-    400038: IK Chain001
-    400040: Line001
-    400042: membrane
-    400044: Point001
-    400046: Point002
-    400048: Point003
-    400050: Sphere001
-    400052: Sphere002
-    400054: Torus001
+    100000: 2
+    100002: Bone010
+    100004: Bone011
+    100006: Bone012
+    100008: Bone013
+    100010: Bone014
+    100012: Bone015
+    100014: Bone016
+    100016: Bone017
+    100018: Bone018
+    100020: Bone019
+    100022: Bone020
+    100024: Bone021
+    100026: Bone022
+    100028: Bone023
+    100030: Bone024
+    100032: Bone025
+    100034: Bone026
+    100036: Box001
+    100038: Cylinder002
+    100040: //RootNode
+    100042: IK Chain001
+    100044: IK Chain002
+    100046: IK Chain003
+    100048: IK Chain004
+    100050: IK Chain005
+    100052: IK Chain006
+    100054: IK Chain007
+    100056: IK Chain008
+    100058: IK Chain009
+    100060: IK Chain010
+    100062: IK Chain011
+    100064: membrane
+    100066: Point001
+    100068: Point002
+    100070: Point003
+    100072: Point004
+    100074: Point005
+    100076: Sphere001
+    100078: Sphere002
+    100080: SplineIKNode001
+    100082: Torus001
+    400000: 2
+    400002: Bone010
+    400004: Bone011
+    400006: Bone012
+    400008: Bone013
+    400010: Bone014
+    400012: Bone015
+    400014: Bone016
+    400016: Bone017
+    400018: Bone018
+    400020: Bone019
+    400022: Bone020
+    400024: Bone021
+    400026: Bone022
+    400028: Bone023
+    400030: Bone024
+    400032: Bone025
+    400034: Bone026
+    400036: Box001
+    400038: Cylinder002
+    400040: //RootNode
+    400042: IK Chain001
+    400044: IK Chain002
+    400046: IK Chain003
+    400048: IK Chain004
+    400050: IK Chain005
+    400052: IK Chain006
+    400054: IK Chain007
+    400056: IK Chain008
+    400058: IK Chain009
+    400060: IK Chain010
+    400062: IK Chain011
+    400064: membrane
+    400066: Point001
+    400068: Point002
+    400070: Point003
+    400072: Point004
+    400074: Point005
+    400076: Sphere001
+    400078: Sphere002
+    400080: SplineIKNode001
+    400082: Torus001
     2300000: Sphere001
     2300002: Sphere002
     3300000: Sphere001
     3300002: Sphere002
     4300000: Torus001
-    4300002: Box002
-    4300004: Cylinder002
-    4300006: Sphere001
-    4300008: Sphere002
+    4300002: Cylinder002
+    4300004: Sphere001
+    4300006: Sphere002
+    4300008: Box001
     7400000: FeederIdle
     9500000: //RootNode
     11100000: //RootNode
-    13700000: Box002
+    13700000: Box001
     13700002: Cylinder002
     13700004: Torus001
   materials:
@@ -115,23 +143,7 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Bone001
-        weight: 1
-      - path: Bone001/Bone002
-        weight: 1
-      - path: Bone001/Bone002/Bone003
-        weight: 1
-      - path: Bone001/Bone002/Bone003/Bone004
-        weight: 1
-      - path: Bone001/Bone002/Bone003/Bone004/Bone005
-        weight: 1
-      - path: Bone001/Bone002/Bone003/Bone004/Bone005/Bone006
-        weight: 1
-      - path: Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Bone007
-        weight: 1
-      - path: Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Bone007/Bone008
-        weight: 1
-      - path: Bone001/Bone002/Bone003/Bone004/Bone005/Bone006/Bone007/Bone008/Bone009
+      - path: 2
         weight: 1
       - path: Bone014
         weight: 1
@@ -143,11 +155,49 @@ ModelImporter:
         weight: 1
       - path: Bone014/Sphere002
         weight: 1
-      - path: Box002
+      - path: Bone017
+        weight: 1
+      - path: Bone017/Bone018
+        weight: 1
+      - path: Bone017/Bone018/Bone019
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020/Bone021
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Bone025
+        weight: 1
+      - path: Bone017/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/Bone025/Bone026
+        weight: 1
+      - path: Box001
         weight: 1
       - path: IK Chain001
         weight: 1
-      - path: Line001
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: IK Chain007
+        weight: 1
+      - path: IK Chain008
+        weight: 1
+      - path: IK Chain009
+        weight: 1
+      - path: IK Chain010
+        weight: 1
+      - path: IK Chain011
         weight: 1
       - path: membrane
         weight: 1
@@ -165,7 +215,13 @@ ModelImporter:
         weight: 1
       - path: Point001/Point002
         weight: 1
-      - path: Point001/Point002/Point003
+      - path: Point001/Point003
+        weight: 1
+      - path: Point001/Point004
+        weight: 1
+      - path: Point001/Point005
+        weight: 1
+      - path: SplineIKNode001
         weight: 1
       - path: Torus001
         weight: 1
