@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour {
 	[HideInInspector]public GameObject feederGO, protectorGO;
 	[HideInInspector]public Feeder feeder;
 	[HideInInspector]public Protector protector;
+	[HideInInspector]public Animation feederAnim, protAnim;
 
 	[HideInInspector]public GameObject healthTextGO, foodTextGO;
 
@@ -35,19 +36,9 @@ public class PlayerManager : MonoBehaviour {
 
 		feeder = player1.GetComponent<Feeder>();
 		protector = player2.GetComponent<Protector>();
-	}
 
-	public void AdjustHealth(int adj)
-	{
-		health += adj;
-		if(health >= maxHealth)
-		{
-			health = maxHealth;
-		}
-		if(health <= 0)
-		{
-			Application.LoadLevel(Application.loadedLevelName);
-		}
+		feederAnim = GameObject.Find ("Feeder").GetComponent<Animation>();
+		protAnim = GameObject.Find ("Protector").GetComponent<Animation>();
 	}
 
 	public void AdjustFood(int adj) //called by Feeder/Protector class when receiving food

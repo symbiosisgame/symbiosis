@@ -11,6 +11,8 @@ public class PlayerControls : PlayerManager {
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
 
 
+
+
 	new void Start () 
 	{   
 		base.Start ();
@@ -18,6 +20,8 @@ public class PlayerControls : PlayerManager {
 		feeder = feederGO.GetComponent<Feeder>();
 		protectorGO = GameObject.Find("Player2");
 		protector = protectorGO.GetComponent<Protector>();
+		protAnim["ProtIdle"].speed = 2f;
+		protAnim["ProtMove"].speed = 2f;
 	}
 
 	void FixedUpdate () //better for physics calculations
@@ -50,6 +54,7 @@ public class PlayerControls : PlayerManager {
 		{
 			if(protector.currentFood > 0)
 			{
+				protAnim.CrossFade("ProtTaunt", .04f);
 				protector.Taunt(protectorGO.transform.position, 2f, -1);
 			}
 		}
@@ -103,6 +108,11 @@ public class PlayerControls : PlayerManager {
 		if(currSpeedP1 <= 0.01f)
 		{
 			currSpeedP1 = 0;
+			//feederAnim.CrossFade("FeederIdle", .4f); 
+		}
+		else
+		{
+			//feederAnim.CrossFade("FeederMove", .2f);
 		}
     }
 
@@ -111,6 +121,7 @@ public class PlayerControls : PlayerManager {
 		if(player2.rigidbody.velocity.magnitude < maxSpeed)
 		{
 			player2.rigidbody.AddForce(p2Transform.up * vert2 * acceleration * Time.deltaTime);
+
 		}
 		if(player2.rigidbody.angularVelocity.magnitude < maxTurnSpeed)
 		{
@@ -121,6 +132,28 @@ public class PlayerControls : PlayerManager {
 		if(currSpeedP2 <= 0.01f)
 		{
 			currSpeedP2 = 0;
+
+		}
+
+		if(vert2 < 0)
+		{
+			protAnim.CrossFade("ProtMove", .6f);
+		}
+		else if(vert2 > 0)
+		{
+			protAnim.CrossFade("ProtMove", .6f);
+		}
+		else
+		{
+			protAnim.CrossFade("ProtIdle", .4f); 
+		}
+		if(horiz2 < 0)
+		{
+			protAnim.CrossFade("ProtTurnRight", .4f); 
+		}
+		if(horiz2 > 0)
+		{
+			protAnim.CrossFade("ProtTurnLeft", .4f);
 		}
 	}
 	

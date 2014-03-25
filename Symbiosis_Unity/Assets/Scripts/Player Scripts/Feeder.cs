@@ -15,6 +15,7 @@ public class Feeder : PlayerManager {
 	Animator myAnim;
 	Food food;
 	GameObject foodPiece;
+	public AudioClip hurt, eat;
 
 	new void Start()
 	{
@@ -45,6 +46,7 @@ public class Feeder : PlayerManager {
 				currEatTime += eatRate * Time.deltaTime;
 				if(currEatTime >= eatTimer)
 				{
+					SoundEffects(eat);
 					food.foodStock--;
 					AdjustFood(1);
 					currEatTime = 0;
@@ -58,7 +60,7 @@ public class Feeder : PlayerManager {
 		}
 		else
 		{
-			myAnim.SetBool("Feeding", false);
+			//myAnim.SetBool("Feeding", false);
 		}
 	}
 
@@ -106,6 +108,27 @@ public class Feeder : PlayerManager {
 		else
 		{
 			currTransferTime = 0;
+		}
+	}
+
+	public void SoundEffects(AudioClip clip)
+	{
+		audio.audio.clip = clip;
+		audio.Play ();
+	}
+
+	public void AdjustHealth(int adj)
+	{
+		health += adj;
+		SoundEffects(hurt);
+		
+		if(health >= maxHealth)
+		{
+			health = maxHealth;
+		}
+		if(health <= 0)
+		{
+			Application.LoadLevel(Application.loadedLevelName);
 		}
 	}
 }

@@ -17,6 +17,7 @@ public class EnemyBehaviour : Entities
 	// common vars
 	Vector3 toPlayer1, toPlayer2;
 	Transform myTransform;
+	bool createSFX = false;
 
 	// intergrator
 	public Vector3 velocity = Vector3.zero;
@@ -28,6 +29,8 @@ public class EnemyBehaviour : Entities
 	public GameObject pointer;
 	GameObject target;
 	RaycastHit whatIHit;
+	AudioClip attack, flee;
+	public GameObject fleeSound;
 	
 	// enums
 	public enum EnemyStates
@@ -109,13 +112,13 @@ public class EnemyBehaviour : Entities
 	//Functions for behaviours, called in respective case
 	void Float() //Enemy floats about until player is in it's detection range
 	{
-		Debug.Log ("Enemy is floating (green)");
+		//Debug.Log ("Enemy is floating (green)");
 		transform.renderer.material.SetColor("_Emission", Color.green);
 		
 		if( toPlayer1.magnitude > detectorRadius && toPlayer1.magnitude < 15f)
 		{
 			currentState = EnemyStates.following;
-			Debug.Log("Won't change state to following...");
+			//Debug.Log("Won't change state to following...");
 		}
 		
 		if ( feeder.feeding )
@@ -126,7 +129,7 @@ public class EnemyBehaviour : Entities
 
 	void Follow() //Enemy follows player1, seeks the feeder if feeding, or 
 	{
-		Debug.Log ("Enemy is following (yellow)");
+		//Debug.Log ("Enemy is following (yellow)");
 		transform.renderer.material.SetColor("_Emission", Color.yellow);
 
 
@@ -152,23 +155,24 @@ public class EnemyBehaviour : Entities
 
 	void CloseRange()
 	{
-		Debug.Log ("Enemy is in close range (red)");
+	//	Debug.Log ("Enemy is in close range (red)");
 		transform.renderer.material.SetColor("_Emission", Color.red);	
 	}
 
 	void Feeding()
 	{
-		Debug.Log ("Enemy is feeding");
+		//Debug.Log ("Enemy is feeding");
 	}
 
 	void Fighting()
 	{
-		Debug.Log ("Enemy is fighting");
+		//Debug.Log ("Enemy is fighting");
 		transform.renderer.material.SetColor("_Emission", Color.red);	
 
 		attackTime += Time.deltaTime;
 		if(attackTime >= attackTimer)
 		{
+			SoundClip(attack);
 			feederGO.BroadcastMessage("AdjustHealth", -damage);
 			attackTime = 0;
 		}
@@ -183,18 +187,26 @@ public class EnemyBehaviour : Entities
 	void Fleeing()
 	{
 		transform.renderer.material.SetColor("_Emission", Color.red);	
-		Debug.Log ("Enemy is fleeing");
 
 		forceAcc += Flee(protectorGO);	// scared
+
+		if(!createSFX)
+		{
+			GameObject fleeSFX = Instantiate(fleeSound, transform.position, transform.rotation) as GameObject;
+			createSFX = true;
+
+		}
+		
 		if( toPlayer2.magnitude > Random.Range(10,14) )
 		{
+			createSFX = false;
 			currentState = EnemyStates.following;
 		}
 	}
 
 	void Dying()
 	{
-		Debug.Log ("Enemy is dying");
+
 	}
 
 	void CheckPlayer2Dist()
@@ -225,7 +237,7 @@ public class EnemyBehaviour : Entities
 		float fleeDist = 1.8f;
 		
 		Vector3 desired = other.transform.position - transform.position;
-		
+
 		if (desired.magnitude < fleeDist)
 		{
 			desired.Normalize();
@@ -318,5 +330,11 @@ public class EnemyBehaviour : Entities
 				pointer.GetComponent<SpriteRenderer>().enabled = false;
 			}
 		}
+	}
+
+	public void SoundClip(AudioClip clip)
+	{
+		audio.audio.clip = clip;
+		audio.Play ();
 	}
 }// end class

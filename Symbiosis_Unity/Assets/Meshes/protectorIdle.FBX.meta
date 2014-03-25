@@ -1,0 +1,186 @@
+fileFormatVersion: 2
+guid: c9959a5821ef2d540a3cee7279800364
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Body
+    100002: Bone004
+    100004: Bone005
+    100006: Bone007
+    100008: BoneBody
+    100010: BoneHead
+    100012: BoneTail
+    100014: EyeLeft
+    100016: EyeRight
+    100018: Group001
+    100020: Head
+    100022: Line007
+    100024: Line008
+    100026: //RootNode
+    100028: SphereBody
+    100030: SphereHead
+    100032: SphereTail
+    100034: Tail
+    400000: Body
+    400002: Bone004
+    400004: Bone005
+    400006: Bone007
+    400008: BoneBody
+    400010: BoneHead
+    400012: BoneTail
+    400014: EyeLeft
+    400016: EyeRight
+    400018: Group001
+    400020: Head
+    400022: Line007
+    400024: Line008
+    400026: //RootNode
+    400028: SphereBody
+    400030: SphereHead
+    400032: SphereTail
+    400034: Tail
+    2300000: EyeLeft
+    2300002: EyeRight
+    2300004: Line007
+    2300006: Line008
+    2300008: SphereBody
+    2300010: SphereHead
+    2300012: SphereTail
+    3300000: EyeLeft
+    3300002: EyeRight
+    3300004: Line007
+    3300006: Line008
+    3300008: SphereBody
+    3300010: SphereHead
+    3300012: SphereTail
+    4300000: SphereTail
+    4300002: Line007
+    4300004: Line008
+    4300006: EyeLeft
+    4300008: EyeRight
+    4300010: SphereHead
+    4300012: SphereBody
+    4300014: Head
+    4300016: Body
+    4300018: Tail
+    7400000: ProtIdle
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Body
+    13700002: Head
+    13700004: Tail
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: ProtIdle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 85
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone004
+        weight: 1
+      - path: Bone004/BoneBody
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead/Bone007
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead/EyeLeft
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead/EyeRight
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead/Line007
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead/Line008
+        weight: 1
+      - path: Bone004/BoneBody/BoneHead/SphereHead
+        weight: 1
+      - path: Bone004/BoneBody/SphereBody
+        weight: 1
+      - path: BoneTail
+        weight: 1
+      - path: BoneTail/Bone005
+        weight: 1
+      - path: BoneTail/SphereTail
+        weight: 1
+      - path: Group001
+        weight: 1
+      - path: Group001/Body
+        weight: 1
+      - path: Group001/Head
+        weight: 1
+      - path: Group001/Tail
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

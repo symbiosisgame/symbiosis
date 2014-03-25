@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour {
 			cleanTime += huskCleanRate * Time.deltaTime;
 			if(cleanTime >= cleanTimer)
 			{
+				audio.Play ();
 				huskClean --;
 				cleanTime = 0;
 			}

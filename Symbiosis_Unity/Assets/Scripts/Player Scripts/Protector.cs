@@ -39,6 +39,7 @@ public class Protector : PlayerManager {
 
 	public void Taunt(Vector3 center, float radius, int foodCost)
 	{
+		protAnim.Play ("ProtTaunt");
 		Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 		int i = 0;
 		while (i < hitColliders.Length) 
@@ -89,6 +90,20 @@ public class Protector : PlayerManager {
 		if(currentFood <= 0)
 		{
 			currentFood = 0;
+		}
+	}
+
+	public void AdjustHealth(int adj)
+	{
+		health += adj;
+		
+		if(health >= maxHealth)
+		{
+			health = maxHealth;
+		}
+		if(health <= 0)
+		{
+			Application.LoadLevel(Application.loadedLevelName);
 		}
 	}
 }
