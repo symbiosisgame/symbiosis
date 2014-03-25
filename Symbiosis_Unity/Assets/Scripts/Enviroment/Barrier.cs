@@ -2,17 +2,57 @@
 using System.Collections;
 
 public class Barrier : MonoBehaviour {
-[HideInInspector]
+    [HideInInspector]
    public bool barrierFeederTrigger;
     [HideInInspector]
    public bool barrierProtectorTrigger;
 
-	void Update() {
-        Debug.Log("Barrier Feeder:" + barrierFeederTrigger + " Barrier Protector:" + barrierProtectorTrigger);
-      if (barrierFeederTrigger && barrierProtectorTrigger)
-      { 
-            Debug.Log("All activated");
-           GameObject.Find("Barrier").renderer.enabled = false;
-      }
-	}
+    public enum whichTrigger { feeder, protector };
+    public whichTrigger whichAmI;
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (whichAmI == whichTrigger.feeder)
+        {
+            if (other.gameObject.name == "Player1")
+            {
+                barrierFeederTrigger = true;
+                Debug.Log("BarrierFeederTrigger" + barrierFeederTrigger);
+            }
+        }
+        if (whichAmI == whichTrigger.protector)
+        {
+            if (other.gameObject.name == "Player2")
+            {
+                barrierProtectorTrigger = true;
+                Debug.Log("BarrierProtectorTrigger" + barrierProtectorTrigger);
+            }
+        }
+            if (barrierFeederTrigger && barrierProtectorTrigger)
+            {
+                Debug.Log("All activated");
+                GameObject.Find("Barrier").renderer.enabled = false;
+            }
+        }
+    
+
+    void OnTriggerExit(Collider other)
+    {
+        if (whichAmI == whichTrigger.feeder)
+        {
+            if (other.gameObject.name == "Player1")
+            {
+                barrierFeederTrigger = false;
+                Debug.Log("BarrierProtectorTrigger" + barrierProtectorTrigger);
+            }
+        }
+        if (whichAmI == whichTrigger.protector)
+        {
+            if (other.gameObject.name == "Player2")
+            {
+                barrierProtectorTrigger = false;
+                Debug.Log("BarrierProtectorTrigger" + barrierProtectorTrigger);
+            }
+        }
+    }
 }

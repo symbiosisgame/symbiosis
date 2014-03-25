@@ -3,9 +3,12 @@ using System.Collections;
 
 public class BarrierFeederTrigger : Barrier {
 
- 
+    void Start()
+    {
+        barrierFeederTrigger = false;
+    }
 	// Use this for initialization
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Player1")
         {
@@ -17,7 +20,7 @@ public class BarrierFeederTrigger : Barrier {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Player1")
-            barrierFeederTrigger = false;        
+       // if (other.gameObject.name == "Player1")
+          //  barrierFeederTrigger = false;        
     }
 }

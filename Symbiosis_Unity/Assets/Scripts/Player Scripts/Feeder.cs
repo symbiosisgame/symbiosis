@@ -58,7 +58,7 @@ public class Feeder : PlayerManager {
 		}
 		else
 		{
-			myAnim.SetBool("Feeding", false);
+//			myAnim.SetBool("Feeding", false);
 		}
 	}
 
