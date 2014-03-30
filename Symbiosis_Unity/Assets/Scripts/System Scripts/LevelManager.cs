@@ -9,15 +9,16 @@ public class LevelManager : MonoBehaviour {
 	public int howMuchCharge;
 	public float huskCleanRate = 1f;
 	public float cleanTime, cleanTimer = 1f;
+	public int husk1Clean, husk2Clean, husk3Clean, husk4Clean;
 	public int foodSpawnRate;
-	GameObject barrier;
+	public GameObject[] barriers;
+	public GameObject[] chargeNodes;
 	FoodSpawner foodSpawner;
 	EnemySpawner enemySpawner;
 	bool invoked;
 
 	void Start () 
 	{
-		barrier = GameObject.Find ("Barrier");
 		foodSpawner = GetComponent<FoodSpawner>();
 		enemySpawner = GetComponent<EnemySpawner>();
 	}
@@ -30,10 +31,39 @@ public class LevelManager : MonoBehaviour {
 
 	void HuskCleaned()
 	{
-		if(huskClean == 0)
+		if(huskClean == husk1Clean)
 		{
-			Destroy (barrier.gameObject);
-			huskClean = 0;
+			Destroy (barriers[0].gameObject);
+			Destroy (chargeNodes[0].gameObject);
+			Destroy (chargeNodes[1].gameObject);
+			foodSpawner.whichHusk = FoodSpawner.Husk.second;
+			enemySpawner.whichHusk = EnemySpawner.Husk.second;
+			UnDock();
+		}
+		else if(huskClean == husk2Clean)
+		{
+			Destroy (barriers[1].gameObject);
+			Destroy (chargeNodes[2].gameObject);
+			Destroy (chargeNodes[3].gameObject);
+			foodSpawner.whichHusk = FoodSpawner.Husk.third;
+			enemySpawner.whichHusk = EnemySpawner.Husk.third;
+			UnDock();
+		}
+		else if(huskClean == husk3Clean)
+		{
+			Destroy (barriers[2].gameObject);
+			Destroy (chargeNodes[4].gameObject);
+			Destroy (chargeNodes[5].gameObject);
+			foodSpawner.whichHusk = FoodSpawner.Husk.forth;
+			enemySpawner.whichHusk = EnemySpawner.Husk.forth;
+			UnDock();
+		}
+		else if(huskClean == husk4Clean)
+		{
+			Destroy (barriers[3].gameObject);
+			Destroy (chargeNodes[6].gameObject);
+			Destroy (chargeNodes[7].gameObject);
+			UnDock();
 		}
 	}
 
@@ -51,7 +81,11 @@ public class LevelManager : MonoBehaviour {
 			if(!invoked)
 			{
 				InvokeRepeating("CreateFood", 3f, 8f / huskCleanRate); //repeat rate set quite high for testing
-				InvokeRepeating("CreateEnemy", 2f, 3f / huskCleanRate); //repeat rate set quite high for testing
+				if(enemySpawner.whichHusk != EnemySpawner.Husk.first)
+				{
+					Debug.Log ("LOL ENEMY");
+					InvokeRepeating("CreateEnemy", 2f, 3f / huskCleanRate); //repeat rate set quite high for testing
+				}
 				invoked = true;
 			}
 		}
@@ -71,5 +105,11 @@ public class LevelManager : MonoBehaviour {
 	void CreateEnemy()
 	{
 		enemySpawner.SpawnEnemy();
+	}
+
+	void UnDock()
+	{
+		Feeder.feederDocked = false;
+		Protector.protectorDocked = false;
 	}
 }
