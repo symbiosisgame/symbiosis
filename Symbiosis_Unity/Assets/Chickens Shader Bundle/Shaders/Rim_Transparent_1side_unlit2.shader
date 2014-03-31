@@ -1,4 +1,4 @@
-Shader "Red" {
+Shader "Red2" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
     _SpecColor ("Spec Color", Color) = (1,1,1,0)
@@ -8,15 +8,15 @@ Properties {
 }
  
 SubShader {
-    Tags {"RenderType"="Transparent" "Queue"="Transparent"}
-
-	 Cull Back
+    Tags {"RenderType"="Transparent" "Queue"="Transparent+1"}
+	Cull Back
          Blend SrcAlpha OneMinusSrcAlpha
-					Stencil {
+	Stencil {
 				Ref 2
-				Comp always
-				Pass replace
-				}
+				Comp notequal
+		    Pass incrwrap
+			}
+
     // Render into depth buffer only
         Pass {
         ColorMask 0
