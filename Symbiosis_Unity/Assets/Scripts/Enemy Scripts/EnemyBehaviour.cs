@@ -13,7 +13,7 @@ public class EnemyBehaviour : Entities
 	public int damage;
 	public float attackTimer;
 	private float attackTime;
-	
+
 	// common vars
 	Vector3 toPlayer1, toPlayer2;
 	Transform myTransform;
@@ -23,7 +23,7 @@ public class EnemyBehaviour : Entities
 	public Vector3 velocity = Vector3.zero;
 	public Vector3 forceAcc = Vector3.zero;
 	public Vector2 myPos2D;
-	public float maxSpeed = 0.5f;
+	float maxSpeed;
 	public float mass = 0.1f;
 
 	public GameObject pointer;
@@ -54,6 +54,7 @@ public class EnemyBehaviour : Entities
 		currentState = EnemyStates.floating;
 		mainCamera = GameObject.Find ("Main Camera");
 		myTransform = this.transform;
+		maxSpeed = Random.Range (1f, 1.6f);
 	}
 
 	// Update is called once per frame
@@ -173,7 +174,7 @@ public class EnemyBehaviour : Entities
 		if(attackTime >= attackTimer)
 		{
 			SoundClip(attack);
-			feederGO.BroadcastMessage("AdjustHealth", -damage);
+			feederGO.BroadcastMessage("AdjustHealth", damage);
 			attackTime = 0;
 		}
 
@@ -234,7 +235,7 @@ public class EnemyBehaviour : Entities
 	// flee
 	Vector3 Flee(GameObject other)
 	{
-		float fleeDist = 1.8f;
+		float fleeDist = Random.Range(1.2f, 1.8f);
 		
 		Vector3 desired = other.transform.position - transform.position;
 

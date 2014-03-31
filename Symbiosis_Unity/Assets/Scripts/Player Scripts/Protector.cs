@@ -23,6 +23,8 @@ public class Protector : PlayerManager {
 		base.Start();
 		pControls = GameObject.Find ("PlayerManager").GetComponent<PlayerControls>();
 		currentFood = 0;
+		health = 15;
+		maxHealth = 15;
 		myAnim = transform.GetChild (0).GetComponent<Animator>();
 		healthTextGO = GameObject.Find ("P2HealthText");
 		foodTextGO = GameObject.Find ("P2FoodText");

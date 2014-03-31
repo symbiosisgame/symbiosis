@@ -8,7 +8,7 @@ public class CameraCode : MonoBehaviour {
 	Transform myTransform;
 	private float zoomThreshold = 3f, maxCamSize = 12.6f;	
 	private Vector3 bottomLock, topLock, leftLock, rightLock;
-	private float bottom, top, left, right;
+	private float bottom = -39.23056f, top, left, right;
 	float boxScale = 4.34f;
 	float boxScaleX = 2.5f;
 
@@ -54,9 +54,9 @@ public class CameraCode : MonoBehaviour {
 
 	void LockCamera()
 	{
-		if(transform.position.y <= bottom)
+		if(transform.position.y < bottom)
 		{
-			//myTransform.position = bottomLock;
+			myTransform.position = new Vector3(transform.position.x, bottom, transform.position.z);
 		}
 	}
 }

@@ -16,11 +16,14 @@ public class Feeder : PlayerManager {
 	Food food;
 	GameObject foodPiece;
 	public AudioClip hurt, eat;
+	int myHealth = 15;
 
 	new void Start()
 	{
 		base.Start ();
 		currentFood = 0; 
+		health = 15;
+		maxHealth = 15;
 		myAnim = transform.GetChild(0).GetComponent<Animator>();
 		healthTextGO = GameObject.Find ("P1HealthText");
 		foodTextGO = GameObject.Find ("P1FoodText");
@@ -120,7 +123,8 @@ public class Feeder : PlayerManager {
 
 	public void AdjustHealth(int adj)
 	{
-		health += adj;
+		Debug.Log (health);
+		health -= adj;
 		SoundEffects(hurt);
 		
 		if(health >= maxHealth)
