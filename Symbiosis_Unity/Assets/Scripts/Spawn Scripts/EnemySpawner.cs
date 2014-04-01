@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public GameObject[] enemyPoints1, enemyPoints2, enemyPoints3, enemyPoints4;    
-	Vector3[] enemyPointsPos1, enemyPointsPos2, enemyPointsPos3, enemyPointsPos4;
+	public GameObject[] enemyPoints1, enemyPoints2, enemyPoints3, enemyPoints4, enemyPoints5;    
+	Vector3[] enemyPointsPos1, enemyPointsPos2, enemyPointsPos3, enemyPointsPos4, enemyPointsPos5;
 	public GameObject enemy;
-	float[] range1, range2, range3, range4; 
+	float[] range1, range2, range3, range4, range5; 
 	public List<GameObject> enemyList = new List<GameObject>();
-	[HideInInspector]public enum Husk {first, second, third, forth};
+	[HideInInspector]public enum Husk {first, second, third, forth, fifth};
 	[HideInInspector]public Husk whichHusk;
 	
 	void Start ()
@@ -17,11 +17,13 @@ public class EnemySpawner : MonoBehaviour {
 		enemyPointsPos2 = new Vector3[enemyPoints2.Length];
 		enemyPointsPos3 = new Vector3[enemyPoints3.Length];
 		enemyPointsPos4 = new Vector3[enemyPoints4.Length];
+		enemyPointsPos5 = new Vector3[enemyPoints5.Length];
 		
 		range1 = new float[enemyPoints1.Length];
 		range2 = new float[enemyPoints2.Length];
 		range3 = new float[enemyPoints3.Length];
 		range4 = new float[enemyPoints4.Length];
+		range5 = new float[enemyPoints5.Length];
 		
 		for(int i = 0; i < enemyPoints1.Length; i++)
 		{
@@ -46,6 +48,12 @@ public class EnemySpawner : MonoBehaviour {
 			//Gets the spawnradius for each FoodPoint
 			range4[i] = enemyPoints4[i].GetComponent<FoodRange>().spawnRadius;
 			enemyPointsPos4[i] = enemyPoints4[i].transform.position;
+		}
+		for(int i = 0; i < enemyPoints5.Length; i++)
+		{
+			//Gets the spawnradius for each FoodPoint
+			range5[i] = enemyPoints5[i].GetComponent<FoodRange>().spawnRadius;
+			enemyPointsPos5[i] = enemyPoints5[i].transform.position;
 		}
 	}
 
@@ -113,6 +121,23 @@ public class EnemySpawner : MonoBehaviour {
 			}
 			//Instantiate the food at a random point in the range of a random foodPoint
 			GameObject enemyGO = Instantiate(enemy, pos[Random.Range(0, enemyPointsPos3.Length)], Quaternion.identity) as GameObject;
+			enemyList.Add(enemyGO);
+		}
+		else if(whichHusk == Husk.fifth)
+		{
+			Vector3 [] pos;
+			pos = new Vector3[enemyPoints5.Length];
+			for (int i = 0; i < enemyPoints5.Length ; i++)
+			{
+				float spawnRange = range5[i];
+				Vector3 center = enemyPointsPos5[i];
+				Vector3 outer = RandomCircle(center, spawnRange);
+				//Get a random point between the center of the foodPoints and the outer limit of their radius
+				pos [i] = new Vector3(Random.Range(center.x, outer.x), Random.Range(center.y, outer.y), outer.z);
+				
+			}
+			//Instantiate the food at a random point in the range of a random foodPoint
+			GameObject enemyGO = Instantiate(enemy, pos[Random.Range(0, enemyPointsPos5.Length)], Quaternion.identity) as GameObject;
 			enemyList.Add(enemyGO);
 		}
 	}

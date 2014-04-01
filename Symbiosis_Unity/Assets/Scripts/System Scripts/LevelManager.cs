@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
 	public int howMuchCharge;
 	public float huskCleanRate = 1f;
 	public float cleanTime, cleanTimer = 1f;
-	public int husk1Clean, husk2Clean, husk3Clean, husk4Clean;
+	public int husk1Clean, husk2Clean, husk3Clean, husk4Clean, husk5Clean;
 	public int foodSpawnRate;
 	public GameObject[] barriers;
 	public GameObject[] chargeNodes;
@@ -65,6 +65,13 @@ public class LevelManager : MonoBehaviour {
 			Destroy (chargeNodes[7].gameObject);
 			UnDock();
 		}
+		else if(huskClean == husk5Clean)
+		{
+			Destroy (barriers[4].gameObject);
+			Destroy (chargeNodes[8].gameObject);
+			Destroy (chargeNodes[9].gameObject);
+			UnDock();
+		}
 	}
 
 	void CheckDocking()
@@ -84,7 +91,7 @@ public class LevelManager : MonoBehaviour {
 				if(enemySpawner.whichHusk != EnemySpawner.Husk.first)
 				{
 					Debug.Log ("LOL ENEMY");
-					InvokeRepeating("CreateEnemy", 2f, 3f / huskCleanRate); //repeat rate set quite high for testing
+					InvokeRepeating("CreateEnemy", 2f, 4f / huskCleanRate); //repeat rate set quite high for testing
 				}
 				invoked = true;
 			}

@@ -56,7 +56,7 @@ public class EnemyBehaviour : Entities
 		currentState = EnemyStates.floating;
 		mainCamera = GameObject.Find ("Main Camera");
 		myTransform = this.transform;
-		maxSpeed = Random.Range (1f, 1.6f);
+		maxSpeed = Random.Range (.6f, 1.1f);
 	}
 
 	// Update is called once per frame
