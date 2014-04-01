@@ -23,9 +23,8 @@ public class OnTriggerOpenButtonDoor : MonoBehaviour
 	public bool closesWhenPlayer1_Exiting = false;
 	public bool closesWhenPlayer2_Exiting = false;
 
-
-
-
+	public GameObject door;
+	
 	// Use this for initialization
 	void Start ()
 	{
@@ -33,9 +32,9 @@ public class OnTriggerOpenButtonDoor : MonoBehaviour
 		//DoorRightSide = GameObject.Find ("Door-Right-Side");
 		AnimLeft = DoorLeftSide.GetComponent<Animation>();
 		AnimRight = DoorRightSide.GetComponent<Animation>();
+
 	}
-	
-	
+
 	
 	// Update is called once per frame
 	void Update ()
@@ -43,6 +42,7 @@ public class OnTriggerOpenButtonDoor : MonoBehaviour
 		if( playerInTrigger && !AnimLeft.IsPlaying("Door-Left-Open") )
 		{
 			playAnimForward();
+			OpenDoor();
 		}
 	}
 
@@ -95,6 +95,20 @@ public class OnTriggerOpenButtonDoor : MonoBehaviour
 		print ("REWIND " + AnimLeft.isPlaying);
 	}
 	***/
+
+	void OpenDoor()
+	{
+		door.GetComponent<Animation>().CrossFade("DoorOpen", .4f);
+		DoorLeftSide.SetActive(false);
+		DoorRightSide.SetActive(false);
+	}
+
+	void CloseDoor()
+	{
+		door.GetComponent<Animation>().CrossFade("DoorClose", .4f);
+		DoorLeftSide.SetActive(true);
+		DoorRightSide.SetActive(true);
+	}
 	
 
 	// triggers

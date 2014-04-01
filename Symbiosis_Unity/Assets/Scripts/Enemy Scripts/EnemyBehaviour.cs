@@ -14,6 +14,8 @@ public class EnemyBehaviour : Entities
 	public float attackTimer;
 	private float attackTime;
 
+	public float detectDist;
+
 	// common vars
 	Vector3 toPlayer1, toPlayer2;
 	Transform myTransform;
@@ -60,9 +62,11 @@ public class EnemyBehaviour : Entities
 	// Update is called once per frame
 	void Update ()
 	{
+
+
 		toPlayer1 = p1Transform.position - transform.position;
 		toPlayer2 = p2Transform.position - transform.position;
-		OffScreenIndicator();
+		//OffScreenIndicator(); //disabled until improved
 		// case and switch begins
 		// TODO player behaviours on arrival, feeding, attack, scared
 
@@ -122,7 +126,7 @@ public class EnemyBehaviour : Entities
 			//Debug.Log("Won't change state to following...");
 		}
 		
-		if ( feeder.feeding )
+		if ( toPlayer1.magnitude < detectDist)
 		{
 			currentState = EnemyStates.following;
 		}
@@ -143,7 +147,7 @@ public class EnemyBehaviour : Entities
 			currentState = EnemyStates.floating;
 		}
 
-		if (feeder.feeding)
+		if (toPlayer1.magnitude < detectDist)
 		{
 			forceAcc += Seek(feeder.transform.position);
 		}
