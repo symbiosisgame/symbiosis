@@ -79,6 +79,7 @@ public class LevelManager : MonoBehaviour {
 		if(Feeder.feederDocked && Protector.protectorDocked)
 		{
 			cleanTime += huskCleanRate * Time.deltaTime;
+
 			if(cleanTime >= cleanTimer)
 			{
 				audio.Play ();
