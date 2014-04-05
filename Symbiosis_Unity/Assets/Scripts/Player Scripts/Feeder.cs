@@ -3,20 +3,24 @@ using System.Collections;
 
 public class Feeder : PlayerManager {
 
-	public float currEatTime, eatTimer;
+	private float currEatTime, eatTimer;
+
 	public float currTransferTime, transferTimer, transferMod;
 	public float eatRate = 1;
+	public GameObject foodBall;
+	public AudioClip hurt, eat;
+
 	[HideInInspector]public bool feeding;
 	[HideInInspector]public bool transferring;
+
 	public static bool feederDocked;
+
 	GameObject foodSource;
-	public GameObject foodBall;
+	GameObject foodPiece;
 	bool createFood;
+
 	Animator myAnim;
 	Food food;
-	GameObject foodPiece;
-	public AudioClip hurt, eat;
-	int myHealth = 15;
 
 	new void Start()
 	{
@@ -34,6 +38,7 @@ public class Feeder : PlayerManager {
 	{
 		Feed();
 		TransferFood();
+
 
 		//will move later
 		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
@@ -137,4 +142,5 @@ public class Feeder : PlayerManager {
 			Application.LoadLevel(Application.loadedLevelName);
 		}
 	}
+
 }

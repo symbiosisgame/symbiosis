@@ -10,9 +10,6 @@ public class PlayerControls : PlayerManager {
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
 
-
-
-
 	new void Start () 
 	{   
 		base.Start ();
@@ -20,8 +17,11 @@ public class PlayerControls : PlayerManager {
 		feeder = feederGO.GetComponent<Feeder>();
 		protectorGO = GameObject.Find("Player2");
 		protector = protectorGO.GetComponent<Protector>();
-		protAnim["ProtIdle"].speed = 2f;
-		protAnim["ProtMove"].speed = 2f;
+	
+		protAnim["ProtTurnLeft"].speed = 0.5f;
+		protAnim["ProtTurnRight"].speed = 0.5f ;
+		feederAnim["FeederTurnLeft"].speed = 0.5f;
+		feederAnim["FeederTurnRight"].speed = 0.5f;
 	}
 
 	void FixedUpdate () //better for physics calculations
@@ -54,7 +54,7 @@ public class PlayerControls : PlayerManager {
 		{
 			if(protector.currentFood > 0)
 			{
-				protAnim.CrossFade("ProtTaunt", .04f);
+				protAnim.CrossFade("ProtTaunt", .4f);
 				protector.Taunt(protectorGO.transform.position, 2f, -1);
 			}
 		}
@@ -70,7 +70,7 @@ public class PlayerControls : PlayerManager {
 
 	void StoreAxis()
 	{
-		if(keyboard)
+		if(!keyboard)
 		{
 			horiz1 = Input.GetAxis("HorizontalP1");
 			vert1 = Input.GetAxis("VerticalP1");
@@ -108,25 +108,20 @@ public class PlayerControls : PlayerManager {
 		if(currSpeedP1 <= 0.01f)
 		{
 			currSpeedP1 = 0;
-			feederAnim.CrossFade("FeederIdle", .4f);
+			feederAnim.CrossFade("FeederIdle", .2f);
 		}
-		else
-		{
-			feederAnim.CrossFade("FeederIdle", .4f);
-		}
-
-
+		
 		if(horiz1 < 0)
 		{
-			feederAnim.CrossFade("FeederTurnLeft", .4f); 
+			feederAnim.CrossFade("FeederTurnLeft", .2f); 
 		}
 		else if(horiz1 > 0)
 		{
-			feederAnim.CrossFade("FeederTurnRight", .4f);
+			feederAnim.CrossFade("FeederTurnRight", .2f);
 		}
 		else
 		{
-			//feederAnim.CrossFade("FeederIdle", .4f);
+			feederAnim.CrossFade("FeederIdle", .2f);
 		}
     }
 
@@ -134,12 +129,12 @@ public class PlayerControls : PlayerManager {
 	{
 		if(player2.rigidbody.velocity.magnitude < maxSpeed)
 		{
-			player2.rigidbody.AddForce(p2Transform.up * vert2 * acceleration * Time.deltaTime);
+			player2.rigidbody.AddForce(p2Transform.up * vert1 * acceleration * Time.deltaTime);
 
 		}
 		if(player2.rigidbody.angularVelocity.magnitude < maxTurnSpeed)
 		{
-			player2.rigidbody.AddTorque(-p2Transform.forward * horiz2 * turnAcceleration * Time.deltaTime);
+			player2.rigidbody.AddTorque(-p2Transform.forward * horiz1 * turnAcceleration * Time.deltaTime);
 		}
 		
 		currSpeedP2 = player2.rigidbody.velocity.magnitude;

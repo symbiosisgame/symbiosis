@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c9959a5821ef2d540a3cee7279800364
+guid: 6927da00d73f6c447ab4ee86a0d75177
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,38 +7,198 @@ ModelImporter:
     100002: Bone004
     100004: Bone005
     100006: Bone007
-    100008: BoneBody
-    100010: BoneHead
-    100012: BoneTail
-    100014: EyeLeft
-    100016: EyeRight
-    100018: Group001
-    100020: Head
-    100022: Line007
-    100024: Line008
-    100026: //RootNode
-    100028: SphereBody
-    100030: SphereHead
-    100032: SphereTail
-    100034: Tail
+    100008: Bone016
+    100010: Bone017
+    100012: Bone018
+    100014: Bone019
+    100016: Bone020
+    100018: Bone021
+    100020: Bone022
+    100022: Bone023
+    100024: Bone024
+    100026: Bone025
+    100028: Bone026
+    100030: Bone027
+    100032: Bone028
+    100034: Bone029
+    100036: Bone030
+    100038: Bone031
+    100040: Bone032
+    100042: Bone033
+    100044: Bone034
+    100046: Bone035
+    100048: Bone036
+    100050: Bone037
+    100052: Bone038
+    100054: Bone039
+    100056: Bone040
+    100058: Bone041
+    100060: Bone042
+    100062: Bone043
+    100064: Bone044
+    100066: Bone045
+    100068: Bone046
+    100070: Bone047
+    100072: Bone048
+    100074: Bone049
+    100076: Bone050
+    100078: Bone051
+    100080: Bone052
+    100082: Bone053
+    100084: Bone054
+    100086: Bone055
+    100088: Bone064
+    100090: Bone065
+    100092: Bone066
+    100094: Bone067
+    100096: Bone068
+    100098: Bone069
+    100100: Bone070
+    100102: Bone071
+    100104: Bone072
+    100106: Bone073
+    100108: Bone074
+    100110: Bone075
+    100112: Bone076
+    100114: Bone077
+    100116: Bone078
+    100118: Bone079
+    100120: BoneBody
+    100122: BoneHead
+    100124: BoneTail
+    100126: Box003
+    100128: Box004
+    100130: Box005
+    100132: Box006
+    100134: Box007
+    100136: Box009
+    100138: Box010
+    100140: EyeLeft
+    100142: EyeRight
+    100144: Group001
+    100146: Head
+    100148: IK Chain001
+    100150: IK Chain002
+    100152: Line007
+    100154: Line008
+    100156: Point010
+    100158: Point011
+    100160: Point012
+    100162: Point013
+    100164: Point014
+    100166: Point016
+    100168: Point017
+    100170: //RootNode
+    100172: SphereBody
+    100174: SphereHead
+    100176: SphereTail
+    100178: SpringForce_001
+    100180: Tail
+    100182: Tent003
+    100184: Tent004
+    100186: Tent005
+    100188: Tent006
+    100190: Tent008
+    100192: Tent009
+    100194: Tent2
     400000: Body
     400002: Bone004
     400004: Bone005
     400006: Bone007
-    400008: BoneBody
-    400010: BoneHead
-    400012: BoneTail
-    400014: EyeLeft
-    400016: EyeRight
-    400018: Group001
-    400020: Head
-    400022: Line007
-    400024: Line008
-    400026: //RootNode
-    400028: SphereBody
-    400030: SphereHead
-    400032: SphereTail
-    400034: Tail
+    400008: Bone016
+    400010: Bone017
+    400012: Bone018
+    400014: Bone019
+    400016: Bone020
+    400018: Bone021
+    400020: Bone022
+    400022: Bone023
+    400024: Bone024
+    400026: Bone025
+    400028: Bone026
+    400030: Bone027
+    400032: Bone028
+    400034: Bone029
+    400036: Bone030
+    400038: Bone031
+    400040: Bone032
+    400042: Bone033
+    400044: Bone034
+    400046: Bone035
+    400048: Bone036
+    400050: Bone037
+    400052: Bone038
+    400054: Bone039
+    400056: Bone040
+    400058: Bone041
+    400060: Bone042
+    400062: Bone043
+    400064: Bone044
+    400066: Bone045
+    400068: Bone046
+    400070: Bone047
+    400072: Bone048
+    400074: Bone049
+    400076: Bone050
+    400078: Bone051
+    400080: Bone052
+    400082: Bone053
+    400084: Bone054
+    400086: Bone055
+    400088: Bone064
+    400090: Bone065
+    400092: Bone066
+    400094: Bone067
+    400096: Bone068
+    400098: Bone069
+    400100: Bone070
+    400102: Bone071
+    400104: Bone072
+    400106: Bone073
+    400108: Bone074
+    400110: Bone075
+    400112: Bone076
+    400114: Bone077
+    400116: Bone078
+    400118: Bone079
+    400120: BoneBody
+    400122: BoneHead
+    400124: BoneTail
+    400126: Box003
+    400128: Box004
+    400130: Box005
+    400132: Box006
+    400134: Box007
+    400136: Box009
+    400138: Box010
+    400140: EyeLeft
+    400142: EyeRight
+    400144: Group001
+    400146: Head
+    400148: IK Chain001
+    400150: IK Chain002
+    400152: Line007
+    400154: Line008
+    400156: Point010
+    400158: Point011
+    400160: Point012
+    400162: Point013
+    400164: Point014
+    400166: Point016
+    400168: Point017
+    400170: //RootNode
+    400172: SphereBody
+    400174: SphereHead
+    400176: SphereTail
+    400178: SpringForce_001
+    400180: Tail
+    400182: Tent003
+    400184: Tent004
+    400186: Tent005
+    400188: Tent006
+    400190: Tent008
+    400192: Tent009
+    400194: Tent2
     2300000: EyeLeft
     2300002: EyeRight
     2300004: Line007
@@ -54,21 +214,34 @@ ModelImporter:
     3300010: SphereHead
     3300012: SphereTail
     4300000: SphereTail
-    4300002: Line007
-    4300004: Line008
-    4300006: EyeLeft
-    4300008: EyeRight
-    4300010: SphereHead
-    4300012: SphereBody
-    4300014: Head
-    4300016: Body
-    4300018: Tail
-    7400000: ProtIdle
+    4300002: Box003
+    4300004: Box005
+    4300006: Box004
+    4300008: Box006
+    4300010: Box007
+    4300012: Box009
+    4300014: Box010
+    4300016: Line007
+    4300018: Line008
+    4300020: EyeLeft
+    4300022: EyeRight
+    4300024: SphereHead
+    4300026: SphereBody
+    4300028: Head
+    4300030: Body
+    4300032: Tail
+    7400000: Take 001
     9500000: //RootNode
-    11100000: //RootNode
     13700000: Body
-    13700002: Head
-    13700004: Tail
+    13700002: Box003
+    13700004: Box004
+    13700006: Box005
+    13700008: Box006
+    13700010: Box007
+    13700012: Box009
+    13700014: Box010
+    13700016: Head
+    13700018: Tail
   materials:
     importMaterials: 1
     materialName: 0
@@ -83,69 +256,7 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: ProtIdle
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 85
-      wrapMode: 2
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 1
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Bone004
-        weight: 1
-      - path: Bone004/BoneBody
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead/Bone007
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead/EyeLeft
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead/EyeRight
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead/Line007
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead/Line008
-        weight: 1
-      - path: Bone004/BoneBody/BoneHead/SphereHead
-        weight: 1
-      - path: Bone004/BoneBody/SphereBody
-        weight: 1
-      - path: BoneTail
-        weight: 1
-      - path: BoneTail/Bone005
-        weight: 1
-      - path: BoneTail/SphereTail
-        weight: 1
-      - path: Group001
-        weight: 1
-      - path: Group001/Body
-        weight: 1
-      - path: Group001/Head
-        weight: 1
-      - path: Group001/Tail
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -181,6 +292,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 
