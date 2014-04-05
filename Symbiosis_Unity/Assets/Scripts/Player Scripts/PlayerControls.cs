@@ -129,12 +129,12 @@ public class PlayerControls : PlayerManager {
 	{
 		if(player2.rigidbody.velocity.magnitude < maxSpeed)
 		{
-			player2.rigidbody.AddForce(p2Transform.up * vert1 * acceleration * Time.deltaTime);
+			player2.rigidbody.AddForce(p2Transform.up * vert2 * acceleration * Time.deltaTime);
 
 		}
 		if(player2.rigidbody.angularVelocity.magnitude < maxTurnSpeed)
 		{
-			player2.rigidbody.AddTorque(-p2Transform.forward * horiz1 * turnAcceleration * Time.deltaTime);
+			player2.rigidbody.AddTorque(-p2Transform.forward * horiz2 * turnAcceleration * Time.deltaTime);
 		}
 		
 		currSpeedP2 = player2.rigidbody.velocity.magnitude;
