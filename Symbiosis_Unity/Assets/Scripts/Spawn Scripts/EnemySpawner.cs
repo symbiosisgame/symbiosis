@@ -28,31 +28,31 @@ public class EnemySpawner : MonoBehaviour {
 		for(int i = 0; i < enemyPoints1.Length; i++)
 		{
 			//Gets the spawnradius for each FoodPoint
-			range1[i] = enemyPoints1[i].GetComponent<FoodRange>().spawnRadius;
+			range1[i] = enemyPoints1[i].GetComponent<SpawnerRange>().spawnRadius;
 			enemyPointsPos1[i] = enemyPoints1[i].transform.position;
 		}
 		for(int i = 0; i < enemyPoints2.Length; i++)
 		{
 			//Gets the spawnradius for each FoodPoint
-			range2[i] = enemyPoints2[i].GetComponent<FoodRange>().spawnRadius;
+			range2[i] = enemyPoints2[i].GetComponent<SpawnerRange>().spawnRadius;
 			enemyPointsPos2[i] = enemyPoints2[i].transform.position;
 		}
 		for(int i = 0; i < enemyPoints3.Length; i++)
 		{
 			//Gets the spawnradius for each FoodPoint
-			range3[i] = enemyPoints3[i].GetComponent<FoodRange>().spawnRadius;
+			range3[i] = enemyPoints3[i].GetComponent<SpawnerRange>().spawnRadius;
 			enemyPointsPos3[i] = enemyPoints3[i].transform.position;
 		}
 		for(int i = 0; i < enemyPoints4.Length; i++)
 		{
 			//Gets the spawnradius for each FoodPoint
-			range4[i] = enemyPoints4[i].GetComponent<FoodRange>().spawnRadius;
+			range4[i] = enemyPoints4[i].GetComponent<SpawnerRange>().spawnRadius;
 			enemyPointsPos4[i] = enemyPoints4[i].transform.position;
 		}
 		for(int i = 0; i < enemyPoints5.Length; i++)
 		{
 			//Gets the spawnradius for each FoodPoint
-			range5[i] = enemyPoints5[i].GetComponent<FoodRange>().spawnRadius;
+			range5[i] = enemyPoints5[i].GetComponent<SpawnerRange>().spawnRadius;
 			enemyPointsPos5[i] = enemyPoints5[i].transform.position;
 		}
 	}

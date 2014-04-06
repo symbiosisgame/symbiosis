@@ -23,6 +23,7 @@ public class LevelMan : MonoBehaviour {
 
 	private int huskCount = 1;
 	private GameObject currHusk;
+	private bool invoked = false;
 	private float cleanTime = 0f, cleanTimer = 1f, huskCleanRate = 1f;
 	private List<GameObject> huskLogic = new List<GameObject>(); //stores all husk logic ie.charge nodes, spawners and barrier
 	private List<GameObject> enemySpawners = new List<GameObject>();
@@ -38,13 +39,13 @@ public class LevelMan : MonoBehaviour {
 	{
 		CheckHuskCleaning();
 		CheckDocking();
+		Debug.Log(levelCleaned.ToString("0.0"));
 	}
 
 	void CheckHuskCleaning() //checks to see if the overall level health is less than current husk, then moves onto next husk
 	{
 		if(levelCleaned > 0)
 		{
-			levelCleaned -= Time.deltaTime;
 			if(levelCleaned <= huskCleanValues[huskCount-1])
 			{
 				HuskCleared();
@@ -64,6 +65,7 @@ public class LevelMan : MonoBehaviour {
 		foodSpawners.Clear();
 		enemySpawners.Clear();
 		UpdateHuskLogic();
+		UnDock();
 	}
 
 	void UpdateHuskLogic() //Updates the HuskLogic GameObject list with logic from next husk
@@ -92,7 +94,6 @@ public class LevelMan : MonoBehaviour {
 
 	void CheckDocking() //check to see if players are docked, then clean husk and spawn food/enemies
 	{
-		bool invoked = false;
 		if(Feeder.feederDocked && Protector.protectorDocked)
 		{
 			cleanTime += huskCleanRate * Time.deltaTime;
@@ -105,10 +106,10 @@ public class LevelMan : MonoBehaviour {
 			}
 			if(!invoked)
 			{
-				InvokeRepeating("SpawnFood", 3f, 8f / huskCleanRate); //repeat rate set quite high for testing
+				InvokeRepeating("SpawnFood", 3f, 6f / huskCleanRate); //repeat rate set quite high for testing
 				if(huskCount != 1)
 				{
-					InvokeRepeating("SpawnEnemy", 2f, 4f / huskCleanRate); //repeat rate set quite high for testing
+					InvokeRepeating("SpawnEnemy", 2f, 5f / huskCleanRate); //repeat rate set quite high for testing
 				}
 				invoked = true;
 			}
@@ -130,5 +131,11 @@ public class LevelMan : MonoBehaviour {
 	{
 		Vector3[] pos = new Vector3[enemySpawners.Count];
 		GameObject enemyGO = Instantiate(enemy, enemySpawners[Random.Range (0, enemySpawners.Count)].transform.position, Quaternion.identity) as GameObject;
+	}
+
+	public void UnDock()
+	{
+		Feeder.feederDocked = false;
+		Protector.protectorDocked = false;
 	}
 }
