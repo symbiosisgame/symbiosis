@@ -340,7 +340,7 @@ public class EnemyBehaviour : Entities
 
 	public void SoundClip(AudioClip clip)
 	{
-		//audio.audio.clip = clip; //TODO audio disabled tmp
-		//audio.Play ();
+		audio.audio.clip = clip; //TODO check audio in prefabs
+		audio.Play ();
 	}
 }// end class

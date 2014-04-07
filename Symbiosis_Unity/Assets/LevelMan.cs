@@ -100,7 +100,7 @@ public class LevelMan : MonoBehaviour {
 			
 			if(cleanTime >= cleanTimer)
 			{
-				//audio.Play ();	//TODO audio disabled tmp
+				//audio.Play ();	//TODO check audio is available
 				levelCleaned --;
 				cleanTime = 0;
 			}

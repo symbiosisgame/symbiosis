@@ -49,7 +49,7 @@ public class Sucker : MonoBehaviour
     {
         toPlayer1 = p1Transform.position - transform.position;
         toPlayer2 = p2Transform.position - transform.position;
-        Debug.DrawLine(transform.position, p1Transform.position);
+        //Debug.DrawLine(transform.position, p1Transform.position); // disabled
         p1Transform.position = p1Transform.position + velocity * Time.deltaTime;
         Vector3 accel = forceAcc / mass;
         velocity = velocity + accel  * Time.deltaTime;
