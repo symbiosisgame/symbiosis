@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Feeder : PlayerManager {
 
-	private float currEatTime, eatTimer;
+	private float currEatTime, eatTimer = 1f;
 
 	public float currTransferTime, transferTimer, transferMod;
 	public float eatRate = 1;
@@ -39,7 +39,6 @@ public class Feeder : PlayerManager {
 		Feed();
 		TransferFood();
 
-
 		//will move later
 		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
 		foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
@@ -53,7 +52,7 @@ public class Feeder : PlayerManager {
 			//myAnim.SetBool("Feeding", true); //Feeding bool tracked in the animator for transition condition
 			if(food.foodStock > 0) //tracks to see if any food is left in Foods stock 
 			{
-				currEatTime += eatRate * Time.deltaTime;
+				currEatTime +=  eatRate * Time.deltaTime;
 				if(currEatTime >= eatTimer)
 				{
 					SoundEffects(eat);

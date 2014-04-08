@@ -12,6 +12,7 @@ public class Protector : PlayerManager {
 	PlayerControls pControls;
 	public float drainTime, drainTimer;
 	public int shieldUsage;
+	public GameObject tauntEffect;
 	
 	void Awake()
 	{
@@ -41,7 +42,8 @@ public class Protector : PlayerManager {
 
 	public void Taunt(Vector3 center, float radius, int foodCost)
 	{
-		protAnim.Play ("ProtTaunt");
+		//PARTICLE
+		//protAnim.CrossFade ("ProtTaunt", .4f);
 		Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 		int i = 0;
 		while (i < hitColliders.Length) 
@@ -51,6 +53,9 @@ public class Protector : PlayerManager {
 			i++;
 		}
 		currentFood += foodCost;
+		GameObject tauntFX = Instantiate(tauntEffect, transform.position, Quaternion.identity)as GameObject;
+		tauntFX.transform.parent = transform;
+		audio.Play ();
 		myAnim.Play ("Taunt");
 	}
 	

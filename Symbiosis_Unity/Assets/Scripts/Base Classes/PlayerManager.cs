@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour {
 
 	[HideInInspector]public GameObject healthTextGO, foodTextGO;
 
-	[HideInInspector]public int currentFood;
+	public int currentFood;
 	[HideInInspector]public int health, maxHealth;
 
 	protected void Start () 

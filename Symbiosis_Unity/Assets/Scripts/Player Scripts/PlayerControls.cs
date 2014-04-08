@@ -113,11 +113,11 @@ public class PlayerControls : PlayerManager {
 		
 		if(horiz1 < 0)
 		{
-			feederAnim.CrossFade("FeederTurnLeft", .2f); 
+			//feederAnim.CrossFade("FeederTurnLeft", .2f); 
 		}
 		else if(horiz1 > 0)
 		{
-			feederAnim.CrossFade("FeederTurnRight", .2f);
+			//feederAnim.CrossFade("FeederTurnRight", .2f);
 		}
 		else
 		{
@@ -158,11 +158,11 @@ public class PlayerControls : PlayerManager {
 		}
 		if(horiz2 < 0)
 		{
-			protAnim.CrossFade("ProtTurnRight", .4f); 
+			//protAnim.CrossFade("ProtTurnRight", .4f); 
 		}
 		if(horiz2 > 0)
 		{
-			protAnim.CrossFade("ProtTurnLeft", .4f);
+			//protAnim.CrossFade("ProtTurnLeft", .4f);
 		}
 	}
 	

@@ -1,0 +1,573 @@
+fileFormatVersion: 2
+guid: e152a6367bc076a4b81d24efaa7b36be
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bone002
+    100002: Bone008
+    100004: Bone014
+    100006: Bone019
+    100008: Bone025
+    100010: Bone031
+    100012: Bone036
+    100014: BouncyBone_003
+    100016: BouncyBone_005
+    100018: BouncyBone_007
+    100020: BouncyBone_008
+    100022: BouncyBone_011
+    100024: BouncyBone_013
+    100026: BouncyBone_015
+    100028: BouncyBone_017
+    100030: BouncyBone_018
+    100032: BouncyBone_020
+    100034: BouncyBone_022
+    100036: BouncyBone_023
+    100038: BouncyBone_025
+    100040: BouncyBone_026
+    100042: BouncyBone_029
+    100044: BouncyBone_031
+    100046: BouncyBone_033
+    100048: BouncyBone_034
+    100050: BouncyBone_037
+    100052: BouncyBone_039
+    100054: BouncyBone_041
+    100056: BouncyBone_043
+    100058: BouncyBone_044
+    100060: BouncyBone_045
+    100062: BouncyBone_047
+    100064: BouncyBone_048
+    100066: BouncyBone_049
+    100068: BouncyBone_051
+    100070: BouncyBone_052
+    100072: Line001
+    100074: Node_1-Dyn-IKChain_001_RG
+    100076: Node_1-Dyn-IKChain_002_RG
+    100078: Node_1-Dyn-IKChain_003_RG
+    100080: Node_1-Dyn_003_CTRL_zero
+    100082: Node_1-Dyn_004_CTRL_zero
+    100084: Node_2-Dyn-IKChain_001_RG
+    100086: Node_2-Dyn-IKChain_002_RG
+    100088: Node_2-Dyn-IKChain_003_RG
+    100090: Node_2-Dyn_004_CTRL_zero
+    100092: Node_3-Dyn-IKChain_001_RG
+    100094: Node_3-Dyn-IKChain_002_RG
+    100096: Node_3-Dyn-IKChain_003_RG
+    100098: Node_3-Dyn_004_CTRL_zero
+    100100: Node_4-Dyn-IKChain_001_RG
+    100102: Node_4-Dyn-IKChain_002_RG
+    100104: Node_4-Dyn-IKChain_003_RG
+    100106: Node_5-Dyn-IKChain_001_RG
+    100108: Node_5-Dyn-IKChain_002_RG
+    100110: Node_5-Dyn-IKChain_003_RG
+    100112: Node_5-Dyn_004_CTRL_zero
+    100114: Node_6-Dyn-IKChain_001_RG
+    100116: Node_6-Dyn-IKChain_002_RG
+    100118: Node_6-Dyn-IKChain_003_RG
+    100120: Node_6-Dyn_003_CTRL_zero
+    100122: Node_6-Dyn_004_CTRL_zero
+    100124: Node_Main-Dyn-IKChain_001_RG
+    100126: Node_Main-Dyn-IKChain_002_RG
+    100128: Node_Main-Dyn_002_CTRL_zero
+    100130: Node_Main-Dyn_003_CTRL_zero
+    100132: //RootNode
+    100134: Nodex_Node1-Dyn-IKChain_001_RG
+    100136: Nodex_Node1-Dyn-IKChain_002_RG
+    100138: SpringDummy_001
+    100140: SpringDummy_002
+    100142: SpringDummy_003
+    100144: SpringDummy_004
+    100146: SpringDummy_005
+    100148: SpringDummy_006
+    100150: SpringDummy_007
+    100152: SpringDummy_008
+    100154: SpringDummy_009
+    100156: SpringDummy_010
+    100158: SpringDummy_011
+    100160: SpringDummy_012
+    100162: SpringDummy_013
+    100164: SpringDummy_014
+    100166: SpringDummy_015
+    100168: SpringDummy_016
+    100170: SpringDummy_017
+    100172: SpringDummy_018
+    100174: SpringDummy_019
+    100176: SpringDummy_020
+    100178: SpringDummy_021
+    100180: SpringDummy_022
+    100182: SpringDummy_023
+    100184: SpringDummy_024
+    100186: SpringDummy_025
+    100188: SpringDummy_026
+    100190: SpringForce_001
+    100192: SpringForce_002
+    100194: SpringForce_003
+    100196: SpringForce_004
+    100198: SpringForce_005
+    100200: SpringForce_006
+    100202: SpringForce_007
+    100204: SpringForce_008
+    100206: SpringForce_009
+    100208: SpringForce_010
+    100210: SpringForce_011
+    100212: SpringForce_012
+    100214: SpringForce_013
+    100216: SpringForce_014
+    100218: SpringForce_015
+    100220: SpringForce_016
+    100222: SpringForce_017
+    100224: SpringForce_018
+    100226: SpringForce_019
+    100228: SpringForce_020
+    100230: SpringForce_021
+    100232: SpringForce_022
+    100234: SpringForce_023
+    100236: SpringForce_024
+    100238: SpringForce_025
+    100240: SpringForce_026
+    400000: Bone002
+    400002: Bone008
+    400004: Bone014
+    400006: Bone019
+    400008: Bone025
+    400010: Bone031
+    400012: Bone036
+    400014: BouncyBone_003
+    400016: BouncyBone_005
+    400018: BouncyBone_007
+    400020: BouncyBone_008
+    400022: BouncyBone_011
+    400024: BouncyBone_013
+    400026: BouncyBone_015
+    400028: BouncyBone_017
+    400030: BouncyBone_018
+    400032: BouncyBone_020
+    400034: BouncyBone_022
+    400036: BouncyBone_023
+    400038: BouncyBone_025
+    400040: BouncyBone_026
+    400042: BouncyBone_029
+    400044: BouncyBone_031
+    400046: BouncyBone_033
+    400048: BouncyBone_034
+    400050: BouncyBone_037
+    400052: BouncyBone_039
+    400054: BouncyBone_041
+    400056: BouncyBone_043
+    400058: BouncyBone_044
+    400060: BouncyBone_045
+    400062: BouncyBone_047
+    400064: BouncyBone_048
+    400066: BouncyBone_049
+    400068: BouncyBone_051
+    400070: BouncyBone_052
+    400072: Line001
+    400074: Node_1-Dyn-IKChain_001_RG
+    400076: Node_1-Dyn-IKChain_002_RG
+    400078: Node_1-Dyn-IKChain_003_RG
+    400080: Node_1-Dyn_003_CTRL_zero
+    400082: Node_1-Dyn_004_CTRL_zero
+    400084: Node_2-Dyn-IKChain_001_RG
+    400086: Node_2-Dyn-IKChain_002_RG
+    400088: Node_2-Dyn-IKChain_003_RG
+    400090: Node_2-Dyn_004_CTRL_zero
+    400092: Node_3-Dyn-IKChain_001_RG
+    400094: Node_3-Dyn-IKChain_002_RG
+    400096: Node_3-Dyn-IKChain_003_RG
+    400098: Node_3-Dyn_004_CTRL_zero
+    400100: Node_4-Dyn-IKChain_001_RG
+    400102: Node_4-Dyn-IKChain_002_RG
+    400104: Node_4-Dyn-IKChain_003_RG
+    400106: Node_5-Dyn-IKChain_001_RG
+    400108: Node_5-Dyn-IKChain_002_RG
+    400110: Node_5-Dyn-IKChain_003_RG
+    400112: Node_5-Dyn_004_CTRL_zero
+    400114: Node_6-Dyn-IKChain_001_RG
+    400116: Node_6-Dyn-IKChain_002_RG
+    400118: Node_6-Dyn-IKChain_003_RG
+    400120: Node_6-Dyn_003_CTRL_zero
+    400122: Node_6-Dyn_004_CTRL_zero
+    400124: Node_Main-Dyn-IKChain_001_RG
+    400126: Node_Main-Dyn-IKChain_002_RG
+    400128: Node_Main-Dyn_002_CTRL_zero
+    400130: Node_Main-Dyn_003_CTRL_zero
+    400132: //RootNode
+    400134: Nodex_Node1-Dyn-IKChain_001_RG
+    400136: Nodex_Node1-Dyn-IKChain_002_RG
+    400138: SpringDummy_001
+    400140: SpringDummy_002
+    400142: SpringDummy_003
+    400144: SpringDummy_004
+    400146: SpringDummy_005
+    400148: SpringDummy_006
+    400150: SpringDummy_007
+    400152: SpringDummy_008
+    400154: SpringDummy_009
+    400156: SpringDummy_010
+    400158: SpringDummy_011
+    400160: SpringDummy_012
+    400162: SpringDummy_013
+    400164: SpringDummy_014
+    400166: SpringDummy_015
+    400168: SpringDummy_016
+    400170: SpringDummy_017
+    400172: SpringDummy_018
+    400174: SpringDummy_019
+    400176: SpringDummy_020
+    400178: SpringDummy_021
+    400180: SpringDummy_022
+    400182: SpringDummy_023
+    400184: SpringDummy_024
+    400186: SpringDummy_025
+    400188: SpringDummy_026
+    400190: SpringForce_001
+    400192: SpringForce_002
+    400194: SpringForce_003
+    400196: SpringForce_004
+    400198: SpringForce_005
+    400200: SpringForce_006
+    400202: SpringForce_007
+    400204: SpringForce_008
+    400206: SpringForce_009
+    400208: SpringForce_010
+    400210: SpringForce_011
+    400212: SpringForce_012
+    400214: SpringForce_013
+    400216: SpringForce_014
+    400218: SpringForce_015
+    400220: SpringForce_016
+    400222: SpringForce_017
+    400224: SpringForce_018
+    400226: SpringForce_019
+    400228: SpringForce_020
+    400230: SpringForce_021
+    400232: SpringForce_022
+    400234: SpringForce_023
+    400236: SpringForce_024
+    400238: SpringForce_025
+    400240: SpringForce_026
+    4300000: Line001
+    7400000: NodeCharge
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Line001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: NodeCharge
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 200
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BouncyBone_045
+        weight: 1
+      - path: BouncyBone_045/Bone002
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/BouncyBone_007
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/BouncyBone_007/BouncyBone_008
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/BouncyBone_007/BouncyBone_008/Bone036
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/BouncyBone_007/SpringDummy_004
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/BouncyBone_007/SpringForce_004
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/SpringDummy_003
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/BouncyBone_005/SpringForce_003
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/SpringDummy_002
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_003/SpringForce_002
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/BouncyBone_017
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/BouncyBone_017/BouncyBone_018
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/BouncyBone_017/BouncyBone_018/Bone031
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/BouncyBone_017/SpringDummy_009
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/BouncyBone_017/SpringForce_009
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/SpringDummy_008
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/BouncyBone_015/SpringForce_008
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/SpringDummy_007
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/BouncyBone_013/SpringForce_007
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/SpringDummy_006
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_011/SpringForce_006
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/BouncyBone_025
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/BouncyBone_025/BouncyBone_026
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/BouncyBone_025/BouncyBone_026/Bone025
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/BouncyBone_025/SpringDummy_013
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/BouncyBone_025/SpringForce_013
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/SpringDummy_012
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/BouncyBone_020/BouncyBone_023/SpringForce_012
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/SpringDummy_010
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_022/SpringForce_010
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/BouncyBone_033
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/BouncyBone_033/BouncyBone_034
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/BouncyBone_033/BouncyBone_034/Bone019
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/BouncyBone_033/SpringDummy_017
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/BouncyBone_033/SpringForce_017
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/SpringDummy_016
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/BouncyBone_031/SpringForce_016
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/SpringDummy_015
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_029/SpringForce_015
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/BouncyBone_043
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/BouncyBone_043/BouncyBone_044
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/BouncyBone_043/BouncyBone_044/Bone014
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/BouncyBone_043/SpringDummy_022
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/BouncyBone_043/SpringForce_022
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/SpringDummy_021
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/BouncyBone_041/SpringForce_021
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/SpringDummy_020
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/BouncyBone_039/SpringForce_020
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/SpringDummy_019
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_037/SpringForce_019
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/BouncyBone_051
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/BouncyBone_051/BouncyBone_052
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/BouncyBone_051/BouncyBone_052/Bone008
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/BouncyBone_051/SpringDummy_026
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/BouncyBone_051/SpringForce_026
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/SpringDummy_025
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/BouncyBone_048/BouncyBone_049/SpringForce_025
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/SpringDummy_024
+        weight: 1
+      - path: BouncyBone_045/BouncyBone_047/SpringForce_024
+        weight: 1
+      - path: BouncyBone_045/SpringDummy_001
+        weight: 1
+      - path: BouncyBone_045/SpringDummy_005
+        weight: 1
+      - path: BouncyBone_045/SpringDummy_011
+        weight: 1
+      - path: BouncyBone_045/SpringDummy_014
+        weight: 1
+      - path: BouncyBone_045/SpringDummy_018
+        weight: 1
+      - path: BouncyBone_045/SpringDummy_023
+        weight: 1
+      - path: BouncyBone_045/SpringForce_001
+        weight: 1
+      - path: BouncyBone_045/SpringForce_005
+        weight: 1
+      - path: BouncyBone_045/SpringForce_011
+        weight: 1
+      - path: BouncyBone_045/SpringForce_014
+        weight: 1
+      - path: BouncyBone_045/SpringForce_018
+        weight: 1
+      - path: BouncyBone_045/SpringForce_023
+        weight: 1
+      - path: Line001
+        weight: 1
+      - path: Node_1-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_1-Dyn-IKChain_001_RG/Node_1-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_1-Dyn-IKChain_001_RG/Node_1-Dyn-IKChain_002_RG/Node_1-Dyn-IKChain_003_RG
+        weight: 1
+      - path: Node_1-Dyn_003_CTRL_zero
+        weight: 1
+      - path: Node_1-Dyn_004_CTRL_zero
+        weight: 1
+      - path: Node_2-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_2-Dyn-IKChain_001_RG/Node_2-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_2-Dyn-IKChain_001_RG/Node_2-Dyn-IKChain_002_RG/Node_2-Dyn-IKChain_003_RG
+        weight: 1
+      - path: Node_2-Dyn_004_CTRL_zero
+        weight: 1
+      - path: Node_3-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_3-Dyn-IKChain_001_RG/Node_3-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_3-Dyn-IKChain_001_RG/Node_3-Dyn-IKChain_002_RG/Node_3-Dyn-IKChain_003_RG
+        weight: 1
+      - path: Node_3-Dyn_004_CTRL_zero
+        weight: 1
+      - path: Node_4-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_4-Dyn-IKChain_001_RG/Node_4-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_4-Dyn-IKChain_001_RG/Node_4-Dyn-IKChain_002_RG/Node_4-Dyn-IKChain_003_RG
+        weight: 1
+      - path: Node_5-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_5-Dyn-IKChain_001_RG/Node_5-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_5-Dyn-IKChain_001_RG/Node_5-Dyn-IKChain_002_RG/Node_5-Dyn-IKChain_003_RG
+        weight: 1
+      - path: Node_5-Dyn_004_CTRL_zero
+        weight: 1
+      - path: Node_6-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_6-Dyn-IKChain_001_RG/Node_6-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_6-Dyn-IKChain_001_RG/Node_6-Dyn-IKChain_002_RG/Node_6-Dyn-IKChain_003_RG
+        weight: 1
+      - path: Node_6-Dyn_003_CTRL_zero
+        weight: 1
+      - path: Node_6-Dyn_004_CTRL_zero
+        weight: 1
+      - path: Node_Main-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Node_Main-Dyn-IKChain_001_RG/Node_Main-Dyn-IKChain_002_RG
+        weight: 1
+      - path: Node_Main-Dyn_002_CTRL_zero
+        weight: 1
+      - path: Node_Main-Dyn_003_CTRL_zero
+        weight: 1
+      - path: Nodex_Node1-Dyn-IKChain_001_RG
+        weight: 1
+      - path: Nodex_Node1-Dyn-IKChain_001_RG/Nodex_Node1-Dyn-IKChain_002_RG
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

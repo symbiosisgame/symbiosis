@@ -31,7 +31,7 @@ public class EnemyBehaviour : Entities
 	public GameObject pointer;
 	GameObject target;
 	RaycastHit whatIHit;
-	AudioClip attack, flee;
+	public AudioClip attack, flee;
 	public GameObject fleeSound;
 	
 	// enums
@@ -178,7 +178,8 @@ public class EnemyBehaviour : Entities
 		attackTime += Time.deltaTime;
 		if(attackTime >= attackTimer)
 		{
-			SoundClip(attack);
+			//SoundClip(attack);
+			audio.Play ();
 			feederGO.BroadcastMessage("AdjustHealth", damage);
 			attackTime = 0;
 		}

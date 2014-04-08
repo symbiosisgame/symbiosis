@@ -39,7 +39,7 @@ public class LevelMan : MonoBehaviour {
 	{
 		CheckHuskCleaning();
 		CheckDocking();
-		Debug.Log(levelCleaned.ToString("0.0"));
+		//Debug.Log(levelCleaned.ToString("0.0"));
 	}
 
 	void CheckHuskCleaning() //checks to see if the overall level health is less than current husk, then moves onto next husk
@@ -49,17 +49,22 @@ public class LevelMan : MonoBehaviour {
 			if(levelCleaned <= huskCleanValues[huskCount-1])
 			{
 				HuskCleared();
+				/*foreach (GameObject chargeNode in chargeNodes) FIGURE THIS OUT!
+				{
+					GameObject nodeMesh = chargeNode.transform.parent.FindChild("NodeMesh").gameObject;
+					nodeMesh.animation.CrossFade("NodeDepleted", 0.5f);
+				}*/
 			}
 		}
 	}
 
 	public void HuskCleared() //function is called once a husk is cleared
 	{
-		Destroy(currHusk.transform.FindChild("Barrier").gameObject);
 		foreach (GameObject chargeNode in chargeNodes)
 		{
 			Destroy(chargeNode.gameObject);
 		}
+		Destroy(currHusk.transform.FindChild("Barrier").gameObject);
 		huskCount++;
 		huskLogic.Clear();
 		foodSpawners.Clear();
@@ -96,11 +101,17 @@ public class LevelMan : MonoBehaviour {
 	{
 		if(Feeder.feederDocked && Protector.protectorDocked)
 		{
+			foreach (GameObject go in chargeNodes)
+			{
+				//Animation myAnim = go.transform.FindChild("NodeMesh").GetComponent<Animation>();
+				GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
+				nodeMesh.animation["NodeCharge"].speed = 1.7f;
+				nodeMesh.animation.CrossFade("NodeCharge", 0.3f);
+			}
 			cleanTime += huskCleanRate * Time.deltaTime;
-			
 			if(cleanTime >= cleanTimer)
 			{
-				//audio.Play ();	//TODO check audio is available
+				audio.Play ();	//TODO check audio is available
 				levelCleaned --;
 				cleanTime = 0;
 			}
@@ -119,6 +130,14 @@ public class LevelMan : MonoBehaviour {
 			invoked = false;
 			CancelInvoke("SpawnFood");
 			CancelInvoke("SpawnEnemy");
+			foreach (GameObject go in chargeNodes)
+			{
+				if(go != null)
+				{
+					GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
+					nodeMesh.animation.Stop();
+				}
+			}
 		}
 	}
 
