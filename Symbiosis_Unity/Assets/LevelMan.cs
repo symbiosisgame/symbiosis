@@ -17,6 +17,9 @@ public class LevelMan : MonoBehaviour {
 
 	public int[] huskCleanValues; //add a new element for each husk in inspector and assign a value for when husk is cleaned
 	public float levelCleaned = 10;
+	public float foodSpawnRepeatRate = 6f;
+	public float enemySpawnRepeatRate = 5f;
+	public float spawnRateMultiplier = 1f;
 
 	public GameObject food;
 	public GameObject enemy;
@@ -60,6 +63,11 @@ public class LevelMan : MonoBehaviour {
 
 	public void HuskCleared() //function is called once a husk is cleared
 	{
+		foreach (GameObject chargeNode in chargeNodes) 
+		{
+			GameObject nodeMesh = chargeNode.transform.parent.FindChild("NodeMesh").gameObject;
+			nodeMesh.animation.CrossFade("NodeDepleted", 0.5f);
+		}
 		foreach (GameObject chargeNode in chargeNodes)
 		{
 			Destroy(chargeNode.gameObject);
@@ -69,6 +77,7 @@ public class LevelMan : MonoBehaviour {
 		huskLogic.Clear();
 		foodSpawners.Clear();
 		enemySpawners.Clear();
+		chargeNodes.Clear();
 		UpdateHuskLogic();
 		UnDock();
 	}
@@ -106,7 +115,7 @@ public class LevelMan : MonoBehaviour {
 				//Animation myAnim = go.transform.FindChild("NodeMesh").GetComponent<Animation>();
 				GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
 				nodeMesh.animation["NodeCharge"].speed = 1.7f;
-				nodeMesh.animation.CrossFade("NodeCharge", 0.3f);
+				nodeMesh.animation.CrossFade("NodeCharge", 0.5f);
 			}
 			cleanTime += huskCleanRate * Time.deltaTime;
 			if(cleanTime >= cleanTimer)
@@ -117,10 +126,10 @@ public class LevelMan : MonoBehaviour {
 			}
 			if(!invoked)
 			{
-				InvokeRepeating("SpawnFood", 3f, 6f / huskCleanRate); //repeat rate set quite high for testing
+				InvokeRepeating("SpawnFood", foodSpawnRepeatRate, foodSpawnRepeatRate * spawnRateMultiplier); //repeat rate set quite high for testing
 				if(huskCount != 1)
 				{
-					InvokeRepeating("SpawnEnemy", 2f, 5f / huskCleanRate); //repeat rate set quite high for testing
+					InvokeRepeating("SpawnEnemy", enemySpawnRepeatRate, enemySpawnRepeatRate * spawnRateMultiplier); //repeat rate set quite high for testing
 				}
 				invoked = true;
 			}
@@ -130,14 +139,6 @@ public class LevelMan : MonoBehaviour {
 			invoked = false;
 			CancelInvoke("SpawnFood");
 			CancelInvoke("SpawnEnemy");
-			foreach (GameObject go in chargeNodes)
-			{
-				if(go != null)
-				{
-					GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
-					nodeMesh.animation.Stop();
-				}
-			}
 		}
 	}
 
@@ -156,5 +157,11 @@ public class LevelMan : MonoBehaviour {
 	{
 		Feeder.feederDocked = false;
 		Protector.protectorDocked = false;
+		foreach (GameObject go in chargeNodes)
+		{
+			GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
+			nodeMesh.animation.Stop();
+			Debug.Log(go.name);
+		}
 	}
 }
