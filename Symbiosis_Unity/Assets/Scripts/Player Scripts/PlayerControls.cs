@@ -9,6 +9,8 @@ public class PlayerControls : PlayerManager {
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float horiz1, vert1, horiz2, vert2; //stores value of axis, less or greater than 0 determines positive/negative direction
+	public float maxVelocityChange = 10f;
+	bool pushControls = true;
 
 	new void Start () 
 	{   
@@ -64,18 +66,17 @@ public class PlayerControls : PlayerManager {
 	{
 		if(Input.GetKeyDown(KeyCode.J))
 		{
-			keyboard = !keyboard;
+			pushControls = !pushControls;
 		}
 	}
 
 	void StoreAxis()
 	{
-		if(!keyboard)
+		if(pushControls)
 		{
-			horiz1 = Input.GetAxis("HorizontalP1");
-			vert1 = Input.GetAxis("VerticalP1");
-			horiz2 = Input.GetAxis("HorizontalP2");
-			vert2 = Input.GetAxis("VerticalP2");
+			horiz1 = Input.GetAxis("HorizontalP1Push");
+			horiz2 = Input.GetAxis("HorizontalP2Push");
+			maxSpeed = 6f;
 		}
 		else
 		{
@@ -95,13 +96,33 @@ public class PlayerControls : PlayerManager {
 
 	void MovePlayer1()
     {
-		if(player1.rigidbody.velocity.magnitude < maxSpeed)
+		if(pushControls)
 		{
-			player1.rigidbody.AddForce(p1Transform.up * vert1 * acceleration * Time.deltaTime);
+			if(Input.GetButtonDown("P1Push"))
+			{
+				Vector3 targetVelocity = new Vector3(0, 1, 0f );
+				targetVelocity *= maxSpeed;
+				
+				// Apply a force that attempts to reach our target velocity
+				Vector3 velocity = player1.rigidbody.velocity;
+				Vector3 velocityChange = (targetVelocity - velocity);
+				velocityChange.x = 0;
+				velocityChange.z = 0;
+				velocityChange.y = Mathf.Clamp(velocityChange.y, -maxVelocityChange, maxVelocityChange);
+				player1.rigidbody.AddRelativeForce(velocityChange, ForceMode.VelocityChange);
+			}
 		}
+		else
+		{
+			if(player1.rigidbody.velocity.magnitude < maxSpeed)
+			{
+				player1.rigidbody.AddForce(p1Transform.up * vert1 * acceleration * Time.deltaTime);
+			}
+		}
+
 		if(player1.rigidbody.angularVelocity.magnitude < maxTurnSpeed)
 		{
-			player1.rigidbody.AddTorque(-p1Transform.forward * horiz1 * turnAcceleration * Time.deltaTime);
+			player1.rigidbody.AddRelativeTorque(-p1Transform.forward * horiz1 * turnAcceleration * Time.deltaTime);
 		}
 
 		currSpeedP1 = player1.rigidbody.velocity.magnitude;
@@ -127,11 +148,30 @@ public class PlayerControls : PlayerManager {
 
 	void MovePlayer2()
 	{
-		if(player2.rigidbody.velocity.magnitude < maxSpeed)
+		if(pushControls)
 		{
+			if(Input.GetButtonDown("P2Push"))
+			{
+				Vector3 targetVelocity = new Vector3(0, 1, 0f );
+				targetVelocity *= maxSpeed;
+				
+				// Apply a force that attempts to reach our target velocity
+				Vector3 velocity = player2.rigidbody.velocity;
+				Vector3 velocityChange = (targetVelocity - velocity);
+				velocityChange.x = 0;
+				velocityChange.z = 0;
+				velocityChange.y = Mathf.Clamp(velocityChange.y, -maxVelocityChange, maxVelocityChange);
+				player2.rigidbody.AddRelativeForce(velocityChange, ForceMode.VelocityChange);
+			}
+		}
+		else
+		{
+			if(player2.rigidbody.velocity.magnitude < maxSpeed)
 			player2.rigidbody.AddForce(p2Transform.up * vert2 * acceleration * Time.deltaTime);
 
 		}
+
+
 		if(player2.rigidbody.angularVelocity.magnitude < maxTurnSpeed)
 		{
 			player2.rigidbody.AddTorque(-p2Transform.forward * horiz2 * turnAcceleration * Time.deltaTime);
