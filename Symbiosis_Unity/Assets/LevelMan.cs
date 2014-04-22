@@ -23,6 +23,7 @@ public class LevelMan : MonoBehaviour {
 
 	public GameObject food;
 	public GameObject enemy;
+	public Texture pauseScreen;
 
 	private int huskCount = 1;
 	private GameObject currHusk;
@@ -32,6 +33,8 @@ public class LevelMan : MonoBehaviour {
 	private List<GameObject> enemySpawners = new List<GameObject>();
 	private List<GameObject> foodSpawners = new List<GameObject>();
 	private List<GameObject> chargeNodes = new List<GameObject>();
+
+	bool paused;
 	
 	void Start () 
 	{
@@ -42,7 +45,24 @@ public class LevelMan : MonoBehaviour {
 	{
 		CheckHuskCleaning();
 		CheckDocking();
+		Pause();
 		//Debug.Log(levelCleaned.ToString("0.0"));
+	}
+
+	void Pause()
+	{
+		if(Input.GetButtonDown("Pause"))
+		{
+			paused = !paused;
+			if(paused)
+			{
+				Time.timeScale = 0;
+			}
+			else
+			{
+				Time.timeScale = 1;
+			}
+		}
 	}
 
 	void CheckHuskCleaning() //checks to see if the overall level health is less than current husk, then moves onto next husk
@@ -161,7 +181,14 @@ public class LevelMan : MonoBehaviour {
 		{
 			GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
 			nodeMesh.animation.Stop();
-			Debug.Log(go.name);
+		}
+	}
+
+	void OnGUI()
+	{
+		if(paused)
+		{
+			GUI.DrawTexture(new Rect(20, 20, Screen.width-40, Screen.height-40), pauseScreen);
 		}
 	}
 }
