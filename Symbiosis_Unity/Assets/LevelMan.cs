@@ -120,7 +120,7 @@ public class LevelMan : MonoBehaviour {
 			cleanTime += huskCleanRate * Time.deltaTime;
 			if(cleanTime >= cleanTimer)
 			{
-				audio.Play ();	//TODO check audio is available
+				audio.Play ();	//TODO safety check
 				levelCleaned --;
 				cleanTime = 0;
 			}
