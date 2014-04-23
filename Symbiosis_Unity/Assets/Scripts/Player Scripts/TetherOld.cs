@@ -86,7 +86,7 @@ public class TetherOld : MonoBehaviour {
 		segmentPos[NUM_SEGMENTS-1] = p2Transform.position;
 
 		// increase texture tile on distance
-		tether_line.material.mainTextureScale = new Vector2(1, d * TILE_MAG);	// test
+		//tether_line.material.mainTextureScale = new Vector2(1, d * TILE_MAG);	// test
 
 		
 	}//end make tether
