@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class LevelMan : MonoBehaviour {
+public class LevelManager : MonoBehaviour {
 
 	//-This class is used for husk cleaning checks and updates a gameobject list with 
 	// the gameobjects holding husk logic necessary to complete the husk ie. charge nodes, barrier, spawners
@@ -46,7 +46,6 @@ public class LevelMan : MonoBehaviour {
 		CheckHuskCleaning();
 		CheckDocking();
 		Pause();
-		//Debug.Log(levelCleaned.ToString("0.0"));
 	}
 
 	void Pause()

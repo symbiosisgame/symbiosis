@@ -8,7 +8,7 @@ public class GUIManager : MonoBehaviour {
 	public Texture huskBar;
 	Feeder feeder;
 	Protector protector;
-	LevelMan lm;
+	LevelManager lm;
 
 	void Start () 
 	{
@@ -17,7 +17,7 @@ public class GUIManager : MonoBehaviour {
 		feeder = feederGO.GetComponent<Feeder>();
 		protector = protectorGO.GetComponent<Protector>();*/
 		levelManager = GameObject.Find ("LevelManager");
-		lm = levelManager.GetComponent<LevelMan>();
+		lm = levelManager.GetComponent<LevelManager>();
 	}
 
 	void OnGUI()
