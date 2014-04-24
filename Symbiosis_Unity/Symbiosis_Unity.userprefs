@@ -1,10 +1,19 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player Scripts\PlayerControls.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Texture Scripts\WarpTextureSine.js">
     <Files>
       <File FileName="Assets\Scripts\System Scripts\GUIManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player Scripts\PlayerControls.cs" Line="82" Column="4" />
       <File FileName="Assets\Scripts\Player Scripts\Feeder.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Texture Scripts\HilightByMaterial.cs" Line="6" Column="40" />
+      <File FileName="Assets\Scripts\Texture Scripts\WarpTextureSine.js" Line="21" Column="2" />
+=======
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\LevelMan.cs">
+    <Files>
+      <File FileName="Assets\LevelMan.cs" Line="5" Column="2" />
+      <File FileName="Assets\Scripts\System Scripts\GUIManager.cs" Line="8" Column="24" />
+>>>>>>> 7d66ff0fd30c92fd8070fc6496034c96303ae864
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
