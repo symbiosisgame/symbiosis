@@ -230,6 +230,13 @@ public class PlayerControls : PlayerManager {
 				protector.Taunt(protectorGO.transform.position, 2.5f, -1);
 			}
 		}
+		if(Input.GetButtonDown ("Shield")) 
+		{
+			if(protector.currentFood > 0)
+			{
+				protector.Shield();
+			}
+		}
 	}
 	
 	void CalculateDistance() //used for camera tracking and distance checking between players
