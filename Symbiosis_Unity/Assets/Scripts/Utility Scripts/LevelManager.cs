@@ -35,10 +35,13 @@ public class LevelManager : MonoBehaviour {
 	private List<GameObject> foodSpawners = new List<GameObject>();
 	private List<GameObject> chargeNodes = new List<GameObject>();
 
-	bool paused;
+	public bool paused;
 	
 	void Start () 
 	{
+		// init pausing
+		paused = false;
+		Time.timeScale = 1;
 		UpdateHuskLogic();
 	}
 	
@@ -51,9 +54,10 @@ public class LevelManager : MonoBehaviour {
 
 	void Pause()
 	{
-		if(XCI.GetButtonDown(XboxButton.Back))
+		if( Input.GetButtonDown("Pause") )	// hotfix
 		{
 			paused = !paused;
+
 			if(paused)
 			{
 				Time.timeScale = 0;
@@ -134,7 +138,7 @@ public class LevelManager : MonoBehaviour {
 			{
 				//Animation myAnim = go.transform.FindChild("NodeMesh").GetComponent<Animation>();
 				GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
-				nodeMesh.animation["NodeCharge"].speed = 1.7f;
+				nodeMesh.animation["NodeCharge"].speed = 1.55f;	// speed adjustment
 				nodeMesh.animation.CrossFade("NodeCharge", 0.5f);
 			}
 			cleanTime += huskCleanRate * Time.deltaTime;

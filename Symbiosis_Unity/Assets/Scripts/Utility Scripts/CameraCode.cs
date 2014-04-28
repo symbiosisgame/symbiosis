@@ -6,7 +6,7 @@ public class CameraCode : MonoBehaviour {
 	GameObject playerManager, boundingBox;
 	PlayerControls pControls;
 	Transform myTransform;
-	private float zoomThreshold = 3f, maxCamSize = 12.6f;	
+	private float zoomThreshold = 3f, maxCamSize = 22.0f;	// increased for widescreen
 	private Vector3 bottomLock, topLock, leftLock, rightLock;
 	private float bottom = -39.23056f, top, left, right;
 	float boxScale = 4.34f;
@@ -40,7 +40,7 @@ public class CameraCode : MonoBehaviour {
 	{
 		if(pControls.playerDistance() >= zoomThreshold)
 		{
-			Camera.main.orthographicSize = pControls.playerDistance()+2f;
+			Camera.main.orthographicSize = pControls.playerDistance()+4f;
 			if(Camera.main.orthographicSize >= maxCamSize)
 			{
 				Camera.main.orthographicSize = maxCamSize;
