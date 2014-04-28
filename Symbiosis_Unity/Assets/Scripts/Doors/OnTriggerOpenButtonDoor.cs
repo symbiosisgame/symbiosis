@@ -32,7 +32,7 @@ public class OnTriggerOpenButtonDoor : MonoBehaviour
 		//DoorRightSide = GameObject.Find ("Door-Right-Side");
 		AnimLeft = DoorLeftSide.GetComponent<Animation>();
 		AnimRight = DoorRightSide.GetComponent<Animation>();
-
+		door.GetComponent<Animation>()["DoorIdle"].speed = .1f;
 	}
 
 	

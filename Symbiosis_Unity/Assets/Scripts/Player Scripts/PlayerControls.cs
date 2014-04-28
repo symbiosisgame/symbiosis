@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using XboxCtrlrInput;
 
 public class PlayerControls : PlayerManager {
 
@@ -19,11 +18,6 @@ public class PlayerControls : PlayerManager {
 		feeder = feederGO.GetComponent<Feeder>();
 		protectorGO = GameObject.Find("Player2");
 		protector = protectorGO.GetComponent<Protector>();
-	
-		protAnim["ProtTurnLeft"].speed = 0.5f;
-		protAnim["ProtTurnRight"].speed = 0.5f ;
-		feederAnim["FeederTurnLeft"].speed = 0.5f;
-		feederAnim["FeederTurnRight"].speed = 0.5f;
 	}
 
 	void Update()
@@ -125,18 +119,9 @@ public class PlayerControls : PlayerManager {
 			currSpeedP1 = 0;
 			feederAnim.CrossFade("FeederIdle", .2f);
 		}
-		
-		if(rotateP1 < 0)
-		{
-			//feederAnim.CrossFade("FeederTurnLeft", .2f); 
-		}
-		else if(rotateP1 > 0)
-		{
-			//feederAnim.CrossFade("FeederTurnRight", .2f);
-		}
 		else
 		{
-			feederAnim.CrossFade("FeederIdle", .2f);
+			feederAnim.CrossFade("FeederMove", .2f);
 		}
     }
 
@@ -180,33 +165,16 @@ public class PlayerControls : PlayerManager {
 		{
 			player2.rigidbody.AddRelativeTorque(-p2Transform.forward * rotateKeyboardP2 * turnAcceleration * Time.deltaTime); //keyboard movement
 		}
-
 		
 		currSpeedP2 = player2.rigidbody.velocity.magnitude;
 		if(currSpeedP2 <= 0.01f)
 		{
 			currSpeedP2 = 0f;
-		}
-
-		if(forwardP2 < 0)
-		{
-			protAnim.CrossFade("ProtMove", .6f);
-		}
-		else if(forwardP2 > 0)
-		{
-			protAnim.CrossFade("ProtMove", .6f);
+			protAnim.CrossFade("ProtIdle", .6f);
 		}
 		else
 		{
-			protAnim.CrossFade("ProtIdle", .4f); 
-		}
-		if(rotateP2 < 0)
-		{
-			//protAnim.CrossFade("ProtTurnRight", .4f); 
-		}
-		if(rotateP2 > 0)
-		{
-			//protAnim.CrossFade("ProtTurnLeft", .4f);
+			protAnim.CrossFade("ProtMove", .6f);
 		}
 	}
 
