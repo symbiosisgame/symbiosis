@@ -65,6 +65,7 @@ public class TetherOld : MonoBehaviour {
 		//Vector3 normalDir = Vector3.Normalize( p1Transform.position - p2Transform.position );	
 		var seperation = ( (p2Transform.position - p1Transform.position) / (NUM_SEGMENTS-1));
 		var d = seperation.magnitude;
+
 		LINE_WIDTH = d / LINE_WIDTH_MAG;					// thick further away
 		tether_line.SetWidth( LINE_WIDTH, LINE_WIDTH );
 		//tether_line.SetWidth( LINE_WIDTH, -LINE_WIDTH );	// 0 cross in middle

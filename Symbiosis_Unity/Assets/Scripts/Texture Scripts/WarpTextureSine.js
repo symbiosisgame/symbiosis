@@ -10,7 +10,7 @@ function Start ()
 function Update ()
 {
 
-	var offset = Time.time * 0.0015f;
+	var offset = Time.time * 0.0011f;
 
 	// animate texture roams in slow orbiting loops
 	renderer.material.mainTextureOffset.x = Mathf.Sin(offset);
