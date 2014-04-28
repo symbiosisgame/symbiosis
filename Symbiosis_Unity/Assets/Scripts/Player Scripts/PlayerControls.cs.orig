@@ -9,8 +9,12 @@ public class PlayerControls : PlayerManager {
 	//public float decceleration = 0.95f, despin = 0.93f; //for slowing down move and turn speed
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
+<<<<<<< HEAD
 	private float forwardP1, forwardP2, reverseP1, reverseP2, rotateP1, rotateP2, moveKeyboardP1, moveKeyboardP2, rotateKeyboardP1, rotateKeyboardP2, moveJoyP1, moveJoyP2, rotateJoyP1, rotateJoyP2; //stores value of axis, less or greater than 0 determines positive/negative direction
 	bool alternateControls = true;
+=======
+	private float forwardP1, forwardP2, reverseP1, reverseP2, rotateP1, rotateP2 ;//stores value of axis, less or greater than 0 determines positive/negative direction
+>>>>>>> origin/ControlsTesting
 
 	new void Start () 
 	{   
@@ -43,14 +47,20 @@ public class PlayerControls : PlayerManager {
 
 	void InputScheme()
 	{
-		if(Input.GetButtonDown("Select"))
+		if(XCI.GetButtonDown(XboxButton.Back))
 		{
+<<<<<<< HEAD
 			alternateControls = !alternateControls;
+=======
+			Debug.Log ("Lol");
+			//triggerControls = !triggerControls;
+>>>>>>> origin/ControlsTesting
 		}
 	}
 
 	void StoreAxis()
 	{
+<<<<<<< HEAD
 		if(alternateControls)
 		{
 			//joypad controls, button to move
@@ -58,7 +68,7 @@ public class PlayerControls : PlayerManager {
 			forwardP1 = Input.GetAxis ("ForwardTriggerP1"); //right trigger move forward
 			reverseP1 = Input.GetAxis("ReverseTriggerP1"); //left trigger move backward
 			rotateP1 = Input.GetAxis("RotateStickP1"); //left stick for turning
-		//player 2
+			//player 2
 			forwardP2 = Input.GetAxis ("ForwardTriggerP2"); //right trigger move forward
 			reverseP2 = Input.GetAxis("ReverseTriggerP2"); //left trigger move backward
 			rotateP2 = Input.GetAxis("RotateStickP2"); //left stick for turning
@@ -77,10 +87,24 @@ public class PlayerControls : PlayerManager {
 		rotateKeyboardP1 = Input.GetAxis("RotateKeyboardP1"); //P1 A & D rotate left & right
 		moveKeyboardP2 = Input.GetAxis("MoveKeyboardP2"); //P2 up & down move forward & back
 		rotateKeyboardP2 = Input.GetAxis("RotateKeyboardP2"); //P2 left & right rotate left & right
+=======
+		//joypad controls
+		//player 1
+		forwardP1 = Input.GetAxis ("ForwardTriggerP1"); //right trigger move forward
+		reverseP1 = Input.GetAxis("ReverseTriggerP1"); //left trigger move backward
+		rotateP1 = Input.GetAxis("RotateStickP1"); //left stick for turning
+
+		//player 2
+		forwardP2 = Input.GetAxis ("ForwardTriggerP2"); //right trigger move forward
+		reverseP2 = Input.GetAxis("ReverseTriggerP2"); //left trigger move backward
+		rotateP2 = Input.GetAxis("RotateStickP2"); //left stick for turning
+		
+>>>>>>> origin/ControlsTesting
 	}
 	
 	void MovePlayer1()
     {
+<<<<<<< HEAD
 		if(alternateControls) //this set of controls is push trigger to move and keyboard controls
 		{
 			if(player1.rigidbody.velocity.magnitude < maxSpeed)
@@ -118,6 +142,17 @@ public class PlayerControls : PlayerManager {
 		if(player1.rigidbody.angularVelocity.magnitude < maxTurnSpeed) //this is to handle the rotation, both joypad and keyboard
 		{
 			player1.rigidbody.AddRelativeTorque(-p1Transform.forward * rotateKeyboardP1 * turnAcceleration * Time.deltaTime); //keyboard movement
+=======
+		if(player1.rigidbody.velocity.magnitude < maxSpeed)
+		{
+			player1.rigidbody.AddForce(p1Transform.up * forwardP1 * acceleration * Time.deltaTime); //joypad
+			player1.rigidbody.AddForce(-p1Transform.up * reverseP1 * acceleration * Time.deltaTime); //joypad
+		}
+		
+		if(player1.rigidbody.angularVelocity.magnitude < maxTurnSpeed) //this is to handle the rotation, both joypad and keyboard
+		{
+			player1.rigidbody.AddRelativeTorque(-p1Transform.forward * rotateP1 * turnAcceleration * Time.deltaTime); //joypad
+>>>>>>> origin/ControlsTesting
 		}
 		currSpeedP1 = player1.rigidbody.velocity.magnitude;
 		if(currSpeedP1 <= 0.01f)
@@ -142,6 +177,7 @@ public class PlayerControls : PlayerManager {
 
 	void MovePlayer2()
 	{
+<<<<<<< HEAD
 		if(alternateControls) //this set of controls is push trigger to move and keyboard controls
 		{
 			if(player2.rigidbody.velocity.magnitude < maxSpeed)
@@ -175,6 +211,17 @@ public class PlayerControls : PlayerManager {
 		if(player2.rigidbody.velocity.magnitude < maxSpeed)
 		{
 			player2.rigidbody.AddForce(p2Transform.up * moveKeyboardP2 * acceleration * Time.deltaTime); //keyboard movement
+=======
+		if(player2.rigidbody.velocity.magnitude < maxSpeed)
+		{
+			player2.rigidbody.AddForce(p2Transform.up * forwardP2 * acceleration * Time.deltaTime);//joypad
+			player2.rigidbody.AddForce(-p2Transform.up * reverseP2 * acceleration * Time.deltaTime); //joypad
+		}
+
+		if(player2.rigidbody.angularVelocity.magnitude < maxTurnSpeed) //rotation player 2
+		{
+			player2.rigidbody.AddRelativeTorque(-p2Transform.forward * rotateP2 * turnAcceleration * Time.deltaTime);//joypad
+>>>>>>> origin/ControlsTesting
 		}
 		if(player2.rigidbody.angularVelocity.magnitude < maxTurnSpeed) //this is to handle the rotation, both joypad and keyboard
 		{

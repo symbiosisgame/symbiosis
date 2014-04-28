@@ -25,7 +25,7 @@ public class EnemyBehaviour : Entities
 	public Vector3 velocity = Vector3.zero;
 	public Vector3 forceAcc = Vector3.zero;
 	public Vector2 myPos2D;
-	float maxSpeed;
+	public float maxSpeed;
 	public float mass = 0.1f;
 
 	public GameObject pointer;
@@ -56,7 +56,7 @@ public class EnemyBehaviour : Entities
 		currentState = EnemyStates.floating;
 		mainCamera = GameObject.Find ("Main Camera");
 		myTransform = this.transform;
-		maxSpeed = Random.Range (.3f, .44f);
+		maxSpeed = Random.Range (.8f, 1.2f);
 //maxSpeed = Random.Range (.6f, 1.1f);
 	}
 

@@ -5,14 +5,14 @@ public class Protector : PlayerManager {
   
 	Animator myAnim;
 	ParticleSystem taunt;
-	public static bool protectorDocked;
-	public static bool shielded = false; 
+	public static bool protectorDocked; 
 	GameObject shield;
 	EnemyBehaviour enemyAI;
 	PlayerControls pControls;
 	public float drainTime, drainTimer;
 	public int shieldUsage;
 	public GameObject tauntEffect;
+	public static bool shieldActive;
 	
 	void Awake()
 	{
@@ -33,11 +33,27 @@ public class Protector : PlayerManager {
 
 	void Update()
 	{
-		Shield ();
-
-		//will move later
 		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
 		foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
+		if(shieldActive)
+		{
+			drainTime += Time.deltaTime;
+			if(drainTime >= drainTimer)
+			{
+				currentFood -= shieldUsage;
+				drainTime = 0;
+				drainTime += Time.deltaTime;
+				if(drainTime >= drainTimer)
+				{
+					currentFood -= shieldUsage;
+					drainTime = 0;
+				}
+			}
+			if(currentFood <= 0)
+			{
+				currentFood = 0;
+			}
+		}
 	}
 
 	public void Taunt(Vector3 center, float radius, int foodCost)
@@ -59,44 +75,19 @@ public class Protector : PlayerManager {
 		myAnim.Play ("Taunt");
 	}
 	
-	void Shield()
+	public void Shield()
 	{
-		if(currentFood > 0)
-		{
-			if(pControls.playerDistanceReal() <= .75f)
-			{
-				shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
-				shield.GetComponent<SpriteRenderer>().enabled = true;
-                shielded = true;
-				drainTime += Time.deltaTime;
-				if(drainTime >= drainTimer)
-				{
-					currentFood -= shieldUsage;
-					drainTime = 0;
-					drainTime += Time.deltaTime;
-					if(drainTime >= drainTimer)
-					{
-						currentFood -= shieldUsage;
-						drainTime = 0;
-					}
-				}
-			}
-			else
-			{
-				shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
-				shield.GetComponent<SpriteRenderer>().enabled = false;
-			}
 
+		shieldActive = !shieldActive;
+		if(shieldActive)
+		{
+			shield.GetComponent<SphereCollider>().enabled = true;//child gameobject
+			shield.GetComponent<SpriteRenderer>().enabled = true;
 		}
 		else
 		{
-			shield.GetComponent<SphereCollider>().enabled = false; //child gameobject
+			shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
 			shield.GetComponent<SpriteRenderer>().enabled = false;
-            shielded = false;
-		}
-		if(currentFood <= 0)
-		{
-			currentFood = 0;
 		}
 	}
 
