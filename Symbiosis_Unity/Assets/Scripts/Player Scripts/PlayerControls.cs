@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using XboxCtrlrInput;
 
 public class PlayerControls : PlayerManager {
 
 	public float acceleration, maxSpeed;
 	public float turnAcceleration, maxTurnSpeed;
-	public float decceleration = 0.95f, despin = 0.93f; //for slowing down move and turn speed
+	//public float decceleration = 0.95f, despin = 0.93f; //for slowing down move and turn speed
 
 	private float currSpeedP1, currSpeedP2; //not used yet, just stores current speeds
 	private float forwardP1, forwardP2, reverseP1, reverseP2, rotateP1, rotateP2, moveKeyboardP1, moveKeyboardP2, rotateKeyboardP1, rotateKeyboardP2, moveJoyP1, moveJoyP2, rotateJoyP1, rotateJoyP2; //stores value of axis, less or greater than 0 determines positive/negative direction
@@ -57,7 +58,7 @@ public class PlayerControls : PlayerManager {
 			forwardP1 = Input.GetAxis ("ForwardTriggerP1"); //right trigger move forward
 			reverseP1 = Input.GetAxis("ReverseTriggerP1"); //left trigger move backward
 			rotateP1 = Input.GetAxis("RotateStickP1"); //left stick for turning
-			//player 2
+		//player 2
 			forwardP2 = Input.GetAxis ("ForwardTriggerP2"); //right trigger move forward
 			reverseP2 = Input.GetAxis("ReverseTriggerP2"); //left trigger move backward
 			rotateP2 = Input.GetAxis("RotateStickP2"); //left stick for turning

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using XboxCtrlrInput;
 
 public class LevelManager : MonoBehaviour {
 
@@ -50,7 +51,7 @@ public class LevelManager : MonoBehaviour {
 
 	void Pause()
 	{
-		if(Input.GetButtonDown("Pause"))
+		if(XCI.GetButtonDown(XboxButton.Back))
 		{
 			paused = !paused;
 			if(paused)
