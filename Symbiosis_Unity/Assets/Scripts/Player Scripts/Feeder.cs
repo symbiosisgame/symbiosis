@@ -48,7 +48,7 @@ public class Feeder : PlayerManager {
 	{
 		if(feeding)
 		{
-			feederAnim.Play ("FeederFeed");
+			feederAnim.CrossFade ("FeederFeed", .3f);
 			//myAnim.SetBool("Feeding", true); //Feeding bool tracked in the animator for transition condition
 			if(food.foodStock > 0) //tracks to see if any food is left in Foods stock 
 			{
