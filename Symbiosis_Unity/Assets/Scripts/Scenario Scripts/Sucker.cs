@@ -15,11 +15,14 @@ public class Sucker : MonoBehaviour
     public float mass = 0.1f;
 	bool sucking;
 	public Transform target;
+	public Transform bone;
+	Vector3 initialPos;
   
     void Start()
     {
         suckPull = 7f;
         suckForce = 0.8f;
+		initialPos = new Vector3(bone.transform.position.x, bone.transform.position.y, bone.transform.position.z);
     }
 
     void Update()
@@ -56,8 +59,9 @@ public class Sucker : MonoBehaviour
 				target = null;
 				sucking = false;
 
-				GetComponent<LineRenderer>().SetPosition(0, transform.position); 
-				GetComponent<LineRenderer>().SetPosition(1, transform.position);
+				bone.transform.position = initialPos;
+				//GetComponent<LineRenderer>().SetPosition(0, transform.position); 
+				//GetComponent<LineRenderer>().SetPosition(1, transform.position);
 				velocity = Vector3.zero;
 			}
 		}
@@ -69,9 +73,9 @@ public class Sucker : MonoBehaviour
 		Vector3 desired = transform.position - target.position;
         desired = desired * suckForce;
         Vector3 pullVector =  desired - velocity;
-
-		GetComponent<LineRenderer>().SetPosition(0, transform.position);
-		GetComponent<LineRenderer>().SetPosition(1, target.position);
+		bone.transform.position = target.position;
+		//GetComponent<LineRenderer>().SetPosition(0, transform.position);
+		//GetComponent<LineRenderer>().SetPosition(1, target.position);
 		forceAcc+= pullVector;
 
     }

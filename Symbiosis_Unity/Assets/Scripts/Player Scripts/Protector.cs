@@ -51,6 +51,9 @@ public class Protector : PlayerManager {
 			}
 			if(currentFood <= 0)
 			{
+				shieldActive = false;
+				shield.GetComponent<SphereCollider>().enabled = false;//child gameobject
+				shield.GetComponent<SpriteRenderer>().enabled = false;
 				currentFood = 0;
 			}
 		}
@@ -77,7 +80,6 @@ public class Protector : PlayerManager {
 	
 	public void Shield()
 	{
-
 		shieldActive = !shieldActive;
 		if(shieldActive)
 		{
