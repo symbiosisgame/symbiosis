@@ -83,6 +83,10 @@ public class LevelManager : MonoBehaviour {
 				}*/
 			}
 		}
+		if(levelCleaned <= 0)
+		{
+			levelCleaned = 0;
+		}
 	}
 
 	public void HuskCleared() //function is called once a husk is cleared
