@@ -10,6 +10,7 @@ public class ShipTriggerManager : MonoBehaviour
 	public Color triggerColor = Color.cyan;
 	public bool hideTrigger = true;
 	public bool showGizmos = true;
+	public bool dockFull = false;
 	
 	// delegate events
 	public delegate void DockAction( Collider _other );
@@ -25,28 +26,27 @@ public class ShipTriggerManager : MonoBehaviour
 	// enter
 	void OnTriggerEnter(Collider other)
 	{
-		if(Docking != null)
-		{ 
-			Docking(other);
-
+		if(!dockFull)
+		{
+			if(Docking != null)
+			{ 
+				Docking(other);
+				dockFull = true;
+			}
 		}
 	}
 
-	// stay
-	void OnTriggerStay(Collider other)
-	{
-		if(IsDocked != null)
-		{ 
-			IsDocked(other);
-		}
-	}
 
 	// exit
 	void OnTriggerExit(Collider other)
 	{
-		if(HasUnDocked != null)
-		{ 
-			HasUnDocked(other);
+		if(dockFull)
+		{
+			if(HasUnDocked != null)
+			{ 
+				HasUnDocked(other);
+				dockFull = false;
+			}
 		}
 	}
 

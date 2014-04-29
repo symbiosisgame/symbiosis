@@ -27,23 +27,23 @@ public class BelayScript : MonoBehaviour
 
     void Docking(Collider other)
     {
-        //Debug.Log("Docking..." + other.name);
+		if (other.name == "Player1")
+		{
+			//Debug.Log("This Player Docked: " + other.name);
+			Feeder.feederDocked = true;
+		}
+		if (other.name == "Player2")
+		{
+			//Debug.Log("This Player Docked: " + other.name);
+			Protector.protectorDocked = true;
+		}
     }
 
 
 
     void Docked(Collider other)
     {
-        if (other.name == "Player1")
-        {
-            //Debug.Log("This Player Docked: " + other.name);
-            Feeder.feederDocked = true;
-        }
-        if (other.name == "Player2")
-        {
-            //Debug.Log("This Player Docked: " + other.name);
-            Protector.protectorDocked = true;
-        }
+        
     }
 
 

@@ -164,6 +164,11 @@ public class LevelManager : MonoBehaviour {
 		}
 		else
 		{
+			foreach (GameObject go in chargeNodes)
+			{
+				GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
+				nodeMesh.animation.CrossFade("NodeIdle", 0.3f);
+			}
 			invoked = false;
 			CancelInvoke("SpawnFood");
 			CancelInvoke("SpawnEnemy");

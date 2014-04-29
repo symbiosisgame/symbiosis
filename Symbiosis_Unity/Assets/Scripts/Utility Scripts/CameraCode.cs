@@ -8,7 +8,7 @@ public class CameraCode : MonoBehaviour {
 	Transform myTransform;
 	private float zoomThreshold = 3f, maxCamSize = 22.0f;	// increased for widescreen
 	private Vector3 bottomLock, topLock, leftLock, rightLock;
-	private float bottom = -39.23056f, top, left, right;
+	private float bottom = 21.56f, top, left, right;
 	float boxScale = 4.34f;
 	float boxScaleX = 2.5f;
 
