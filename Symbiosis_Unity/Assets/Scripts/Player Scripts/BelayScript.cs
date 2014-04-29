@@ -27,7 +27,7 @@ public class BelayScript : MonoBehaviour
 
     void Docking(Collider other)
     {
-        Debug.Log("Docking..." + other.name);
+        //Debug.Log("Docking..." + other.name);
     }
 
 
@@ -36,12 +36,12 @@ public class BelayScript : MonoBehaviour
     {
         if (other.name == "Player1")
         {
-            Debug.Log("This Player Docked: " + other.name);
+            //Debug.Log("This Player Docked: " + other.name);
             Feeder.feederDocked = true;
         }
         if (other.name == "Player2")
         {
-            Debug.Log("This Player Docked: " + other.name);
+            //Debug.Log("This Player Docked: " + other.name);
             Protector.protectorDocked = true;
         }
     }
@@ -52,12 +52,12 @@ public class BelayScript : MonoBehaviour
     {
         if (other.name == "Player1")
         {
-            Debug.Log("UnDock'ed..." + other.name);
+            //Debug.Log("UnDock'ed..." + other.name);
             Feeder.feederDocked = false;
         }
         if (other.name == "Player2")
         {
-            Debug.Log("UnDock'ed..." + other.name);
+            //Debug.Log("UnDock'ed..." + other.name);
             Protector.protectorDocked = false;
         }
     }

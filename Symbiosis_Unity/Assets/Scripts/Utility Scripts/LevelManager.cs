@@ -143,7 +143,7 @@ public class LevelManager : MonoBehaviour {
 				//Animation myAnim = go.transform.FindChild("NodeMesh").GetComponent<Animation>();
 				GameObject nodeMesh = go.transform.parent.FindChild("NodeMesh").gameObject;
 				nodeMesh.animation["NodeCharge"].speed = 1.55f;	// speed adjustment
-				nodeMesh.animation.CrossFade("NodeCharge", 0.5f);
+				nodeMesh.animation.CrossFade("NodeCharge", 0.3f);
 			}
 			cleanTime += huskCleanRate * Time.deltaTime;
 			if(cleanTime >= cleanTimer)

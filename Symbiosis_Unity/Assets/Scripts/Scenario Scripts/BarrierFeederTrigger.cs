@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BarrierFeederTrigger : Barrier {
 
- 
+ /*
 	// Use this for initialization
     void OnTriggerStay(Collider other)
     {
@@ -19,5 +19,5 @@ public class BarrierFeederTrigger : Barrier {
     {
         if (other.gameObject.name == "Player1")
             barrierFeederTrigger = false;        
-    }
+    }*/
 }

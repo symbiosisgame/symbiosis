@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Barrier : MonoBehaviour {
-[HideInInspector]
+public class BarrierOld : MonoBehaviour {
+/*[HideInInspector]
    public bool barrierFeederTrigger;
     [HideInInspector]
    public bool barrierProtectorTrigger;
@@ -14,5 +14,5 @@ public class Barrier : MonoBehaviour {
             Debug.Log("All activated");
            GameObject.Find("Barrier").renderer.enabled = false;
       }
-	}
+	}*/
 }

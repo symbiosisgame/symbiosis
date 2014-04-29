@@ -4,7 +4,7 @@ using System.Collections;
 public class BarrierProtectorTrigger : Barrier
 {
 
-
+	/*
     // Use this for initialization
     void OnTriggerStay(Collider other)
     {
@@ -20,5 +20,5 @@ public class BarrierProtectorTrigger : Barrier
     {
         if (other.gameObject.name == "Player2")
             barrierProtectorTrigger = false;
-    }
+    }*/
 }
