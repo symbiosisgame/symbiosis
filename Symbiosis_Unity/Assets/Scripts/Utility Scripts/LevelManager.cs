@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using XboxCtrlrInput;
+using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
@@ -100,7 +100,8 @@ public class LevelManager : MonoBehaviour {
 		{
 			Destroy(chargeNode.gameObject);
 		}
-		Destroy(currHusk.transform.FindChild("Barrier").gameObject);
+		currHusk.transform.FindChild("Barrier").gameObject.BroadcastMessage("Destroy");
+		currHusk.transform.FindChild("Barrier").transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = false;
 		huskCount++;
 		huskLogic.Clear();
 		foodSpawners.Clear();
@@ -108,6 +109,11 @@ public class LevelManager : MonoBehaviour {
 		chargeNodes.Clear();
 		UpdateHuskLogic();
 		UnDock();
+	}
+
+	void DestroyBarrier()
+	{
+
 	}
 
 	void UpdateHuskLogic() //Updates the HuskLogic GameObject list with logic from next husk
