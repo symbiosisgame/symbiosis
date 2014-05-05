@@ -18,6 +18,9 @@ public class GUIManager : MonoBehaviour {
 		protector = protectorGO.GetComponent<Protector>();*/
 		levelManager = GameObject.Find ("LevelManager");
 		lm = levelManager.GetComponent<LevelManager>();
+
+		// disable cursor
+		Screen.showCursor = false;
 	}
 
 	void OnGUI()
