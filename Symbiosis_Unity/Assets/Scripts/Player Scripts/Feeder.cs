@@ -30,8 +30,8 @@ public class Feeder : PlayerManager {
 		maxHealth = 15;
 		myAnim = transform.GetChild(0).GetComponent<Animator>();
 
-		healthTextGO = GameObject.Find ("P1HealthText");
-		foodTextGO = GameObject.Find ("P1FoodText");
+		//healthTextGO = GameObject.Find ("P1HealthText");
+		//foodTextGO = GameObject.Find ("P1FoodText");
 	}
     
 	void Update()
@@ -40,8 +40,8 @@ public class Feeder : PlayerManager {
 		TransferFood();
 
 		//will move later
-		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
-		foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
+		//healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
+		//foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
 	}
 
 	void Feed()

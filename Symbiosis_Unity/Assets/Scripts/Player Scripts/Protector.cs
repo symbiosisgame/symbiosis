@@ -27,14 +27,14 @@ public class Protector : PlayerManager {
 		health = 15;
 		maxHealth = 15;
 		myAnim = transform.GetChild (0).GetComponent<Animator>();
-		healthTextGO = GameObject.Find ("P2HealthText");
-		foodTextGO = GameObject.Find ("P2FoodText");
+		//healthTextGO = GameObject.Find ("P2HealthText");
+		//foodTextGO = GameObject.Find ("P2FoodText");
 	}
 
 	void Update()
 	{
-		healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
-		foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
+		//healthTextGO.GetComponent<GUIText>().text = health.ToString("0");
+		//foodTextGO.GetComponent<GUIText>().text = currentFood.ToString("0");
 		if(shieldActive)
 		{
 			drainTime += Time.deltaTime;
